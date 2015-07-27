@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript">
+	function loadXMLDoc(filename)
+	{
+	if (window.XMLHttpRequest)
+	  {
+	  xhttp=new XMLHttpRequest();
+	  }
+	else // code for IE5 and IE6
+	  {
+	  xhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+	xhttp.open("GET",filename,false);
+	xhttp.send();
+	return xhttp.responseXML;
+	} 
+</script>
+	<title></title>
+</head>
+<body>
+<!-- <LINK href="musicxml-index.xsl" type="text/xsl" rel="stylesheet"> -->
+<!-- <div id="XMLHolder"></div> -->
+<!-- <script type="text/javascript" src="XMLDisplay.js"></script> -->
+<!-- <script> LoadXML('XMLHolder', 'test.xml' );
+	
+</script> -->
+<script type="text/javascript">
+	// xmlhttp = new XMLHttpRequest();
+	// xmlhttp.open("GET", "test.xml", false);
+	// xmlhttp.send();
+	// xmlDoc = xmlhttp.responseXML;
+
+	// xmlDoc.getElementsByTagName("to")
+
+</script>
+
+<script>
+	xmlDoc = loadXMLDoc("test.xml");
+	xmlDoc.getElementsByTagName("step")[0].childNodes[0].nodeValue = "A";
+	
+	console.log(xmlDoc.getElementsByTagName("step")[0].childNodes[0].nodeValue);
+	document.write(xmlDoc.getElementsByTagName("step")[0].childNodes[0].nodeValue);
+</script>
+
+<object classid="CLSID:07000E2B-6AAD-497D-8E5B-5976560AD429"
+            border="0"
+            height="400"
+            width="300">
+     <param name="src" value="test.xml" />
+     <param name="width" value="300" />
+     <param name="height" value="400" />
+     <param name="type" value="application/x-myriad-music" />
+     <param name="pluginspage" value="http://www.myriad-online.com/cgi-bin/mmplug.pl" />
+     <embed src="test.xml"
+                  width=300
+                  height=400
+                  type="application/x-myriad-music"
+                  pluginspage="http://www.myriad-online.com/cgi-bin/mmplug.pl">
+     </embed>
+</object>
+</body>
+</html>
