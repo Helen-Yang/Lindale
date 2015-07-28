@@ -30,7 +30,7 @@ var a=50; //a Hz symbolize maximum and minimum deviation on protractor from goal
 var thresholdcolordeviation = 0.9; //if absolute deviation is smaller than threshold then color is of notestring is changing
 
 //globals for pitch detection
-var song = [];
+var song = []; //array 
 var counter = 0; 
 
 var audioContext = null;
@@ -400,9 +400,6 @@ $(noteString).text( map[index1][0]);
 //==========================================================================================================================================
 //==========================================================================================================================================
 
-
-
-
 deviation = goalfrequency-map[index1][1];
 console.log("Tone is:"+map[index1][0]+ " with deviation:"+deviation);
 indexf1=index1;
@@ -444,6 +441,7 @@ console.log("Nearest tone is:"+map[nearestIndex][0]+ " with deviation:"+deviatio
 //=============================================================================
 //makes array of notes-- problem: if the same note is held for multiple seconds, then will interpret it as the same note being played multiple times....
 song.unshift(map[nearestIndex][0]);
+$(array).text(song);
 console.log(song);
 //end stuff i edited 
 //==========================================================================================================================================================
@@ -452,19 +450,10 @@ console.log(song);
 //==========================================================================================================================================================
 //==========================================================================================================================================================
 
-if(Math.abs(deviation)<thresholdcolordeviation){
-$("#noteString").css({"color":"green"});
-$("#my_protractor").css({"border":"5px solid green"});
-}
-else {
-$("#noteString").css({"color":"#666600"});
-$("#my_protractor").css({"border":"5px solid #999967"});
-}
+
 /**/
 }
 
-thetadeviation=calculateDeviationDegrees(deviation);
-myRotate(thetadeviation);
 
 }
 
@@ -522,16 +511,4 @@ if($.type( arr[index1m][index2m] ) === "number"){
 });
 //console.log("tempIndex:"+tempIndex);
 return tempIndex;
-}
-
-/*calculates deviation x in degrees A for display on protractor*/
-
-function calculateDeviationDegrees(x){
-A = 90+(90*x)/a ;
-return A;
-}
-
-function myRotate(theta){
-$("#my_arrow").rotate({animateTo:theta});
-//$("#my_arrow").rotate({$(this).rotate({animateTo:-theta})});
 }
