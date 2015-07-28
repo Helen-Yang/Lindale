@@ -441,7 +441,7 @@ console.log("Nearest tone is:"+map[nearestIndex][0]+ " with deviation:"+deviatio
 //=============================================================================
 //makes array of notes-- problem: if the same note is held for multiple seconds, then will interpret it as the same note being played multiple times....
 song.unshift(map[nearestIndex][0]);
-$(array).text(song);
+// $(array).text(song);
 console.log(song);
 //end stuff i edited 
 //==========================================================================================================================================================
