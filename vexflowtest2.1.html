@@ -8,6 +8,7 @@
 
 </head>
 <body onclick="drawNotes()">
+<p>click for sheet music!</p>
 <div class="description staff">
 	<canvas width=525 height=120></canvas>
 
@@ -16,7 +17,7 @@
 		//start/stop button
 		
 		var drawNotes = function () {
-			var note = ["a/4", "d/4", "C/5", "f##/3"];
+			var note = ["A/4", "D/4", "C/5", "f#/3"];
 			var count = 0; 
 			var canvas = $("div.staff canvas")[0];
 			var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
@@ -26,10 +27,18 @@
 			var plum = [];
 			
 			for(var i = 0; i<note.length; i++){
-				
+				if (note[i].substring(1,2)==="#"){
+					console.log("in the if statement");
+					note[i] = note[i].substring(0,1)+ note[i].substring(2);
+					console.log("the new substring thing", note[i]);
+					var apple = new Vex.Flow.StaveNote({keys:[note[i]], duration:"q"}).
+						addAccidental(1, new Vex.Flow.Accidental("#"));
+				} else {
 				var apple = new Vex.Flow.StaveNote({keys: [note[i]], duration: "q"});
-				plum.push(apple);
+				
 				}
+				plum.push(apple);
+			}
 
 			var notes = [];
 			for (var num = 0; num < plum.length; num++) {
