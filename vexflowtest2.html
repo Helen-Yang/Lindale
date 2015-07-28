@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vexflow Test 2</title>
+  <script src="http://www.vexflow.com/support/vexflow-debug.js"></script>
+  <script src="www.vexflow.com/support/vexflow-min.js"></script>
+  <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+
+</head>
+<body>
+<div class="description staff">
+	<canvas width=525 height=120></canvas>
+	<script>
+		var canvas = $("div.staff canvas")[0];
+		var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
+		var ctx = renderer.getContext();
+		var stave = new Vex.Flow.Stave(10, 0, 500);
+		stave.addClef("treble").setContext(ctx).draw();
+		var notes = [
+			new Vex.Flow.StaveNote({keys: ["c/4"], duration: "q"}), 
+			new Vex.Flow.StaveNote({keys: ["d/4"], duration: "q"}),
+
+		];
+		var voice = new Vex.Flow.Voice({
+			num_beats: 2, 
+			beat_value: 4,
+			resolution: Vex.Flow.RESOLUTION
+		});
+		voice.addTickables(notes);
+
+		var formatter = new Vex.Flow.Formatter().joinVoices([voice]).format([voice], 500);
+
+		voice.draw(ctx, stave);
+	</script>
+</div>
+</body>
+</html>
