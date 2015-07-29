@@ -49,9 +49,9 @@ var drawNotes = function () {
     var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
     var ctx = renderer.getContext();
     //width is first parameter
-    renderer.resize(window.innerWidth, 3000); // Resize and clear canvas
+    renderer.resize(window.innerWidth-35, 3000); // Resize and clear canvas
     //first 2 parameters are position, last is width of staff
-    var stave = new Vex.Flow.Stave(10, 0, window.innerWidth);
+    var stave = new Vex.Flow.Stave(10, 0, window.innerWidth-35);
     //get the correct clef from the clef function above
     stave.addClef(clef()).setContext(ctx).draw();
     var plum = [];
@@ -81,7 +81,7 @@ var drawNotes = function () {
     });
     voice.addTickables(notes);
     //last parameter is width of staff
-    var formatter = new Vex.Flow.Formatter().joinVoices([voice]).format([voice], window.innerWidth);
+    var formatter = new Vex.Flow.Formatter().joinVoices([voice]).format([voice], window.innerWidth-35);
 
     voice.draw(ctx, stave);
 };//end of draw function
@@ -179,7 +179,7 @@ $(document).ready(function(){
 function printArray(arr){
 
 $.each(arr, function( index, value ) {
-console.log(value);
+//console.log(value);
 });
 }
 
@@ -447,7 +447,7 @@ var indexf2=-1;
 var nearestIndex=-1;
 
 //goalfrequency=6644.00;
-console.log("goalfrequency:"+goalfrequency);
+//console.log("goalfrequency:"+goalfrequency);
 /*search for goal frequency in map arrays*/
 
 $.each(map, function( index1, value1 ) {
@@ -461,8 +461,8 @@ if($.type( map[index1][index2] ) === "number"){
 //if value is found 
 if(map[index1][index2]==goalfrequency){
 
-console.log("found goal frequency in map["+index1+"]["+index2+"]");
-console.log("Matching note is:"+map[index1][0]);
+//console.log("found goal frequency in map["+index1+"]["+index2+"]");
+//console.log("Matching note is:"+map[index1][0]);
 
 
 
@@ -483,13 +483,13 @@ $(noteString).text( map[index1][0]);
 //==========================================================================================================================================
 
 deviation = goalfrequency-map[index1][1];
-console.log("Tone is:"+map[index1][0]+ " with deviation:"+deviation);
+//console.log("Tone is:"+map[index1][0]+ " with deviation:"+deviation);
 indexf1=index1;
 indexf2=index2;
 
 
 }
-console.log("indexf1 :"+indexf1);
+//console.log("indexf1 :"+indexf1);
 }
 /**/
 })
@@ -497,7 +497,7 @@ console.log("indexf1 :"+indexf1);
 
 /*if value is not found then indexf1 and idexf2 has the default values -1. So we are searching for nearest values in map array*/
 if (indexf1==-1){
-console.log("Matching note does not exist in map. Calculating the nearest value");
+//console.log("Matching note does not exist in map. Calculating the nearest value");
 
 nearestIndex = calculateNearestValue();
 //THIS IS THE MOST IMPORTANT PART!!! using jquery to access object with id noteString; this is the rounded note if it doesn't match the frequency perfectly
@@ -515,7 +515,7 @@ $(noteString).text( map[nearestIndex][0]);
 //==========================================================================================================================================================
 
 deviation = goalfrequency-map[nearestIndex][1];
-console.log("Nearest tone is:"+map[nearestIndex][0]+ " with deviation:"+deviation);
+//console.log("Nearest tone is:"+map[nearestIndex][0]+ " with deviation:"+deviation);
 //=============================================================================
 //=============================================================================
 //=============================== STUFF I EDITED==============================
@@ -528,7 +528,7 @@ if(addToArray === true){
     //update the sheet music
     drawNotes();
 }
-console.log(music);
+//console.log(music);
 //end stuff i edited 
 //==========================================================================================================================================================
 //==========================================================================================================================================================
