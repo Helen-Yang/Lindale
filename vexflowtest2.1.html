@@ -10,14 +10,14 @@
 <body onclick="drawNotes()">
 <p>click for sheet music!</p>
 <div class="description staff">
-	<canvas width=525 height=120></canvas>
+	<canvas width=525 height=200></canvas>
 
 	<script>
 		//when note changes, run draw, change counter
 		//start/stop button
 		
 		var drawNotes = function () {
-			var note = ["A/4", "D/4", "C/5", "f#/3"];
+			var note = ["C/4", "C#/4", "G#/4", "G/4", "A/4", "A/4", "G/4", "C#/5"];
 			var count = 0; 
 			var canvas = $("div.staff canvas")[0];
 			var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
@@ -31,8 +31,7 @@
 					console.log("in the if statement");
 					note[i] = note[i].substring(0,1)+ note[i].substring(2);
 					console.log("the new substring thing", note[i]);
-					var apple = new Vex.Flow.StaveNote({keys:[note[i]], duration:"q"}).
-						addAccidental(1, new Vex.Flow.Accidental("#"));
+					var apple = new Vex.Flow.StaveNote({keys:[note[i]], duration:"q"}).addAccidental(0, new Vex.Flow.Accidental("#"));
 				} else {
 				var apple = new Vex.Flow.StaveNote({keys: [note[i]], duration: "q"});
 				
