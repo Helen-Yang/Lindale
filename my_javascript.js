@@ -54,7 +54,7 @@ var drawNotes = function () {
     var stave = new Vex.Flow.Stave(10, 0, window.innerWidth);
     //get the correct clef from the clef function above
     stave.addClef(clef()).setContext(ctx).draw();
-    var plum = [];
+    
     var notes = [];
     for(var i = 0; i<music.length; i++){
         if (music[i].substring(1,2)==="#"){
@@ -62,23 +62,20 @@ var drawNotes = function () {
             var apple = new Vex.Flow.StaveNote({keys:[music[i]], duration:"q"}).addAccidental(0, new Vex.Flow.Accidental("#"));
         } else {
         var apple = new Vex.Flow.StaveNote({keys: [music[i]], duration: "q"});
-        
         }
-        plum.push(apple);
-        
+        notes.push(apple);
     }
 
     
-    for (var num = 0; num < plum.length; num++) {
-        notes.push(plum[num]);
-    };
-    
+   
 
     var voice = new Vex.Flow.Voice({
-        num_beats: plum.length, 
+        num_beats: notes.length, 
         beat_value: 4,
         resolution: Vex.Flow.RESOLUTION
     });
+    //disables strict timing (so num_beats doesn't actually matter)
+    voice.setStrict(false);
     voice.addTickables(notes);
     //last parameter is width of staff
     var formatter = new Vex.Flow.Formatter().joinVoices([voice]).format([voice], window.innerWidth);
