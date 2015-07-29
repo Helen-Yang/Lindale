@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-	<title>Test</title>
+<script src="http://www.vexflow.com/support/vexflow-debug.js"></script>
+  <script src="www.vexflow.com/support/vexflow-min.js"></script>
+  <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+	<title>From Sound to Song</title>
 </head>
 <body>
 	<p>hi there. js below</p>
-	<p id="noteString"></p>
-	<p id="array"></p>
 	<script type="text/javascript" src="my_javascript.js"></script>
+	<p id="noteString"></p>
+	
+	<button onclick="start()">start</button>
+	<button onclick="stop()">stop</button>
+
+	
+	<div class="description staff">
+		<canvas width=525 height=200></canvas>
+		<!-- sheet music will go here (modified by javascript) -->
+	</div>
 </body>
 </html>

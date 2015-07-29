@@ -1,3 +1,87 @@
+//array that will contain the notes to put on the sheet music
+var music = [];
+//variable whether the audio input is being added to array as notes
+var addtoArray = false; 
+
+
+//when start button clicked, clears array, then starts adding notes to array based on audio input
+var start = function() {
+    music = [];
+    addToArray = true;
+};
+//when stop button clicked, stops adding notes to array
+var stop = function() {
+    addToArray = false; 
+};
+
+//================================================================================================================================
+//decides whether to use treble or bass clef
+var clef = function(){
+    //variables that count the number of notes that should be using bass clef and treble clef
+    var bassClef = 0;
+    var trebleClef = 0; 
+    //get the octaves
+    for (var i = 0; i < music.length; i++){
+        //get the octave from the string note, make it into an integer
+        var octave = parseInt(music[i].substring(music[i].length-1));
+        //if the octave is less than or equal to 3, then it should be using bass clef, otherwise it should be using treble clef
+        if(octave <= 3){
+            bassClef ++;
+        } else {
+            trebleClef ++;
+        }
+    }
+    //check if more notes are in the bass clef range or treble clef range, return clef so that in drawNotes the correct clef will be created
+    console.log(bassClef, trebleClef);
+    if (bassClef > trebleClef){
+        return "bass";
+    } else {
+        return "treble";
+    }
+};
+
+
+//================================================================================================================================
+//draws the notes on the canvas
+var drawNotes = function () {
+    
+    var canvas = $("div.staff canvas")[0];
+    var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
+    var ctx = renderer.getContext();
+    var stave = new Vex.Flow.Stave(10, 0, 500);
+    stave.addClef(clef()).setContext(ctx).draw();
+    var plum = [];
+    var notes = [];
+    for(var i = 0; i<music.length; i++){
+        if (music[i].substring(1,2)==="#"){
+            music[i] = music[i].substring(0,1)+ music[i].substring(2);
+            var apple = new Vex.Flow.StaveNote({keys:[music[i]], duration:"q"}).addAccidental(0, new Vex.Flow.Accidental("#"));
+        } else {
+        var apple = new Vex.Flow.StaveNote({keys: [music[i]], duration: "q"});
+        
+        }
+        plum.push(apple);
+        
+    }
+
+    
+    for (var num = 0; num < plum.length; num++) {
+        notes.push(plum[num]);
+    };
+    
+
+    var voice = new Vex.Flow.Voice({
+        num_beats: plum.length, 
+        beat_value: 4,
+        resolution: Vex.Flow.RESOLUTION
+    });
+    voice.addTickables(notes);
+
+    var formatter = new Vex.Flow.Formatter().joinVoices([voice]).format([voice], 500);
+
+    voice.draw(ctx, stave);
+};//end of draw function
+
 var goalfrequency; //Hz
 
 /*initializations*/
@@ -30,8 +114,6 @@ var a=50; //a Hz symbolize maximum and minimum deviation on protractor from goal
 var thresholdcolordeviation = 0.9; //if absolute deviation is smaller than threshold then color is of notestring is changing
 
 //globals for pitch detection
-var song = []; //array 
-var counter = 0; 
 
 var audioContext = null;
 var analyser=null;
@@ -389,11 +471,7 @@ console.log("Matching note is:"+map[index1][0]);
 //===============================================================================================================================================================================================================
 //====================================================================================================================================================================================================================================================================================
 //==========================================================================================================================================
-counter ++; 
-var stringID = "noteString" + counter; 
-console.log(stringID);
-$(noteString).append("<div id=stringID></div>");
-$(stringID).text(map[index1][0]);
+
 $(noteString).text( map[index1][0]);
 
 //==========================================================================================================================================
@@ -440,9 +518,13 @@ console.log("Nearest tone is:"+map[nearestIndex][0]+ " with deviation:"+deviatio
 //=============================================================================
 //=============================================================================
 //makes array of notes-- problem: if the same note is held for multiple seconds, then will interpret it as the same note being played multiple times....
-song.unshift(map[nearestIndex][0]);
-// $(array).text(song);
-console.log(song);
+if(addToArray === true){
+    //update array music that contains notes
+    music.push(map[nearestIndex][0]);
+    //update the sheet music
+    drawNotes();
+}
+console.log(music);
 //end stuff i edited 
 //==========================================================================================================================================================
 //==========================================================================================================================================================
