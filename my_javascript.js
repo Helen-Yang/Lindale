@@ -32,7 +32,7 @@ var clef = function(){
         }
     }
     //check if more notes are in the bass clef range or treble clef range, return clef so that in drawNotes the correct clef will be created
-    console.log(bassClef, trebleClef);
+    // console.log(bassClef, trebleClef);
     if (bassClef > trebleClef){
         return "bass";
     } else {
@@ -48,7 +48,8 @@ var drawNotes = function () {
     var canvas = $("div.staff canvas")[0];
     var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
     var ctx = renderer.getContext();
-    var stave = new Vex.Flow.Stave(10, 0, 500);
+    var stave = new Vex.Flow.Stave(10, 0, 1000);
+    //get the correct clef from the clef function above
     stave.addClef(clef()).setContext(ctx).draw();
     var plum = [];
     var notes = [];
