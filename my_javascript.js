@@ -48,7 +48,10 @@ var drawNotes = function () {
     var canvas = $("div.staff canvas")[0];
     var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
     var ctx = renderer.getContext();
-    var stave = new Vex.Flow.Stave(10, 0, 1000);
+    //width is first parameter
+    renderer.resize(window.innerWidth, 3000); // Resize and clear canvas
+    //first 2 parameters are position, last is width of staff
+    var stave = new Vex.Flow.Stave(10, 0, window.innerWidth);
     //get the correct clef from the clef function above
     stave.addClef(clef()).setContext(ctx).draw();
     var plum = [];
@@ -77,8 +80,8 @@ var drawNotes = function () {
         resolution: Vex.Flow.RESOLUTION
     });
     voice.addTickables(notes);
-
-    var formatter = new Vex.Flow.Formatter().joinVoices([voice]).format([voice], 500);
+    //last parameter is width of staff
+    var formatter = new Vex.Flow.Formatter().joinVoices([voice]).format([voice], window.innerWidth);
 
     voice.draw(ctx, stave);
 };//end of draw function
