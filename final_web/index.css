@@ -1,0 +1,11 @@
+ul {
+   list-style: none;
+   padding-left: 30px;
+   margin-left: 1000px;
+}
+
+ul li:before {
+   content: "•";
+   font-size: 300%; /* or whatever */
+   padding-right: 5px;
+}
