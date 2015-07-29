@@ -1,8 +1,11 @@
-//array that will contain the notes to put on the sheet music
+//array that will contain the notes to put on the sheet music (string like "C/4", not objects that Vexflow uses)
 var music = [];
 //variable whether the audio input is being added to array as notes
 var addtoArray = false; 
-
+//array that contains all the note names (Vexflow objects)
+var notes = [];
+//id number of staff; initialized as 1
+var stave = 1;
 
 //when start button clicked, clears array, then starts adding notes to array based on audio input
 var start = function() {
@@ -13,7 +16,13 @@ var start = function() {
 var stop = function() {
     addToArray = false; 
 };
-
+//================================================================================================================================
+//linear regression; takes in the width and determines the optimal notes per line (very subjective)
+var notesPerLine = function(){
+    var width = window.innerWidth-35;
+    var notesPerLine = Math.round(4.62770060761149 + .019021763005526*width);
+    return notesPerLine;
+};
 //================================================================================================================================
 //decides whether to use treble or bass clef
 var clef = function(){
@@ -41,33 +50,23 @@ var clef = function(){
 };
 
 
-//================================================================================================================================
-//draws the notes on the canvas
-var drawNotes = function () {
-    
-    var canvas = $("div.staff canvas")[0];
+var drawStaves = function (stave) {
+    stave = String(stave);
+    var id = "div." + stave + " canvas";
+    console.log(id, "id");
+    var canvas = $(id)[0];
     var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
     var ctx = renderer.getContext();
     //width is first parameter
-    renderer.resize(window.innerWidth-35, 3000); // Resize and clear canvas
+    renderer.resize(window.innerWidth-35, 300); // Resize and clear canvas
+    
+
     //first 2 parameters are position, last is width of staff
     var stave = new Vex.Flow.Stave(10, 0, window.innerWidth-35);
     //get the correct clef from the clef function above
-    stave.addClef(clef()).setContext(ctx).draw();
-    
-    var notes = [];
-    for(var i = 0; i<music.length; i++){
-        if (music[i].substring(1,2)==="#"){
-            music[i] = music[i].substring(0,1)+ music[i].substring(2);
-            var apple = new Vex.Flow.StaveNote({keys:[music[i]], duration:"q"}).addAccidental(0, new Vex.Flow.Accidental("#"));
-        } else {
-        var apple = new Vex.Flow.StaveNote({keys: [music[i]], duration: "q"});
-        }
-        notes.push(apple);
-    }
+    stave.addClef(clef()).setContext(ctx).draw(); 
 
-    
-   
+
 
     var voice = new Vex.Flow.Voice({
         num_beats: notes.length, 
@@ -81,7 +80,38 @@ var drawNotes = function () {
     var formatter = new Vex.Flow.Formatter().joinVoices([voice]).format([voice], window.innerWidth-35);
 
     voice.draw(ctx, stave);
-};//end of draw function
+
+};
+var addNotes = function(){
+    for(var i = 0; i<music.length; i++){
+        if (music[i].substring(1,2)==="#"){
+            music[i] = music[i].substring(0,1)+ music[i].substring(2);
+            var apple = new Vex.Flow.StaveNote({keys:[music[i]], duration:"q"}).addAccidental(0, new Vex.Flow.Accidental("#"));
+        } else {
+        var apple = new Vex.Flow.StaveNote({keys: [music[i]], duration: "q"});
+        }
+        notes.push(apple);
+    }
+};
+
+var createStaves = function(){
+    var num = notesPerLine();
+    console.log("length of notes", notes.length);
+    console.log("notes per line", num);
+    if (notes.length>num){
+        notes = notes.slice(num);
+        console.log(notes);
+        stave +=1;
+        console.log(stave);
+    }
+    
+    drawStaves(stave);
+};
+
+
+
+
+//================================================================================================================================
 
 var goalfrequency; //Hz
 
@@ -209,6 +239,7 @@ yinBuffer = new Array(input.length/2);
 //calculate pitch with YIN algorithm
 //console.log("audioContext.sampleRate: "+audioContext.sampleRate);
 my_YIN(input,audioContext.sampleRate); 
+console.log("sample rate is ", audioContext.sampleRate, "samples per second");
 
 }
 
@@ -523,7 +554,9 @@ if(addToArray === true){
     //update array music that contains notes
     music.push(map[nearestIndex][0]);
     //update the sheet music
-    drawNotes();
+    addNotes();
+    createStaves();
+
 }
 //console.log(music);
 //end stuff i edited 
