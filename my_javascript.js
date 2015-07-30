@@ -1,3 +1,5 @@
+//SOME GLOBAL VARIABLES
+//================================================================================================================================
 //array that will contain the notes to put on the sheet music (string like "C/4", not objects that Vexflow uses)
 var music = [];
 //variable whether the audio input is being added to array as notes
@@ -6,6 +8,7 @@ var addtoArray = false;
 var notes = [];
 //id number of staff; initialized as 1
 var stave = 1;
+//================================================================================================================================
 
 //when start button clicked, clears array, then starts adding notes to array based on audio input
 var start = function() {
@@ -58,7 +61,7 @@ var drawStaves = function (stave) {
     var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
     var ctx = renderer.getContext();
     //width is first parameter
-    renderer.resize(window.innerWidth-35, 300); // Resize and clear canvas
+    renderer.resize(window.innerWidth-35, 150); // Resize and clear canvas
     
 
     //first 2 parameters are position, last is width of staff
@@ -76,8 +79,8 @@ var drawStaves = function (stave) {
     //disables strict timing (so num_beats doesn't actually matter)
     voice.setStrict(false);
     voice.addTickables(notes);
-    //last parameter is width of staff
-    var formatter = new Vex.Flow.Formatter().joinVoices([voice]).format([voice], window.innerWidth-35);
+    //last parameter is width of staff, add margin so notes don't go to the very end of the staff
+    var formatter = new Vex.Flow.Formatter().joinVoices([voice]).format([voice], window.innerWidth-70);
 
     voice.draw(ctx, stave);
 
