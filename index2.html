@@ -176,8 +176,11 @@ p.note{
     margin:50px;
 }
 	</style>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
 </head>
 <body>
+    <button id ="showNav" type="button" class="btn btn-large"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>
+    
 
 	<div id="main" style="float:left">
 
@@ -240,7 +243,23 @@ p.note{
 
 
 	<script type="text/javascript">
-		document.getElementById('nav2').style.backgroundColor = #FFFFFF;
+        var showNav = false;
+        var showNav2=0;
+		$("#showNav").click(function(){
+            showNav2=0;
+            if (showNav==false && showNav2===0){
+                $("#main").hide();
+                showNav=true;
+                showNav2=1;
+            }
+            if (showNav==true && showNav2 ===0){
+                $("#main").show();
+                showNav=false;
+                showNav2=0;
+            }
+        });
+
+        
 	</script>
 
 
