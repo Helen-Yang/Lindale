@@ -25,6 +25,7 @@
 		font-variant: normal;
 		font-weight: 500;
 		line-height: 26.3999996185303px;
+		color: #003366;
 		padding:10px 40px;
 		text-decoration:none;
 		text-shadow:0px 1px 0px #528ecc;
@@ -46,10 +47,10 @@
 	
 </head>
 <body id = "change" onload="setbackground()">
-	<button class="btn pull-right btn-sm" role="button" type="submit" id = "logbutton" onclick="location.href='log in pop up.html'">Log in</button>
+	<a href="log in pop up.html" class="btn pull-right btn-default btn-sm" role="button" id = "logbutton">Log in</a>
 	<div class="container">
-		<div class="row">	
-			<button class="btn btn-large centered" role="button" type="submit" id="joinbutton" onclick="location.href='join.html'">Join</button>
+		<div class="row">
+			<a href="join.html" class="btn btn-large centered btn-primary" role="button" id="joinbutton" style="background:#66CCFF">Join</a>	
 		</div>
 
 	</div>
@@ -66,10 +67,6 @@
 	  newImage = rotate ? 'url(paper56.jpg)' : 'url(paper38.jpg)';
 	  rotate = !rotate;
 	  document.getElementById('change').style.backgroundImage = newImage;
-	  if (newImage = "paper38.jpg") {
-	  	document.getElementById('joinbutton').style.background = "#66CCFF";
-	  }
-	  
 	};
 
 	// function popitup(url) {
