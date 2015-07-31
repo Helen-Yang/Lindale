@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://www.vexflow.com/support/vexflow-debug.js"></script>
+  <script src="www.vexflow.com/support/vexflow-min.js"></script>
+  <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+	<title>From Sound to Song</title>
+</head>
+<body>
+	<p>hi there. js below</p>
+	
+	<p id="noteString"></p>
+	
+	<p id = "array"></p>
+	
+	<div class="description staff">
+		<canvas width=1000 height=window.innerHeight></canvas>
+		<!-- sheet music will go here (modified by javascript) -->
+	</div>
+
+	<script type="text/javascript">
+    console.log(notes);
+
+    var notes = [];
+    console.log(notes);
+    //apple is a variable that stores one note, needs to be global
+    var apple;
+    //counts the number of beats for use in num_Beats
+    var numBeats = 0;
+
+    //makes one note, taking parameters note name (string), duration (string), and dot (boolean)
+    var makeNote = function(note, duration, dot){
+        //if notes have accidentals (currently only supports sharps)
+        if (note.substring(1,2)==="#"){
+            note = note.substring(0,1)+ note.substring(2);
+            //if notes have dots
+            if(dot){
+                apple = new Vex.Flow.StaveNote({keys:[note], duration: duration}).addAccidental(0, new Vex.Flow.Accidental("#")).addDotToAll();
+            } else {
+                apple = new Vex.Flow.StaveNote({keys:[note], duration: duration}).addAccidental(0, new Vex.Flow.Accidental("#"));
+
+            }
+            
+        } //end of if accidentals
+        //if notes have no accidentals (natural)
+        else {
+            console.log("a new note is being created...");
+            //if notes have dots
+            if (dot){
+                apple = new Vex.Flow.StaveNote({keys: [note], duration: duration}).addDotToAll();
+            } else {
+                apple = new Vex.Flow.StaveNote({keys: [note], duration: duration});
+
+            }
+        
+        } //end creation of natural notes
+    };//end makeNote function
+        var canvas = $("div.staff canvas")[0];
+        var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
+        var ctx = renderer.getContext();
+        //width is first parameter
+        renderer.resize(window.innerWidth, 3000); // Resize and clear canvas
+        //first 2 parameters are position, last is width of staff
+        var stave = new Vex.Flow.Stave(10, 0, window.innerWidth);
+        //get the correct clef from the clef function above
+        stave.addClef("treble").setContext(ctx).draw();
+		var music = ["C/4", "D/3", "D/3", "E/4","E/4","E/4","F/4","F/4","F/4","F/4","G/5", "G/5", "G/5", "G/5", "G/5", "A/5","A/5","A/5","A/5","A/5","A/5"   ]; 
+    //========================================================
+    var j = 0;
+    while (j<music.length-1) {
+        //need to check if last ones are defined
+        if (music[j] === music[j+1]){
+            if (music[j+1] === music[j+2]){
+                if (music[j+2] === music[j+3]) {
+                    if (music[j+3] === music[j+4]){
+                        if (music[j+4] === music[j+5]){
+                            if (music[j+5] === music[j+6]){
+
+                            } else {
+                                //first 6 are same but not 7th 
+                                makeNote(music[j], "hd", true);
+                                console.log("dotted half note");
+                                numBeats +=6;
+                                j +=6;
+                            }
+                        } else {
+                            //first 5 are same but not 6th 
+                            makeNote(music[j], "hd", true);
+                            console.log("tied half note and eighth note");
+                            numBeats +=6; 
+                            //!!! should be 5 but just for testing 
+                            j += 5; 
+                        }
+                    } else {
+                        //first 4 are same but not 5th
+                        makeNote(music[j], "h", false);
+                        console.log("half note");
+                        numBeats +=4;
+                        j += 4; 
+                    }
+                } else {
+                    //the first 3 are the same but not the 4th
+                    makeNote(music[j], "qd", true);
+                    console.log("dotted quarter note");
+                    numBeats +=3; 
+                    j += 3; 
+                }
+            } else {
+                //the first 2 are the same, but the 3rd is different
+                makeNote(music[j], "q", false);
+                console.log("quarter note");
+                numBeats +=2;
+                j += 2; 
+            }
+        } else {
+            //add regular note
+            //call function that makes notes
+            //parameters: note (string), length (string), dot (boolean)
+            
+            makeNote(music[j], "8", false);
+            console.log("eighth note");
+            numBeats ++;
+            j ++; 
+            //go check the next notes if they are the same
+
+        }
+        $(array).text(music);
+        notes.push(apple);
+        //add the new note to the array storing notes
+
+    }//end of while loop
+
+   
+    console.log(notes);
+    var voice = new Vex.Flow.Voice({
+        num_beats: numBeats, 
+        beat_value: 8,
+        resolution: Vex.Flow.RESOLUTION
+    });
+    //disables strict timing (so num_beats doesn't actually matter)
+    voice.setStrict(false);
+    voice.addTickables(notes);
+    //last parameter is width of staff
+    var formatter = new Vex.Flow.Formatter().joinVoices([voice]).format([voice], window.innerWidth);
+
+    voice.draw(ctx, stave);
+    console.log(window.innerWidth-35);
+	</script>
+</body>
+</html>
