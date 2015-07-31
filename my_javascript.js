@@ -45,9 +45,11 @@ var clef = function(){
     var bassClef = 0;
     var trebleClef = 0; 
     //get the octaves
-    for (var i = 0; i < music.length; i++){
+    for (var i = 0; i < notes.length; i++){
+        //get the string of the note
+        var key = notes[i].keys[0];
         //get the octave from the string note, make it into an integer
-        var octave = parseInt(music[i].substring(music[i].length-1));
+        var octave = parseInt(key.substring(key.length-1));
         //if the octave is less than or equal to 3, then it should be using bass clef, otherwise it should be using treble clef
         if(octave <= 3){
             bassClef ++;
@@ -97,12 +99,11 @@ var drawStaves = function (stave) {
     voice.draw(ctx, stave);
 
 };
-
+//calculates the duration of the last note based on how many times the note occurs (for example if the music array has C/4 4 times, it will only show C/4 once as a half note); base (if note only occurs one time), is an eighth note; calls addNotes with duration parameters
 var rhythm = function() {
     //the most recent note picked up by the microphone
     noteToAdd = music[music.length-1];
     if (noteToAdd === music[music.length-2]){
-        
         if (noteToAdd === music[music.length-3]){
             if (noteToAdd === music[music.length-4]){
                 if (noteToAdd === music[music.length-5]){
