@@ -4,6 +4,9 @@
 	<title> Sign Up</title>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<style type="text/css">
+		body{
+			background-image: url(paper27.jpg)
+		}
 		#header {
 			font-family: Calibri, Candara, Segoe, 'Segoe UI', Optima, Arial, sans-serif;
 			font-size: 40px;
@@ -47,19 +50,40 @@
 	<div id="header">Unleash Your Musical Talent</div>
 	<form>
 	Username:<br>
-	<input type="text" name="username">
+	<input id="name" type="text" name="username">
 	<br>
 	<br>
 	Password:<br>
-	<input type="password" name="password">
+	<input id="password" type="password" name="password">
 	<br>
 	<br>
-	<button id="button" class="btn btn-default" onclick="verification()">Create</button>
+	<button id="button" class="btn btn-default" onclick="saveUser()">Create</button>
 	</form>
 	<script type="text/javascript">
-		var verification = function(){
-			console.log("Add to dictionary thing");
-		};
+		var userDict =[];
+		var passDict =[]; 
+		var saveUser = function(){
+			var userName;
+			var userPassword;
+			document.getElementById('#name').innerHTML = userName;
+			document.getElementById('#password').innerHTML = userPassword;
+			console.log(userName);
+			if (userName===""){
+				alert("Please enter a username!");
+			}
+			else if (userPassword===""){
+				alert("Please enter a password!");
+			}
+			else if (userPassword.length < 6 || userPassword.length>14){
+				alert("Please keep your password ")
+			}
+			else{
+				userDict.push(userName);
+				passDict.push(userPassword);
+				alert("Thank you for joining us!");
+
+			}
+		}
 	</script>
 </body>
 </html>
