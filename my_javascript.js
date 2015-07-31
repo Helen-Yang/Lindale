@@ -8,8 +8,10 @@ var addToArray = false;
 var notes = [];
 //id number of staff; initialized as 1
 var stave = 1;
-
+//something for debugging- all the notes heard after start is pressed 
 var totalNotes = [];
+//if true, filter out notes outside the normal range of the human voice if the user presses a button
+var filterNotes = false;
 //================================================================================================================================
 
 //when start button clicked, clears array, then starts adding notes to array based on audio input
@@ -24,6 +26,10 @@ var stop = function() {
     addToArray = false; 
 };
 //================================================================================================================================
+//when filter button clicked, will filter out notes outside the normal range of the human voice
+var filter = function() {
+    filterNotes = true;
+};
 //linear regression; takes in the width and determines the optimal notes per line (very subjective)
 var notesPerLine = function(){
     var width = window.innerWidth-35;
@@ -56,7 +62,7 @@ var clef = function(){
     }
 };
 
-
+//draws the actual music with parameter stave (int) which is the number (1 = 1st stave on page, etc.)
 var drawStaves = function (stave) {
     stave = String(stave);
     var id = "div." + stave + " canvas";
@@ -74,7 +80,6 @@ var drawStaves = function (stave) {
     stave.addClef(clef()).setContext(ctx).draw(); 
 
 
-
     var voice = new Vex.Flow.Voice({
         num_beats: notes.length, 
         beat_value: 4,
@@ -89,25 +94,24 @@ var drawStaves = function (stave) {
     voice.draw(ctx, stave);
 
 };
+//takes the note (a string) from music (an array of strings) and converts it to an object that is pushed to notes (an array of objects)
 var addNotes = function(){
-    //clear notes so that it won't keep adding it to the end and things will repeat
-    notes.length =0;
-    console.log("notes should be empty", notes);
-    for(var i = 0; i<music.length; i++){
-        //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
-        //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
-        if (music[i].substring(1,2)==="#"){
-            //apple is just a random name for a new note because we already have variables named note and notes
-            var apple = new Vex.Flow.StaveNote({keys:[music[i]], duration:"q"}).addAccidental(0, new Vex.Flow.Accidental("#"));
-        } else {
-            var apple = new Vex.Flow.StaveNote({keys: [music[i]], duration: "q"});
-        }
-        //add the new note (apple, an object) to array notes
-        notes.push(apple);
+    var noteToAdd = music[music.length-1];
+    //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
+    //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
+    if (noteToAdd.substring(1,2)==="#"){
+        //apple is just a random name for a new note because we already have variables named note and notes
+        var apple = new Vex.Flow.StaveNote({keys:[noteToAdd], duration:"q"}).addAccidental(0, new Vex.Flow.Accidental("#"));
+    } else {
+       var apple = new Vex.Flow.StaveNote({keys: [noteToAdd], duration: "q"});
     }
+    //push the note to notes (array of note objects)
+    notes.push(apple);
+    //go to the next function 
     createStaves();
 };
 
+//decides which stave on the page the notes should be added to (if there are too many notes on one stave, it will tell drawStaves to create a new stave)
 var createStaves = function(){
     var num = notesPerLine();
     console.log("length of music", music.length, "should equal length of notes", notes.length);
@@ -126,8 +130,6 @@ var createStaves = function(){
     
     drawStaves(stave);
 };
-
-
 
 
 
@@ -569,13 +571,24 @@ deviation = goalfrequency-map[nearestIndex][1];
 //=============================== STUFF I EDITED==============================
 //=============================================================================
 //=============================================================================
-//makes array of notes-- problem: if the same note is held for multiple seconds, then will interpret it as the same note being played multiple times....
+//if the start button is pressed (and then start function changes addToArray to true), add the notes picked up by microphone to array music
 if(addToArray === true){
-    //update array music that contains notes
-    music.push(map[nearestIndex][0]);
-    //update the sheet music
-    addNotes();
-    // createStaves();
+    if(filterNotes === true){
+        var filterOctave = parseInt(map[nearestIndex][0].substring(map[nearestIndex][0].length-1));
+        if(filterOctave < 2 || filterOctave > 6){
+        //don't add the note to the array if it is out of range 
+        } else {
+        //update array music that contains notes
+        music.push(map[nearestIndex][0]);
+        //update the sheet music
+        addNotes();
+        }
+    } else {
+        //update array music that contains notes
+        music.push(map[nearestIndex][0]);
+        //update the sheet music
+        addNotes();
+   }
 
 }
 //console.log(music);
