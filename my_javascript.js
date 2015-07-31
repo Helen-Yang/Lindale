@@ -12,7 +12,9 @@ var stave = 1;
 
 //when start button clicked, clears array, then starts adding notes to array based on audio input
 var start = function() {
+    //clear all the notes in the input (array music) and what is shown on the screen (array notes)
     music = [];
+    notes = [];
     addToArray = true;
 };
 //when stop button clicked, stops adding notes to array
@@ -87,12 +89,15 @@ var drawStaves = function (stave) {
 };
 var addNotes = function(){
     for(var i = 0; i<music.length; i++){
+        //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
+        //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
         if (music[i].substring(1,2)==="#"){
-            music[i] = music[i].substring(0,1)+ music[i].substring(2);
+            //apple is just a random name for a new note because we already have variables named note and notes
             var apple = new Vex.Flow.StaveNote({keys:[music[i]], duration:"q"}).addAccidental(0, new Vex.Flow.Accidental("#"));
         } else {
         var apple = new Vex.Flow.StaveNote({keys: [music[i]], duration: "q"});
         }
+        //add the new note (apple, an object) to array notes
         notes.push(apple);
     }
 };
