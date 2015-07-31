@@ -120,11 +120,18 @@
 		    position: fixed;
 		    top: 55%;
 			left: 0%;
+			display: none;
 		}
 		#title {
 			padding-left: 20px;
 		}
+		#showNav{
+		    position: fixed;
+		    top: 0%;
+		    left: 0%;
+		}
     </style>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
 </head>
 <body>
 	<h1 style="font-size:50px;text-decoration:none;color:#0066CC" id="title"> Song Collage</h1>
@@ -152,11 +159,18 @@
           <th style="font-size: 18px">3</th>
           <td>Larry</td>
         </tr>
+        <tr>
+            <th></th>
+        </tr>
       </tbody>
     </table>
+
+	<button id ="showNav" type="button" class="btn btn-large"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>
+    
+
 	<div id="main" style="float:left">
 
-	<ul id="navigationMenu">
+    <ul id="navigationMenu">
         <li id="nav" style="background-color:black">
             <a class="home" href="#">
                 <span onclick="location.href='index2.html'">Home</span>
@@ -171,7 +185,7 @@
         
         <li id="nav" style="background-color:black">
              <a class="services" href="#">
-                <span onclick="location.href='donation.html'">Donation</span>
+                <span onclick="location.href='donation.html'">Donate</span>
              </a>
         </li>
         
@@ -187,7 +201,23 @@
             </a>
         </li>
     </ul>
-	    
-	</div>
+    </div>
+    <script type="text/javascript">
+    	var showNav = false;
+        var showNav2=0;
+		$("#showNav").click(function(){
+            showNav2=0;
+            if (showNav==false && showNav2===0){
+                $("#main").css("display","block");
+                showNav=true;
+                showNav2=1;
+            }
+            if (showNav==true && showNav2 ===0){
+                $("#main").css("display","none");
+                showNav=false;
+                showNav2=0;
+            }
+        });
+    </script>
 </body>
 </html>
