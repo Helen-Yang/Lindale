@@ -1,14 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title> Edit Current Pieces</title>
+	<title>Song Collection</title>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <style type="text/css">
+	<style type="text/css">
     	#navigationMenu li{
 		    list-style:none;
 		    height:39px;
@@ -129,110 +124,37 @@
 		#title {
 			padding-left: 20px;
 		}
-
     </style>
 </head>
 <body>
-	<h1 style="font-size:50px;text-decoration:none;color:#0066CC" id="title"> Songs in Progress</h1>
-	<table class="table table-striped">
+	<h1 style="font-size:50px;text-decoration:none;color:#0066CC" id="title"> Song Collage</h1>
+	<table class="table table-hover">
       <thead>
         <tr>
           <th></th>
           <th style="font-size:30px;vertical-align:middle; text-decoration:none;color:#42ADFF">&#9839;</th>
           <th style="font-size:24px;vertical-align:middle; text-decoration:none;color:#42ADFF">Song Name</th>
-          <th style="font-size:24px;vertical-align:middle; text-decoration:none;color:#42ADFF"> Actions &#9838;</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <th></th>
           <th style="font-size: 18px">1</th>
-          <td style="font-size: 18px">Night Serenade</td>
-          <td> <a href="create4.html" class="btn btn-default btn-sm" role="button">Edit</a> 
-          <!-- <button class="btn btn-default btn-sm" role="button" data-toggle="modal" data-target="#myModal">Delete</button> -->
-          <button class="btn btn-default btn-sm" role="button" data-toggle="modal" data-target="#myModal">Delete</button>
-
-			<!-- Modal -->
-			<div id="myModal" class="modal fade" role="dialog">
-			  <div class="modal-dialog">
-
-			    <!-- Modal content-->
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <button type="button" class="close" data-dismiss="modal">&times;</button>
-			       <center><h4 class="modal-title">Confirmation</h4></center> 
-			      </div>
-			      <div class="modal-body">
-			        <center>Are you sure you want to delete? <br> <br> <button class="btn btn-default btn-sm" role="button" onclick="deletesong()" >Yes</button> <button class="btn btn-default btn-sm" role="button">No</button></center>
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			      </div>
-			    </div>
-
-			  </div>
-			</div>
-          </td>
+          <td>Mark</td>
         </tr>
         <tr>
           <th></th>
           <th style="font-size: 18px">2</th>
-          <td style="font-size: 18px">Lady's Walk</td>
-          <td> <a href="create4.html" class="btn btn-default btn-sm" role="button">Edit</a> <button class="btn btn-default btn-sm" role="button" data-toggle="modal" data-target="#myModal">Delete</button>
-
-			<!-- Modal -->
-			<div id="myModal" class="modal fade" role="dialog">
-			  <div class="modal-dialog">
-
-			    <!-- Modal content-->
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <button type="button" class="close" data-dismiss="modal">&times;</button>
-			       <center><h4 class="modal-title">Confirmation</h4></center> 
-			      </div>
-			      <div class="modal-body">
-			        <center>Are you sure you want to delete? <br> <br> <button class="btn btn-default btn-sm" role="button" onclick="deletesong()" >Yes</button> <button class="btn btn-default btn-sm" role="button">No</button></center>
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			      </div>
-			    </div>
-
-			  </div>
-			</div>
-			</td>
+          <td>Jacob</td>
         </tr>
         <tr>
           <th></th>
           <th style="font-size: 18px">3</th>
-          <td style="font-size: 18px">Cherry Breeze</td>
-          <td> <a href="create4.html" class="btn btn-default btn-sm" role="button">Edit</a> <button class="btn btn-default btn-sm" role="button" data-toggle="modal" data-target="#myModal">Delete</button>
-
-			<!-- Modal -->
-			<div id="myModal" class="modal fade" role="dialog">
-			  <div class="modal-dialog">
-
-			    <!-- Modal content-->
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <button type="button" class="close" data-dismiss="modal">&times;</button>
-			       <center><h4 class="modal-title">Confirmation</h4></center> 
-			      </div>
-			      <div class="modal-body">
-			        <center>Are you sure you want to delete? <br> <br> <button class="btn btn-default btn-sm" role="button" onclick="deletesong()" >Yes</button> <button class="btn btn-default btn-sm" role="button">No</button></center>
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			      </div>
-			    </div>
-
-			  </div>
-			</div>
-          </td>
+          <td>Larry</td>
         </tr>
       </tbody>
     </table>
-    <div id="main" style="float:left">
+	<div id="main" style="float:left">
 
 	<ul id="navigationMenu">
         <li id="nav" style="background-color:black">
@@ -267,10 +189,5 @@
     </ul>
 	    
 	</div>
-    <script type="text/javascript">
-    	var deletesong = function() {
-    		alert("Deleting...");
-    	};
-    </script>
 </body>
 </html>
