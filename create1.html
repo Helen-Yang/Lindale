@@ -137,9 +137,13 @@ body{
 /* The styles below are only needed for the demo page */
 
 #main{
+    display: none;
     margin:80px auto;
     position:relative;
     width:40px;
+    position: fixed;
+    top: 18%;
+    left: 0%;
 }
 
 
@@ -194,7 +198,15 @@ p.note{
     transform:translate(-50%, -50%);
 }
 
+#showNav{
+    position: fixed;
+    top: 0%;
+    left: 0%;
+}
+    
 	</style>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+    
 </head>
 <body>
 	<center><button type="button" class="btn btn-primary btn-lg centered1">Create New Music</button><br>
@@ -202,7 +214,10 @@ p.note{
 	<p></p></br>
 	<button type="button" class="btn btn-primary btn-lg centered2" onclick="location.href='create3.html'">Edit Existing Music</button></center>
 
-	<div id="main" style="float:left">
+	<button id ="showNav" type="button" class="btn btn-large"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>
+    
+
+    <div id="main" style="float:left">
 
     <ul id="navigationMenu">
         <li id="nav" style="background-color:black">
@@ -219,7 +234,7 @@ p.note{
         
         <li id="nav" style="background-color:black">
              <a class="services" href="#">
-                <span onclick="location.href='donation.html'">Donation</span>
+                <span onclick="location.href='donation.html'">Donate</span>
              </a>
         </li>
         
@@ -235,11 +250,24 @@ p.note{
             </a>
         </li>
     </ul>
-        
     </div>
 
 	<script type="text/javascript">
-		document.getElementById('nav2').style.backgroundColor = #FFFFFF;
+        var showNav = false;
+        var showNav2=0;
+        $("#showNav").click(function(){
+            showNav2=0;
+            if (showNav==false && showNav2===0){
+                $("#main").css("display","block");
+                showNav=true;
+                showNav2=1;
+            }
+            if (showNav==true && showNav2 ===0){
+                $("#main").css("display","none");
+                showNav=false;
+                showNav2=0;
+            }
+        });
 	</script>
 
 

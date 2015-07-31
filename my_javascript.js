@@ -14,6 +14,7 @@ var totalNotes = [];
 var filterNotes = false;
 //the current note being converted from string to object
 var noteToAdd;
+var clef1, clef2;
 //================================================================================================================================
 
 //when start button clicked, clears array, then starts adding notes to array based on audio input
@@ -41,29 +42,50 @@ var notesPerLine = function(){
 //================================================================================================================================
 //decides whether to use treble or bass clef
 var clef = function(){
-    //variables that count the number of notes that should be using bass clef and treble clef
-    var bassClef = 0;
-    var trebleClef = 0; 
-    //get the octaves
-    for (var i = 0; i < notes.length; i++){
-        //get the string of the note
-        var key = notes[i].keys[0];
-        //get the octave from the string note, make it into an integer
-        var octave = parseInt(key.substring(key.length-1));
-        //if the octave is less than or equal to 3, then it should be using bass clef, otherwise it should be using treble clef
-        if(octave <= 3){
-            bassClef ++;
-        } else {
-            trebleClef ++;
-        }
-    }
-    //check if more notes are in the bass clef range or treble clef range, return clef so that in drawNotes the correct clef will be created
-    // console.log(bassClef, trebleClef);
-    if (bassClef > trebleClef){
-        return "bass";
+    // //variables that count the number of notes that should be using bass clef and treble clef
+    // var bassClef = 0;
+    // var trebleClef = 0; 
+    // //get the octaves
+    // for (var i = 0; i < notes.length; i++){
+    //     //get the string of the note
+    //     var key = notes[i].keys[0];
+    //     //get the octave from the string note, make it into an integer
+    //     var octave = parseInt(key.substring(key.length-1));
+    //     //if the octave is less than or equal to 3, then it should be using bass clef, otherwise it should be using treble clef
+    //     if(octave <= 3){
+    //         bassClef ++;
+    //     } else {
+    //         trebleClef ++;
+    //     }
+    // }
+    // //check if more notes are in the bass clef range or treble clef range, return clef so that in drawNotes the correct clef will be created
+    // // console.log(bassClef, trebleClef);
+    // if (bassClef > trebleClef){
+    //     return "bass";
+    // } else {
+    //     return "treble";
+    // }
+    var key = notes[notes.length-2].keys[0];
+    var octave = parseInt(key.substring(key.length-1));
+    if (octave <= 3){
+        clef1 = "bass";
     } else {
-        return "treble";
+        clef1 = "treble";
     }
+
+
+    var key = notes[notes.length-1].keys[0];
+    var octave = parseInt(key.substring(key.length-1));
+    if (octave <= 3){
+        clef2 = "bass";
+    } else {
+        clef2 = "treble";
+    }
+
+    if (clef1 != clef2){
+        stave += 1; 
+    }
+    drawStaves(stave);
 };
 
 //draws the actual music with parameter stave (int) which is the number (1 = 1st stave on page, etc.)
@@ -223,8 +245,8 @@ var createStaves = function(){
         stave +=1;
         console.log(stave);
     }
-    
-    drawStaves(stave);
+    clef();
+    // drawStaves(stave);
 };
 
 

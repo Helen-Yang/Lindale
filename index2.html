@@ -10,7 +10,7 @@
 body{
     font-size:14px;
     color:#666;
-    background-image:url(inu26.jpg);
+    /*background-image:url(inu26.jpg);*/
     background-width:1600px;
     background-height:1000px;
     
@@ -135,6 +135,10 @@ body{
     margin:80px auto;
     position:relative;
     width:40px;
+    display: none;
+    position: fixed;
+    top: 55%;
+    left: 0%;
 }
 
 
@@ -175,6 +179,22 @@ p.note{
     text-align:center;
     margin:50px;
 }
+#showNav{
+    position: fixed;
+    top: 0%;
+    left: 0%;
+}
+
+#table {
+    position: fixed;
+    left: 3%;
+    top: 15%;
+}
+#title {
+    padding-left: 20px;
+    position: fixed;
+    top: 5%
+}
 	</style>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
 </head>
@@ -199,7 +219,7 @@ p.note{
         
         <li id="nav" style="background-color:black">
              <a class="services" href="#">
-                <span onclick="location.href='donation.html'">Donation</span>
+                <span onclick="location.href='donation.html'">Donate</span>
              </a>
         </li>
         
@@ -217,11 +237,27 @@ p.note{
     </ul>
         
     </div>
+    <h3 style="font-size:40px;text-decoration:none;color:#0066CC" id="title">Recent Activity</h3>
+<table class="table table-hover" id="table">
+    <tbody>
+        <tr>
+          <th><div style="list-style:none; color:black"><a href=""><span style="font-size:20px;text-decoration:none;color:#FF000F";>&#9839;</span></a></div>Post 1</th>
+        </tr>
+        <tr>
+          <th><div style="list-style:none; color:black"><a href=""><span style="font-size:20px;text-decoration:none;color:#FF000F";>&#9839;</span></a></div>Post 2</th>
+        </tr>
+        <tr>
+          <th> <div style="list-style:none; color:black"><a href=""><span style="font-size:20px;text-decoration:none;color:#FF000F";>&#9839;</span></a></div>Post 3</th>
+        </tr>
+        <tr>
+            <th></th>
+        </tr>
+      </tbody>
+    </table>
 
-
-<div style="top:200px;bottom:300px" class="row"> Recent Activity
+<!-- <div style="top:200px;bottom:300px" class="row"> Recent Activity
             <ul >
-              <div class="col-xs-6 col-md-4" style="list-style:none; color:black"><a href=""><span style="margin-left: 5cm;font-size:20px;text-decoration:none;color:#FF000F";>&#9839;</span>HOME</a></div>
+              <div style="list-style:none; color:black"><a href=""><span style="font-size:20px;text-decoration:none;color:#FF000F";>&#9839;</span>HOME</a></div>
               <div class="col-xs-6 col-md-4" style="list-style:none; color:black"><a href=""><span style="margin-left: 5cm;font-size:20px;vertical-align:middle; text-decoration:none;color:#42ADFF">&#9839;</span>HOME</a></div>
               <div class="col-xs-6 col-md-4" style="list-style:none; color:black"><a href=""><span style="margin-left: 5cm;font-size:20px;vertical-align:middle; text-decoration:none;color:#17B073">&#9839;</span>HOME</a></div>
               <div class="col-xs-6 col-md-4" style="list-style:none; color:black"><a href=""><span style="margin-left: 5cm;font-size:20px;vertical-align:middle; text-decoration:none;color:#FF1F85">&#9839;</span>HOME</a></div>
@@ -239,21 +275,21 @@ p.note{
               <div class="col-xs-6 col-md-4" style="list-style:none; color:black"><a href=""><span style="margin-left: 5cm;font-size:20px;vertical-align:middle; text-decoration:none;color:#FFC200">&#9839;</span>HOME</a></div>
               <div class="col-xs-6 col-md-4" style="list-style:none; color:black"><a href=""><span style="margin-left: 5cm;font-size:20px;vertical-align:middle; text-decoration:none">&#9839;</span>HOME</a></div>
             </ul>
-</div>
+</div> -->
 
 
 	<script type="text/javascript">
         var showNav = false;
         var showNav2=0;
-		$("#showNav").click(function(){
+        $("#showNav").click(function(){
             showNav2=0;
             if (showNav==false && showNav2===0){
-                $("#main").hide();
+                $("#main").css("display","block");
                 showNav=true;
                 showNav2=1;
             }
             if (showNav==true && showNav2 ===0){
-                $("#main").show();
+                $("#main").css("display","none");
                 showNav=false;
                 showNav2=0;
             }
