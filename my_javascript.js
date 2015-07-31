@@ -12,6 +12,8 @@ var stave = 1;
 var totalNotes = [];
 //if true, filter out notes outside the normal range of the human voice if the user presses a button
 var filterNotes = false;
+//the current note being converted from string to object
+var noteToAdd;
 //================================================================================================================================
 
 //when start button clicked, clears array, then starts adding notes to array based on audio input
@@ -33,7 +35,7 @@ var filter = function() {
 //linear regression; takes in the width and determines the optimal notes per line (very subjective)
 var notesPerLine = function(){
     var width = window.innerWidth-35;
-    var notesPerLine = Math.round(4.62770060761149 + .019021763005526*width);
+    var notesPerLine = Math.round(2.62770060761149 + .017021763005526*width);
     return notesPerLine;
 };
 //================================================================================================================================
@@ -64,7 +66,9 @@ var clef = function(){
 
 //draws the actual music with parameter stave (int) which is the number (1 = 1st stave on page, etc.)
 var drawStaves = function (stave) {
+    //convert stave (int) to string
     stave = String(stave);
+    //create string id for which canvas the stave should be located on
     var id = "div." + stave + " canvas";
     console.log(id, "id");
     var canvas = $(id)[0];
@@ -72,8 +76,7 @@ var drawStaves = function (stave) {
     var ctx = renderer.getContext();
     //width is first parameter
     renderer.resize(window.innerWidth-35, 150); // Resize and clear canvas
-    
-
+          
     //first 2 parameters are position, last is width of staff
     var stave = new Vex.Flow.Stave(10, 0, window.innerWidth-35);
     //get the correct clef from the clef function above
@@ -94,17 +97,109 @@ var drawStaves = function (stave) {
     voice.draw(ctx, stave);
 
 };
-//takes the note (a string) from music (an array of strings) and converts it to an object that is pushed to notes (an array of objects)
-var addNotes = function(){
-    var noteToAdd = music[music.length-1];
-    //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
-    //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
-    if (noteToAdd.substring(1,2)==="#"){
-        //apple is just a random name for a new note because we already have variables named note and notes
-        var apple = new Vex.Flow.StaveNote({keys:[noteToAdd], duration:"q"}).addAccidental(0, new Vex.Flow.Accidental("#"));
+
+var rhythm = function() {
+    //the most recent note picked up by the microphone
+    noteToAdd = music[music.length-1];
+    if (noteToAdd === music[music.length-2]){
+        
+        if (noteToAdd === music[music.length-3]){
+            if (noteToAdd === music[music.length-4]){
+                if (noteToAdd === music[music.length-5]){
+                    if (noteToAdd === music[music.length-6]){
+                        if (noteToAdd === music[music.length-7]){
+                            if  (noteToAdd === music[music.length-8]){
+                                if (noteToAdd === music[music.length-9]){
+
+                                } else {
+                                    //last 8 are same but not 9th
+                                    //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+                                    notes.pop();
+
+                                    duration = "w";
+                                    addNotes(duration, false);
+                                }
+                            } else {
+                                //last 7 are same but not 8th
+                                //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+                                notes.pop();
+                                //technically this should be a double dotted half note, but double dotted notes are not supported yet
+                                duration = "hd";
+                                addNotes(duration, true);
+                            }
+                        } else {
+                             //last 6 are same but not 7th
+                            //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+                            notes.pop();
+
+                            duration = "hd";
+                            addNotes(duration, true);
+                        }
+                    } else {
+                        //last 5 are same but not 6th
+                        //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+                        notes.pop();
+                        //technically this should be a half note tied to an eighth note, but ties aren't supported yet
+                        duration = "h";
+                        addNotes(duration, false);
+                    }
+                } else {
+                    //last 4 are same but not 5th
+                    //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+                    notes.pop();
+
+                    duration = "h";
+                    addNotes(duration, false);
+                }
+            } else {
+                //last 3 are same but not 4th
+                //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+                notes.pop();
+
+                duration = "qd";
+                addNotes(duration, true);
+            }
+        } else {
+            //last 2 are same but not 3rd
+            //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+            notes.pop();
+            
+            duration = "q";
+            addNotes(duration, false);
+        }
     } else {
-       var apple = new Vex.Flow.StaveNote({keys: [noteToAdd], duration: "q"});
-    }
+        //last 2 notes are different, so create new note with relative length 1
+        duration = "8";
+        addNotes(duration, false);
+    }//end of else (last 2 notes are different)
+};
+
+////////////////////////////////////////////////////////////////////
+//takes the note (a string) from music (an array of strings) and converts it to an object that is pushed to notes (an array of objects)
+//parameters are duration (string) that specifies the name of note length and dot (boolean), whether the note should have a dot or not
+var addNotes = function(duration, dot){
+    //if dot (parameter, boolean) is true, create a note with the dot
+    if (dot) {
+        //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
+        //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
+        if (noteToAdd.substring(1,2)==="#"){
+            //apple is just a random name for a new note because we already have variables named note and notes
+            var apple = new Vex.Flow.StaveNote({keys:[noteToAdd], duration: duration}).addAccidental(0, new Vex.Flow.Accidental("#")).addDotToAll();
+        } else {
+            var apple = new Vex.Flow.StaveNote({keys: [noteToAdd], duration: duration}).addDotToAll();
+        }//end of else (natural)
+    } else {
+        //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
+        //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
+        if (noteToAdd.substring(1,2)==="#"){
+            //apple is just a random name for a new note because we already have variables named note and notes
+            var apple = new Vex.Flow.StaveNote({keys:[noteToAdd], duration: duration}).addAccidental(0, new Vex.Flow.Accidental("#"));
+        } else {
+            var apple = new Vex.Flow.StaveNote({keys: [noteToAdd], duration: duration});
+        }//end of else (natural)   
+    }//end of else (no dot)
+   
+
     //push the note to notes (array of note objects)
     notes.push(apple);
     //go to the next function 
@@ -114,7 +209,7 @@ var addNotes = function(){
 //decides which stave on the page the notes should be added to (if there are too many notes on one stave, it will tell drawStaves to create a new stave)
 var createStaves = function(){
     var num = notesPerLine();
-    console.log("length of music", music.length, "should equal length of notes", notes.length);
+    // console.log("length of music", music.length, "should equal length of notes", notes.length);
     console.log("notes per line", num);
     if (notes.length>num){
         console.log("notes.length is greater than num");
@@ -580,14 +675,14 @@ if(addToArray === true){
         } else {
         //update array music that contains notes
         music.push(map[nearestIndex][0]);
-        //update the sheet music
-        addNotes();
+        //update the sheet music (the first step is function rhythm, each function goes to another function that eventually draws the music)
+        rhythm();
         }
     } else {
         //update array music that contains notes
         music.push(map[nearestIndex][0]);
-        //update the sheet music
-        addNotes();
+        //update the sheet music (the first step is function rhythm, each function goes to another function that eventually draws the music)
+        rhythm();
    }
 
 }

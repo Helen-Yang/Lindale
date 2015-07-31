@@ -22,7 +22,7 @@
     console.log(notes);
 
     var notes = [];
-    console.log(notes);
+    console.log("notes should be empty", notes);
     //apple is a variable that stores one note, needs to be global
     var apple;
     //counts the number of beats for use in num_Beats
@@ -54,6 +54,8 @@
             }
         
         } //end creation of natural notes
+        notes.push(apple);
+        //add the new note to the array storing notes
     };//end makeNote function
         var canvas = $("div.staff canvas")[0];
         var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
@@ -125,8 +127,7 @@
 
         }
         $(array).text(music);
-        notes.push(apple);
-        //add the new note to the array storing notes
+        
 
     }//end of while loop
 
