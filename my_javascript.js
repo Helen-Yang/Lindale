@@ -3,11 +3,13 @@
 //array that will contain the notes to put on the sheet music (string like "C/4", not objects that Vexflow uses)
 var music = [];
 //variable whether the audio input is being added to array as notes
-var addtoArray = false; 
+var addToArray = false; 
 //array that contains all the note names (Vexflow objects)
 var notes = [];
 //id number of staff; initialized as 1
 var stave = 1;
+
+var totalNotes = [];
 //================================================================================================================================
 
 //when start button clicked, clears array, then starts adding notes to array based on audio input
@@ -88,6 +90,9 @@ var drawStaves = function (stave) {
 
 };
 var addNotes = function(){
+    //clear notes so that it won't keep adding it to the end and things will repeat
+    notes.length =0;
+    console.log("notes should be empty", notes);
     for(var i = 0; i<music.length; i++){
         //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
         //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
@@ -95,26 +100,33 @@ var addNotes = function(){
             //apple is just a random name for a new note because we already have variables named note and notes
             var apple = new Vex.Flow.StaveNote({keys:[music[i]], duration:"q"}).addAccidental(0, new Vex.Flow.Accidental("#"));
         } else {
-        var apple = new Vex.Flow.StaveNote({keys: [music[i]], duration: "q"});
+            var apple = new Vex.Flow.StaveNote({keys: [music[i]], duration: "q"});
         }
         //add the new note (apple, an object) to array notes
         notes.push(apple);
     }
+    createStaves();
 };
 
 var createStaves = function(){
     var num = notesPerLine();
-    console.log("length of notes", notes.length);
+    console.log("length of music", music.length, "should equal length of notes", notes.length);
     console.log("notes per line", num);
     if (notes.length>num){
+        console.log("notes.length is greater than num");
+        //reset music (strings) for a new line
+        music = [];
+        console.log("totalNotes", totalNotes);
+        totalNotes = totalNotes.concat(notes);
         notes = notes.slice(num);
-        console.log(notes);
+        console.log("notes after slice:", notes);
         stave +=1;
         console.log(stave);
     }
     
     drawStaves(stave);
 };
+
 
 
 
@@ -563,7 +575,7 @@ if(addToArray === true){
     music.push(map[nearestIndex][0]);
     //update the sheet music
     addNotes();
-    createStaves();
+    // createStaves();
 
 }
 //console.log(music);
