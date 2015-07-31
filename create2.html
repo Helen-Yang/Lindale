@@ -120,17 +120,34 @@
 		    position: fixed;
 		    top: 18%;
 			left: 0%;
+			display: none;
 		}
 		#start{
-			
+			position: fixed;
+			top: 5%;
+			left: 5%;
+		}
+		#stop{
+			position: fixed;
+			top: 5%;
+			left: 15%;
+		}
+		#showNav{
+		    position: fixed;
+		    top: 0%;
+		    left: 0%;
 		}
     </style>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
 </head>
 <body>
 
-<div id="main" style="float:left">
+<button id ="showNav" type="button" class="btn btn-large"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>
+    
 
-	<ul id="navigationMenu">
+	<div id="main" style="float:left">
+
+    <ul id="navigationMenu">
         <li id="nav" style="background-color:black">
             <a class="home" href="#">
                 <span onclick="location.href='index2.html'">Home</span>
@@ -145,7 +162,7 @@
         
         <li id="nav" style="background-color:black">
              <a class="services" href="#">
-                <span onclick="location.href='donation.html'">Donation</span>
+                <span onclick="location.href='donation.html'">Donate</span>
              </a>
         </li>
         
@@ -161,9 +178,26 @@
             </a>
         </li>
     </ul>
-	</div>
+    </div>
 
 	<button type="button" id="start" class="btn btn-primary"><span class="glyphicon glyphicon-record"></span> start</button>
 	<button type="button" id="stop" class="btn btn-primary"><span class="glyphicon glyphicon-record"></span> stop</button>
+	<script type="text/javascript">
+		var showNav = false;
+        var showNav2=0;
+		$("#showNav").click(function(){
+            showNav2=0;
+            if (showNav==false && showNav2===0){
+                $("#main").css("display","block");
+                showNav=true;
+                showNav2=1;
+            }
+            if (showNav==true && showNav2 ===0){
+                $("#main").css("display","none");
+                showNav=false;
+                showNav2=0;
+            }
+        });
+	</script>
 </body>
 </html>
