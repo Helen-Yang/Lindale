@@ -45,6 +45,7 @@
 		}
 
 	</style>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
 </head>
 <body>
 	<div id="header">Unleash Your Musical Talent</div>
@@ -57,33 +58,46 @@
 	<input id="password" type="password" name="password">
 	<br>
 	<br>
-	<button id="button" class="btn btn-default" onclick="saveUser()">Create</button>
+	<button id="button" class="btn btn-default">Create</button>
 	</form>
 	<script type="text/javascript">
 		var userDict =[];
 		var passDict =[]; 
-		var saveUser = function(){
-			var userName;
-			var userPassword;
-			document.getElementById('#name').innerHTML = userName;
-			document.getElementById('#password').innerHTML = userPassword;
+		$('#button').click(function(event){
+			var userName,
+				userPassword;
+			userName = $('#name').val();
+			userPassword = $('#password').val();
+			console.log(userName);
+			event.preventDefault();
+		});
 
-			if (userName===""){
-				alert("Please enter a username!");
-			}
-			else if (userPassword===""){
-				alert("Please enter a password!");
-			}
-			else if (userPassword.length < 6 || userPassword.length>14){
-				alert("Please keep your password ")
-			}
-			else{
-				userDict.push(userName);
-				passDict.push(userPassword);
-				alert("Thank you for joining us!");
 
-			}
-		}
+
+		// var saveUser = function(){
+		// 	var userName;
+		// 	var userPassword;
+		// 	userName = $('.name').val();
+		// 	userPassword = $('.password').val();
+		// 	console.log(userName);
+		// 	alert("wow");
+
+		// 	if (userName==""){
+		// 		alert("Please enter a username!");
+		// 	}
+		// 	else if (userPassword==""){
+		// 		alert("Please enter a password!");
+		// 	}
+		// 	else if (userPassword.length < 6 || userPassword.length>14){
+		// 		alert("Please keep your password ")
+		// 	}
+		// 	else{
+		// 		userDict.push(userName);
+		// 		passDict.push(userPassword);
+		// 		alert("Thank you for joining us!");
+
+		// 	}
+		// }
 	</script>
 </body>
 </html>
