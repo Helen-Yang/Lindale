@@ -7,7 +7,7 @@ var addToArray = false;
 //array that contains all the note names (Vexflow objects)
 var notes = [];
 //id number of staff; initialized as 1
-var stave = 1;
+var staveNum = 1;
 //something for debugging- all the notes heard after start is pressed 
 var totalNotes = [];
 //if true, filter out notes outside the normal range of the human voice if the user presses a button
@@ -15,6 +15,7 @@ var filterNotes = false;
 //the current note being converted from string to object
 var noteToAdd;
 var clef1, clef2;
+var currentClef; 
 //================================================================================================================================
 
 //when start button clicked, clears array, then starts adding notes to array based on audio input
@@ -40,6 +41,61 @@ var notesPerLine = function(){
     return notesPerLine;
 };
 //================================================================================================================================
+
+//draws the actual music with parameter stave (int) which is the number (1 = 1st stave on page, etc.)
+var drawStaves = function (staveNum) {
+    //convert stave (int) to string
+    staveNum = String(staveNum);
+    //create string id for which canvas the stave should be located on
+    var id = "div." + staveNum + " canvas";
+    console.log(id, "id");
+    var canvas = $(id)[0];
+    var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
+    var ctx = renderer.getContext();
+    //width is first parameter
+    renderer.resize(window.innerWidth-35, 150); // Resize and clear canvas
+          
+    //first 2 parameters are position, last is width of staff
+    var stave = new Vex.Flow.Stave(10, 0, window.innerWidth-35);
+    //get the correct clef from the clef function above
+    stave.addClef(currentClef).setContext(ctx).draw(); 
+
+
+    var voice = new Vex.Flow.Voice({
+        num_beats: notes.length, 
+        beat_value: 4,
+        resolution: Vex.Flow.RESOLUTION
+    });
+    //disables strict timing (so num_beats doesn't actually matter)
+    voice.setStrict(false);
+    voice.addTickables(notes);
+    //last parameter is width of staff, add margin so notes don't go to the very end of the staff
+    var formatter = new Vex.Flow.Formatter().joinVoices([voice]).format([voice], window.innerWidth-70);
+
+    voice.draw(ctx, stave);
+
+};
+//decides which stave on the page the notes should be added to (if there are too many notes on one stave, it will tell drawStaves to create a new stave)
+
+var createStaves = function(){
+    var num = notesPerLine();
+    // console.log("length of music", music.length, "should equal length of notes", notes.length);
+    console.log("notes per line", num);
+    if (notes.length>num){
+        console.log("notes.length is greater than num");
+        //reset music (strings) for a new line
+        music = [];
+        console.log("music array should be empty", music);
+        console.log("totalNotes", totalNotes);
+        totalNotes = totalNotes.concat(notes);
+        notes = notes.slice(num);
+        console.log("notes after slice:", notes);
+        staveNum +=1;
+        console.log(staveNum);
+    }
+    
+    drawStaves(staveNum);
+};
 //decides whether to use treble or bass clef
 var clef = function(){
     // //variables that count the number of notes that should be using bass clef and treble clef
@@ -65,62 +121,75 @@ var clef = function(){
     // } else {
     //     return "treble";
     // }
-    var key = notes[notes.length-2].keys[0];
-    var octave = parseInt(key.substring(key.length-1));
-    if (octave <= 3){
-        clef1 = "bass";
-    } else {
-        clef1 = "treble";
-    }
-
-
     var key = notes[notes.length-1].keys[0];
-    var octave = parseInt(key.substring(key.length-1));
-    if (octave <= 3){
-        clef2 = "bass";
+        var octave = parseInt(key.substring(key.length-1));
+        if (octave <= 3){
+            clef2 = "bass";
+        } else {
+            clef2 = "treble";
+        }
+    currentClef = clef2;
+
+    if (notes.length>1) {
+        var key = notes[notes.length-2].keys[0];
+        var octave = parseInt(key.substring(key.length-1));
+        if (octave <= 3){
+            clef1 = "bass";
+        } else {
+            clef1 = "treble";
+        }
+
+        
+//NEED TO FIX THIS PART WONT WORK
+        //if clefs are different, start a new staff
+        if (clef1 != clef2){
+            staveNum += 1; 
+        //reset music (strings) for a new line
+        music = [];
+        totalNotes = totalNotes.concat(notes);
+        notes = notes.slice(notes.length-1);
+        }
+    }
+    if (staveNum>15){
+        return;
+    }
+    createStaves();
+};
+
+////////////////////////////////////////////////////////////////////
+//takes the note (a string) from music (an array of strings) and converts it to an object that is pushed to notes (an array of objects)
+//parameters are duration (string) that specifies the name of note length and dot (boolean), whether the note should have a dot or not
+var addNotes = function(duration, dot){
+    //if dot (parameter, boolean) is true, create a note with the dot
+    if (dot) {
+        //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
+        //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
+        if (noteToAdd.substring(1,2)==="#"){
+            //apple is just a random name for a new note because we already have variables named note and notes
+            var apple = new Vex.Flow.StaveNote({keys:[noteToAdd], duration: duration}).addAccidental(0, new Vex.Flow.Accidental("#")).addDotToAll();
+        } else {
+            var apple = new Vex.Flow.StaveNote({keys: [noteToAdd], duration: duration}).addDotToAll();
+        }//end of else (natural)
     } else {
-        clef2 = "treble";
-    }
+        //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
+        //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
+        if (noteToAdd.substring(1,2)==="#"){
+            //apple is just a random name for a new note because we already have variables named note and notes
+            var apple = new Vex.Flow.StaveNote({keys:[noteToAdd], duration: duration}).addAccidental(0, new Vex.Flow.Accidental("#"));
+        } else {
+            var apple = new Vex.Flow.StaveNote({keys: [noteToAdd], duration: duration});
+        }//end of else (natural)   
+    }//end of else (no dot)
+   
 
-    if (clef1 != clef2){
-        stave += 1; 
-    }
-    drawStaves(stave);
+    //push the note to notes (array of note objects)
+    notes.push(apple);
+    //go to the next function 
+    clef();
 };
 
-//draws the actual music with parameter stave (int) which is the number (1 = 1st stave on page, etc.)
-var drawStaves = function (stave) {
-    //convert stave (int) to string
-    stave = String(stave);
-    //create string id for which canvas the stave should be located on
-    var id = "div." + stave + " canvas";
-    console.log(id, "id");
-    var canvas = $(id)[0];
-    var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
-    var ctx = renderer.getContext();
-    //width is first parameter
-    renderer.resize(window.innerWidth-35, 150); // Resize and clear canvas
-          
-    //first 2 parameters are position, last is width of staff
-    var stave = new Vex.Flow.Stave(10, 0, window.innerWidth-35);
-    //get the correct clef from the clef function above
-    stave.addClef(clef()).setContext(ctx).draw(); 
 
 
-    var voice = new Vex.Flow.Voice({
-        num_beats: notes.length, 
-        beat_value: 4,
-        resolution: Vex.Flow.RESOLUTION
-    });
-    //disables strict timing (so num_beats doesn't actually matter)
-    voice.setStrict(false);
-    voice.addTickables(notes);
-    //last parameter is width of staff, add margin so notes don't go to the very end of the staff
-    var formatter = new Vex.Flow.Formatter().joinVoices([voice]).format([voice], window.innerWidth-70);
-
-    voice.draw(ctx, stave);
-
-};
 //calculates the duration of the last note based on how many times the note occurs (for example if the music array has C/4 4 times, it will only show C/4 once as a half note); base (if note only occurs one time), is an eighth note; calls addNotes with duration parameters
 var rhythm = function() {
     //the most recent note picked up by the microphone
@@ -197,57 +266,8 @@ var rhythm = function() {
     }//end of else (last 2 notes are different)
 };
 
-////////////////////////////////////////////////////////////////////
-//takes the note (a string) from music (an array of strings) and converts it to an object that is pushed to notes (an array of objects)
-//parameters are duration (string) that specifies the name of note length and dot (boolean), whether the note should have a dot or not
-var addNotes = function(duration, dot){
-    //if dot (parameter, boolean) is true, create a note with the dot
-    if (dot) {
-        //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
-        //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
-        if (noteToAdd.substring(1,2)==="#"){
-            //apple is just a random name for a new note because we already have variables named note and notes
-            var apple = new Vex.Flow.StaveNote({keys:[noteToAdd], duration: duration}).addAccidental(0, new Vex.Flow.Accidental("#")).addDotToAll();
-        } else {
-            var apple = new Vex.Flow.StaveNote({keys: [noteToAdd], duration: duration}).addDotToAll();
-        }//end of else (natural)
-    } else {
-        //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
-        //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
-        if (noteToAdd.substring(1,2)==="#"){
-            //apple is just a random name for a new note because we already have variables named note and notes
-            var apple = new Vex.Flow.StaveNote({keys:[noteToAdd], duration: duration}).addAccidental(0, new Vex.Flow.Accidental("#"));
-        } else {
-            var apple = new Vex.Flow.StaveNote({keys: [noteToAdd], duration: duration});
-        }//end of else (natural)   
-    }//end of else (no dot)
-   
 
-    //push the note to notes (array of note objects)
-    notes.push(apple);
-    //go to the next function 
-    createStaves();
-};
 
-//decides which stave on the page the notes should be added to (if there are too many notes on one stave, it will tell drawStaves to create a new stave)
-var createStaves = function(){
-    var num = notesPerLine();
-    // console.log("length of music", music.length, "should equal length of notes", notes.length);
-    console.log("notes per line", num);
-    if (notes.length>num){
-        console.log("notes.length is greater than num");
-        //reset music (strings) for a new line
-        music = [];
-        console.log("totalNotes", totalNotes);
-        totalNotes = totalNotes.concat(notes);
-        notes = notes.slice(num);
-        console.log("notes after slice:", notes);
-        stave +=1;
-        console.log(stave);
-    }
-    clef();
-    // drawStaves(stave);
-};
 
 
 
@@ -379,7 +399,7 @@ yinBuffer = new Array(input.length/2);
 //calculate pitch with YIN algorithm
 //console.log("audioContext.sampleRate: "+audioContext.sampleRate);
 my_YIN(input,audioContext.sampleRate); 
-console.log("sample rate is ", audioContext.sampleRate, "samples per second");
+// console.log("sample rate is ", audioContext.sampleRate, "samples per second");
 
 }
 
