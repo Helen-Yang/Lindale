@@ -26,14 +26,38 @@ var start = function() {
     //clear all the notes in the input (array music) and what is shown on the screen (array notes)
     music = [];
     notes = [];
+    //reset staveNum so notes will be added to first stave
+    staveNum = 1;
     addToArray = true;
 };
+
 //when stop button clicked, stops adding notes to array
 var stop = function() {
     addToArray = false; 
 };
+
+//stop recording, basically start over by clearing the staves and resetting the notes recorded
+var clearStaves = function() {
+    addToArray = false;
+    music = [];
+    notes = [];
+    //go through all the staves that have music and clear them
+    for (var i = 1; i <= staveNum; i ++){
+        //create string of the id of the canvas 
+        var id = "canvas" + i; 
+        //the HTML to add (without the staves drawn)
+        innerHTMLtoAdd = String("<canvas id= " + id  + " width=window.innerWidth height=200></canvas> <!-- sheet music will go here (modified by javascript) -->");
+        //create the id of the divl;
+        var id1 = "div." + i; 
+        //use jQuery to select the divs of the staves
+        $(id1).html(innerHTMLtoAdd); 
+    }
+};
+
 //when filter button clicked, will filter out notes outside the normal range of the human voice
 var filter = function() {
+    //change the background color of button so the user knows that they have selected filter
+    document.getElementById("filter").style.background= "#5FACF8";
     filterNotes = true;
 };
 
