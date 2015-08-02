@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<script src="http://www.vexflow.com/support/vexflow-debug.js"></script>
-  <script src="http://www.vexflow.com/support/vexflow-min.js"></script>
-  <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+	<meta charset="UTF-8">
+	<script src="http://www.vexflow.com/support/vexflow-debug.js"></script>
+	<script src="http://www.vexflow.com/support/vexflow-min.js"></script>
+	<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+	<!-- BOOTSTRAP -->
+	<!-- Latest compiled and minified CSS -->
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
+	<!-- Optional theme -->
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"> -->
+	<!-- Latest compiled and minified JavaScript -->
+	<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
+
 	<title>From Sound to Song</title>
 </head>
 <body>
+	 <form role="form">
+  		<div class="form-group">
+    		<label for="Title">Title:</label>
+    		<input type="text" class="form-control" id="Title">
+	  	</div>
+	  	
+	</form>
 	<p>hi there. js below</p>
 	
 	<p id="noteString"></p>
@@ -16,6 +31,7 @@
 	<button onclick="start()">start</button>
 	<button onclick="stop()">stop</button>
 	<button onclick="save()">save music</button>
+	<br>
 	<p id="test">test paragraph</p>
 	
 	<div class="description 1">
@@ -93,6 +109,6 @@
 		<!-- sheet music will go here (modified by javascript) -->
 	</div>
 
-<script type="text/javascript" src="my_javascript.js"></script>
+	<script type="text/javascript" src="my_javascript.js"></script>
 </body>
 </html>
