@@ -41,12 +41,13 @@
 		background:url(paper56.jpg);
 		/*background: url(http://p1.pichost.me/i/15/1376721.jpg);*/
 		background-size: cover;
+		background-repeat: none;
 	}
 
 	</style>
 	
 </head>
-<body id = "change" onload="setbackground()">
+<body id = "change">
 	<a href="log in pop up.html" class="btn pull-right btn-default btn-sm" role="button" id = "logbutton">Log in</a>
 	<div class="container">
 		<div class="row">
@@ -61,13 +62,13 @@
 		console.log("login");
 	};
 
-	var rotate = false;
-	function setbackground(){
-	  window.setTimeout( "setbackground()", 5000);
-	  newImage = rotate ? 'url(paper56.jpg)' : 'url(paper38.jpg)';
-	  rotate = !rotate;
-	  document.getElementById('change').style.backgroundImage = newImage;
-	};
+	// var rotate = false;
+	// function setbackground(){
+	//   window.setTimeout( "setbackground()", 5000);
+	//   newImage = rotate ? 'url(paper56.jpg)' : 'url(paper38.jpg)';
+	//   rotate = !rotate;
+	//   document.getElementById('change').style.backgroundImage = newImage;
+	// };
 
 	// function popitup(url) {
  //  		return window.open(url, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no');
