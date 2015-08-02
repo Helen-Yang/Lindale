@@ -27,162 +27,151 @@ body{
     font-family:Arial, Helvetica, sans-serif;
 }
 
-#navigationMenu li{
-    list-style:none;
-    height:39px;
-    padding:2px;
-    width:40px;
-    float:left;
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
-
-#navigationMenu span{
-    /* Container properties */
-    width:0;
-    left:38px;
-    padding:0;
-    position:absolute;
-    overflow:hidden;
-
-    /* Text properties */
-    font-family:'Myriad Pro',Arial, Helvetica, sans-serif;
-    font-size:18px;
-    font-weight:bold;
-    letter-spacing:0.6px;
-    white-space:nowrap;
-    line-height:39px;
-    float:left;
-    
-    /* CSS3 Transition: */
-    -webkit-transition: 0.25s;
-    /*-o-transition: 0.25s;*/
-    
-    /* Future proofing (these do not work yet): */
-    -moz-transition: 0.25s;
-    transition: 0.25s;
+ 
+#wrapper.toggled {
+    padding-left: 250px;
 }
-
-#navigationMenu a{
-    background:url('http://cdn.1001freedownloads.com/vector/thumb/97157/treble_clef.png') no-repeat;
-
-    height:39px;
-    width:38px;
-    display:block;
-    position:relative;
-    float:left;
-
-}
-
-/* General hover styles */
-
-#navigationMenu a:hover span{ width:auto; padding:0 20px;overflow:visible; }
-#navigationMenu a:hover{
-    text-decoration:none;
-    
-    /* CSS outer glow with the box-shadow property */
-    -moz-box-shadow:0 0 5px #9ddff5;
-    -webkit-box-shadow:0 0 5px #9ddff5;
-    box-shadow:0 0 5px #9ddff5;
-}
-
-/* Green Button */
-
-#navigationMenu .home { background-position:0 0;}
-#navigationMenu .home:hover {   background-position:0 -39px;}
-#navigationMenu .home span{
-    background-color:#7da315;
-    color:#3d4f0c;
-    text-shadow:1px 1px 0 #99bf31;
-}
-
-/* Blue Button */
-
-#navigationMenu .about { background-position:-38px 0;}
-#navigationMenu .about:hover { background-position:-38px -39px;}
-#navigationMenu .about span{
-    background-color:#1e8bb4;
-    color:#223a44;
-    text-shadow:1px 1px 0 #44a8d0;
-}
-
-/* Orange Button */
-
-#navigationMenu .services { background-position:-76px 0;}
-#navigationMenu .services:hover { background-position:-76px -39px;}
-#navigationMenu .services span{
-    background-color:#c86c1f;
-    color:#5a3517;
-    text-shadow:1px 1px 0 #d28344;
-}
-
-/* Yellow Button */
-
-#navigationMenu .portfolio { background-position:-114px 0;}
-#navigationMenu .portfolio:hover{ background-position:-114px -39px;}
-#navigationMenu .portfolio span{
-    background-color:#d0a525;
-    color:#604e18;
-    text-shadow:1px 1px 0 #d8b54b;
-}
-
-/* Purple Button */
-
-#navigationMenu .contact { background-position:-152px 0;}
-#navigationMenu .contact:hover { background-position:-152px -39px;}
-#navigationMenu .contact span{
-    background-color:#af1e83;
-    color:#460f35;
-    text-shadow:1px 1px 0 #d244a6;
-}
-
-/* The styles below are only needed for the demo page */
-
-#main{
-    display: none;
-    margin:80px auto;
-    position:relative;
-    width:40px;
+ 
+#sidebar-wrapper {
+    z-index: 1000;
     position: fixed;
-    top: 18%;
-    left: 0%;
+    left: 150px;
+    width: 0; /* disini agar ketika di kecilkan tidak hilang semua default 0*/
+    height: 100%;
+    margin-left: -150px;
+    overflow-y: auto;
+    background: #000066;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
-
-
-h1{
-    color:#fff;
-    font-size:30px;
-    font-weight:normal;
-    padding:60px 0 20px;
-    text-align:center;
+#wrapper.toggled #sidebar-wrapper {
+    width: 250px;
 }
-
-h2{
-    font-weight:normal;
-    text-align:center;
+ 
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
 }
-
-h1,h2{
-    font-family:"Myriad Pro",Arial,Helvetica,sans-serif;
+ 
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -150px;
 }
-
-a, a:visited,a:active {
-    color:#0196e3;
-    text-decoration:none;
-    outline:none;
+.fixed-brand{
+    width: auto;
 }
-
-a:hover{
-    text-decoration:underline;
+/* Sidebar Styles */
+ 
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 150px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    margin-top: 2px;
 }
-
-a img{
-    border:none;
+ 
+.sidebar-nav li {
+    text-indent: 15px;
+    line-height: 40px;
 }
-
-p.note{
-    color:#707070;
-    font-size:10px;
-    text-align:center;
-    margin:50px;
+ 
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+}
+ 
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+    border-left: red 2px solid;
+}
+ 
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+ 
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+ 
+.sidebar-nav > .sidebar-brand a {
+    color: #999999;
+}
+ 
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+.no-margin{
+    margin:0;
+}
+ 
+@media(min-width:768px) {
+    #wrapper {
+        padding-left: 150px;
+    }
+    .fixed-brand{
+    width: 150px;
+}
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+ 
+    #sidebar-wrapper {
+        width: 150px;
+    }
+ 
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0px;
+    }
+    #wrapper.toggled-2 #sidebar-wrapper {
+        width: 0px;
+    }
+    #wrapper.toggled-2 #sidebar-wrapper:hover {
+        width: 0px;
+    }
+ 
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+         -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    }
+ 
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+        padding-left: 150px;
+ 
+    }
+        #wrapper.toggled-2 #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+        margin-left: -200px;
+         -webkit-transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+    }
 }
 .centered1 {
     position: fixed;
@@ -198,76 +187,98 @@ p.note{
     transform:translate(-50%, -50%);
 }
 
-#showNav{
-    position: fixed;
-    top: 0%;
-    left: 0%;
-}
     
 	</style>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
     
 </head>
 <body>
-	<center><button type="button" class="btn btn-primary btn-lg centered1">Create New Music</button><br>
-	<p></p></br>
-	<p></p></br>
-	<button type="button" class="btn btn-primary btn-lg centered2" onclick="location.href='create3.html'">Edit Existing Music</button></center>
-
-	<button id ="showNav" type="button" class="btn btn-large"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>
+	
     
 
-    <div id="main" style="float:left">
+    <nav class="navbar navbar-default no-margin">
+    <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header fixed-brand">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"  id="menu-toggle">
+                      <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+                    </button>
+                </div><!-- navbar-header-->
+ 
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li class="active" ><button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2"> <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span></button></li>
+                            </ul>
+                </div><!-- bs-example-navbar-collapse-1 -->
+    </nav>
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
+                <li>
+                    <a href="index2.html"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Home</a>
+                </li>
+                <li>
+                    <a href="create1.html"> <span class="fa-stack fa-lg pull-left"><i class="fa fa-cart-plus fa-stack-1x "></i></span>Create</a>
+                </li>
+                <li>
+                    <a href="Finishedsong.html"><span class="fa-stack fa-lg pull-left"><i class="fa fa-youtube-play fa-stack-1x "></i></span>Finished Pieces</a>
+                </li>
+                <li>
+                    <a href="donation.html"><span class="fa-stack fa-lg pull-left"><i class="fa fa-wrench fa-stack-1x "></i></span>Donate</a>
+                </li>
+                <li>
+                    <a href="contactus.html"><span class="fa-stack fa-lg pull-left"><i class="fa fa-server fa-stack-1x "></i></span>Contact</a>
+                </li>
+            </ul>
+        </div><!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <center><button type="button" class="btn btn-primary btn-lg centered1">Create New Music</button><br>
+    <p></p></br>
+    <p></p></br>
+    <button type="button" class="btn btn-primary btn-lg centered2" onclick="location.href='create3.html'">Edit Existing Music</button></center>
 
-    <ul id="navigationMenu">
-        <li id="nav" style="background-color:black">
-            <a class="home" href="#">
-                <span onclick="location.href='index2.html'">Home</span>
-            </a>
-        </li>
-        
-        <li id="nav2" style="background-color:white">
-            <a class="about" href="#">
-                <span onclick="location.href='create1.html'">Create</span>
-            </a>
-        </li>
-        
-        <li id="nav" style="background-color:black">
-             <a class="services" href="#">
-                <span onclick="location.href='donation.html'">Donate</span>
-             </a>
-        </li>
-        
-        <li id="nav2" style="background-color:white">
-            <a class="portfolio" href="#">
-                <span onclick="location.href='Finishedsong.html'">Finished Pieces</span>
-            </a>
-        </li>
-        
-        <li id="nav" style="background-color:black">
-            <a class="contact" href="#">
-                <span onclick="location.href='contactus.html'">Contact us</span>
-            </a>
-        </li>
-    </ul>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
     </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/sidebar_menu.js"></script>
 
 	<script type="text/javascript">
-        var showNav = false;
-        var showNav2=0;
-        $("#showNav").click(function(){
-            showNav2=0;
-            if (showNav==false && showNav2===0){
-                $("#main").css("display","block");
-                showNav=true;
-                showNav2=1;
+        $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+     $("#menu-toggle-2").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled-2");
+        $('#menu ul').hide();
+    });
+ 
+     function initMenu() {
+      $('#menu ul').hide();
+      $('#menu ul').children('.current').parent().show();
+      //$('#menu ul:first').show();
+      $('#menu li a').click(
+        function() {
+          var checkElement = $(this).next();
+          if((checkElement.is('ul')) && (checkElement.is(':visible'))) {
+            return false;
             }
-            if (showNav==true && showNav2 ===0){
-                $("#main").css("display","none");
-                showNav=false;
-                showNav2=0;
+          if((checkElement.is('ul')) && (!checkElement.is(':visible'))) {
+            $('#menu ul:visible').slideUp('normal');
+            checkElement.slideDown('normal');
+            return false;
             }
-        });
+          }
+        );
+      }
+    $(document).ready(function() {initMenu();});
 	</script>
 
 
