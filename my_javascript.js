@@ -17,6 +17,8 @@ var noteToAdd;
 //clef of the previous note being added, if defined; clef of the current note beng added
 var previousClef, currentClef;
 
+//for debugging, total notes recorded after start pressed until stop pressed
+var totalNotes = [];
 //================================================================================================================================
 
 //when start button clicked, clears array, then starts adding notes to array based on audio input
@@ -127,7 +129,6 @@ var clef = function(){
             staveNum += 1; 
             //reset music (strings) for a new line
             music = music.slice(music.length-1);
-            totalNotes = totalNotes.concat(notes);
             notes = notes.slice(notes.length-1);
         }
     }
@@ -142,26 +143,52 @@ var clef = function(){
 //takes the note (a string) from music (an array of strings) and converts it to an object that is pushed to notes (an array of objects)
 //parameters are duration (string) that specifies the name of note length and dot (boolean), whether the note should have a dot or not
 var addNotes = function(duration, dot){
-    //if dot (parameter, boolean) is true, create a note with the dot
-    if (dot) {
-        //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
-        //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
-        if (noteToAdd.substring(1,2)==="#"){
-            //apple is just a random name for a new note because we already have variables named note and notes
-            var apple = new Vex.Flow.StaveNote({keys:[noteToAdd], duration: duration}).addAccidental(0, new Vex.Flow.Accidental("#")).addDotToAll();
+    //vex flow has a bug where specifiying the clef while creating the staff doesn't work and it instead is always treble clef; this is a workaround
+    var octave = parseInt(noteToAdd.substring(noteToAdd.length-1));
+    //use bass clef
+    if (octave <= 3){
+        //if dot (parameter, boolean) is true, create a note with the dot
+        if (dot) {
+            //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
+            //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
+            if (noteToAdd.substring(1,2)==="#"){
+                //apple is just a random name for a new note because we already have variables named note and notes
+                var apple = new Vex.Flow.StaveNote({clef: "bass", keys:[noteToAdd], duration: duration}).addAccidental(0, new Vex.Flow.Accidental("#")).addDotToAll();
+            } else {
+                var apple = new Vex.Flow.StaveNote({clef: "bass", keys: [noteToAdd], duration: duration}).addDotToAll();
+            }//end of else (natural)
         } else {
-            var apple = new Vex.Flow.StaveNote({keys: [noteToAdd], duration: duration}).addDotToAll();
-        }//end of else (natural)
-    } else {
-        //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
-        //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
-        if (noteToAdd.substring(1,2)==="#"){
-            //apple is just a random name for a new note because we already have variables named note and notes
-            var apple = new Vex.Flow.StaveNote({keys:[noteToAdd], duration: duration}).addAccidental(0, new Vex.Flow.Accidental("#"));
+            //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
+            //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
+            if (noteToAdd.substring(1,2)==="#"){
+                //apple is just a random name for a new note because we already have variables named note and notes
+                var apple = new Vex.Flow.StaveNote({clef: "bass", keys:[noteToAdd], duration: duration}).addAccidental(0, new Vex.Flow.Accidental("#"));
+            } else {
+                var apple = new Vex.Flow.StaveNote({clef: "bass", keys: [noteToAdd], duration: duration});
+            }//end of else (natural)   
+        }//end of else (no dot)
+    } else { //treble clef
+        //if dot (parameter, boolean) is true, create a note with the dot
+        if (dot) {
+            //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
+            //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
+            if (noteToAdd.substring(1,2)==="#"){
+                //apple is just a random name for a new note because we already have variables named note and notes
+                var apple = new Vex.Flow.StaveNote({keys:[noteToAdd], duration: duration}).addAccidental(0, new Vex.Flow.Accidental("#")).addDotToAll();
+            } else {
+                var apple = new Vex.Flow.StaveNote({keys: [noteToAdd], duration: duration}).addDotToAll();
+            }//end of else (natural)
         } else {
-            var apple = new Vex.Flow.StaveNote({keys: [noteToAdd], duration: duration});
-        }//end of else (natural)   
-    }//end of else (no dot)
+            //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
+            //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
+            if (noteToAdd.substring(1,2)==="#"){
+                //apple is just a random name for a new note because we already have variables named note and notes
+                var apple = new Vex.Flow.StaveNote({keys:[noteToAdd], duration: duration}).addAccidental(0, new Vex.Flow.Accidental("#"));
+            } else {
+                var apple = new Vex.Flow.StaveNote({keys: [noteToAdd], duration: duration});
+            }//end of else (natural)   
+        }//end of else (no dot)
+    } //end of else (treble clef)
 
     //push the note to notes (array of note objects)
     notes.push(apple);
@@ -706,12 +733,14 @@ if(addToArray === true){
         if(filterOctave < 2 || filterOctave > 6){
         //don't add the note to the array if it is out of range 
         } else {
+        totalNotes.push(map[nearestIndex][0]);
         //update array music that contains notes
         music.push(map[nearestIndex][0]);
         //update the sheet music (the first step is function rhythm, each function goes to another function that eventually draws the music)
         rhythm();
         }
     } else {
+        totalNotes.push(map[nearestIndex][0]);
         //update array music that contains notes
         music.push(map[nearestIndex][0]);
         //update the sheet music (the first step is function rhythm, each function goes to another function that eventually draws the music)
