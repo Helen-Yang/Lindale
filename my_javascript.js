@@ -1,4 +1,6 @@
-//SOME GLOBAL VARIABLES
+
+//================================================================================================================================
+//some global variables
 //================================================================================================================================
 //array that will contain the notes to put on the sheet music (string like "C/4", not objects that Vexflow uses)
 var music = [];
@@ -8,14 +10,15 @@ var addToArray = false;
 var notes = [];
 //id number of staff; initialized as 1
 var staveNum = 1;
-//something for debugging- all the notes heard after start is pressed 
-var totalNotes = [];
 //if true, filter out notes outside the normal range of the human voice if the user presses a button
 var filterNotes = false;
 //the current note being converted from string to object
 var noteToAdd;
-var clef1, clef2;
-var currentClef; 
+//clef of the previous note being added, if defined; clef of the current note beng added
+var previousClef, currentClef;
+
+//for debugging, total notes recorded after start pressed until stop pressed
+var totalNotes = [];
 //================================================================================================================================
 
 //when start button clicked, clears array, then starts adding notes to array based on audio input
@@ -29,11 +32,13 @@ var start = function() {
 var stop = function() {
     addToArray = false; 
 };
-//================================================================================================================================
 //when filter button clicked, will filter out notes outside the normal range of the human voice
 var filter = function() {
     filterNotes = true;
 };
+
+//================================================================================================================================
+
 //linear regression; takes in the width and determines the optimal notes per line (very subjective)
 var notesPerLine = function(){
     var width = window.innerWidth-35;
@@ -41,25 +46,27 @@ var notesPerLine = function(){
     return notesPerLine;
 };
 //================================================================================================================================
+//the actual conversion of strings to objects and subsequent drawing of those on the staves
+//code is in the opposite order as it executes so that functions will be defined above when they are used (so drawStaves is the last function executed)
+//================================================================================================================================
 
-//draws the actual music with parameter stave (int) which is the number (1 = 1st stave on page, etc.)
+
+//draws the actual music with parameter staveNum (int) which is the number (1 = 1st staff on page, etc.)
 var drawStaves = function (staveNum) {
-    //convert stave (int) to string
+    //convert staveNum (int) to string
     staveNum = String(staveNum);
-    //create string id for which canvas the stave should be located on
+    //create string id for which canvas the staff should be located on
     var id = "div." + staveNum + " canvas";
-    console.log(id, "id");
+    //use jQuery to select the canvas where the staff will be located
     var canvas = $(id)[0];
     var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
     var ctx = renderer.getContext();
-    //width is first parameter
-    renderer.resize(window.innerWidth-35, 150); // Resize and clear canvas
-          
+     // Resize and clear canvas; parameters: width, height
+    renderer.resize(window.innerWidth-35, 150);
     //first 2 parameters are position, last is width of staff
     var stave = new Vex.Flow.Stave(10, 0, window.innerWidth-35);
-    //get the correct clef from the clef function above
+    //get the correct clef (treble or bass) from the clef function 
     stave.addClef(currentClef).setContext(ctx).draw(); 
-
 
     var voice = new Vex.Flow.Voice({
         num_beats: notes.length, 
@@ -73,122 +80,121 @@ var drawStaves = function (staveNum) {
     var formatter = new Vex.Flow.Formatter().joinVoices([voice]).format([voice], window.innerWidth-70);
 
     voice.draw(ctx, stave);
+}; //end of drawStaves function
 
-};
 //decides which stave on the page the notes should be added to (if there are too many notes on one stave, it will tell drawStaves to create a new stave)
-
 var createStaves = function(){
+    //num is the ideal number of notes per line calculated by function notesPerLine
     var num = notesPerLine();
-    // console.log("length of music", music.length, "should equal length of notes", notes.length);
-    console.log("notes per line", num);
-    if (notes.length>num){
-        console.log("notes.length is greater than num");
-        //reset music (strings) for a new line
+    //if the notes that will be put on this line is greater than the ideal number of notes per line
+    if (notes.length > num){
+        //reset music (array of strings) for a new line
         music = [];
-        console.log("music array should be empty", music);
-        console.log("totalNotes", totalNotes);
-        totalNotes = totalNotes.concat(notes);
+        //
         notes = notes.slice(num);
-        console.log("notes after slice:", notes);
+        //go to the next stave
         staveNum +=1;
-        console.log(staveNum);
     }
-    
+    //go to the next function, with parameter staveNum (the number of the stave on which the notes will be drawn)
     drawStaves(staveNum);
-};
-//decides whether to use treble or bass clef
+}; //end of createStaves function
+
+//decides whether to use treble or bass clef, also starts new line if clef of current note is different from clef of previous note
 var clef = function(){
-    // //variables that count the number of notes that should be using bass clef and treble clef
-    // var bassClef = 0;
-    // var trebleClef = 0; 
-    // //get the octaves
-    // for (var i = 0; i < notes.length; i++){
-    //     //get the string of the note
-    //     var key = notes[i].keys[0];
-    //     //get the octave from the string note, make it into an integer
-    //     var octave = parseInt(key.substring(key.length-1));
-    //     //if the octave is less than or equal to 3, then it should be using bass clef, otherwise it should be using treble clef
-    //     if(octave <= 3){
-    //         bassClef ++;
-    //     } else {
-    //         trebleClef ++;
-    //     }
-    // }
-    // //check if more notes are in the bass clef range or treble clef range, return clef so that in drawNotes the correct clef will be created
-    // // console.log(bassClef, trebleClef);
-    // if (bassClef > trebleClef){
-    //     return "bass";
-    // } else {
-    //     return "treble";
-    // }
+    //key is the string of the current note 
     var key = notes[notes.length-1].keys[0];
+        //octave is the number of the octave (the last character of the string key), convert to number to be able to use operators to compare
         var octave = parseInt(key.substring(key.length-1));
+        //if the octave is less than or equal to 3, set currentClef to bass clef; otherwise set it to treble
         if (octave <= 3){
-            clef2 = "bass";
+            currentClef = "bass";
         } else {
-            clef2 = "treble";
+            currentClef = "treble";
         }
-    currentClef = clef2;
 
-    if (notes.length>1) {
+    //only checks for the clef of the note before the current note if the previous note actually exists
+    if (notes.length > 1) {
+        //key is string of note before the current note
         var key = notes[notes.length-2].keys[0];
+        //again, octave is the number of the octave (the last character of the string key), convert to number to be able to use operators to compare
         var octave = parseInt(key.substring(key.length-1));
         if (octave <= 3){
-            clef1 = "bass";
+            previousClef = "bass";
         } else {
-            clef1 = "treble";
+            previousClef = "treble";
         }
 
-        
-//NEED TO FIX THIS PART WONT WORK
         //if clefs are different, start a new staff
-        if (clef1 != clef2){
+        if ((previousClef === "treble" && currentClef === "bass") || (previousClef === "bass" && currentClef === "treble")){
             staveNum += 1; 
-        //reset music (strings) for a new line
-        music = [];
-        totalNotes = totalNotes.concat(notes);
-        notes = notes.slice(notes.length-1);
+            //reset music (strings) for a new line
+            music = music.slice(music.length-1);
+            notes = notes.slice(notes.length-1);
         }
     }
+    //stop if there are more than 15 staves (currently there are only 15 divs with canvases on the page)
     if (staveNum>15){
         return;
     }
+    //go to the next function
     createStaves();
-};
+}; //end of clef function
 
-////////////////////////////////////////////////////////////////////
 //takes the note (a string) from music (an array of strings) and converts it to an object that is pushed to notes (an array of objects)
 //parameters are duration (string) that specifies the name of note length and dot (boolean), whether the note should have a dot or not
 var addNotes = function(duration, dot){
-    //if dot (parameter, boolean) is true, create a note with the dot
-    if (dot) {
-        //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
-        //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
-        if (noteToAdd.substring(1,2)==="#"){
-            //apple is just a random name for a new note because we already have variables named note and notes
-            var apple = new Vex.Flow.StaveNote({keys:[noteToAdd], duration: duration}).addAccidental(0, new Vex.Flow.Accidental("#")).addDotToAll();
+    //vex flow has a bug where specifiying the clef while creating the staff doesn't work and it instead is always treble clef; this is a workaround
+    var octave = parseInt(noteToAdd.substring(noteToAdd.length-1));
+    //use bass clef
+    if (octave <= 3){
+        //if dot (parameter, boolean) is true, create a note with the dot
+        if (dot) {
+            //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
+            //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
+            if (noteToAdd.substring(1,2)==="#"){
+                //apple is just a random name for a new note because we already have variables named note and notes
+                var apple = new Vex.Flow.StaveNote({clef: "bass", keys:[noteToAdd], duration: duration}).addAccidental(0, new Vex.Flow.Accidental("#")).addDotToAll();
+            } else {
+                var apple = new Vex.Flow.StaveNote({clef: "bass", keys: [noteToAdd], duration: duration}).addDotToAll();
+            }//end of else (natural)
         } else {
-            var apple = new Vex.Flow.StaveNote({keys: [noteToAdd], duration: duration}).addDotToAll();
-        }//end of else (natural)
-    } else {
-        //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
-        //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
-        if (noteToAdd.substring(1,2)==="#"){
-            //apple is just a random name for a new note because we already have variables named note and notes
-            var apple = new Vex.Flow.StaveNote({keys:[noteToAdd], duration: duration}).addAccidental(0, new Vex.Flow.Accidental("#"));
+            //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
+            //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
+            if (noteToAdd.substring(1,2)==="#"){
+                //apple is just a random name for a new note because we already have variables named note and notes
+                var apple = new Vex.Flow.StaveNote({clef: "bass", keys:[noteToAdd], duration: duration}).addAccidental(0, new Vex.Flow.Accidental("#"));
+            } else {
+                var apple = new Vex.Flow.StaveNote({clef: "bass", keys: [noteToAdd], duration: duration});
+            }//end of else (natural)   
+        }//end of else (no dot)
+    } else { //treble clef
+        //if dot (parameter, boolean) is true, create a note with the dot
+        if (dot) {
+            //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
+            //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
+            if (noteToAdd.substring(1,2)==="#"){
+                //apple is just a random name for a new note because we already have variables named note and notes
+                var apple = new Vex.Flow.StaveNote({keys:[noteToAdd], duration: duration}).addAccidental(0, new Vex.Flow.Accidental("#")).addDotToAll();
+            } else {
+                var apple = new Vex.Flow.StaveNote({keys: [noteToAdd], duration: duration}).addDotToAll();
+            }//end of else (natural)
         } else {
-            var apple = new Vex.Flow.StaveNote({keys: [noteToAdd], duration: duration});
-        }//end of else (natural)   
-    }//end of else (no dot)
-   
+            //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
+            //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
+            if (noteToAdd.substring(1,2)==="#"){
+                //apple is just a random name for a new note because we already have variables named note and notes
+                var apple = new Vex.Flow.StaveNote({keys:[noteToAdd], duration: duration}).addAccidental(0, new Vex.Flow.Accidental("#"));
+            } else {
+                var apple = new Vex.Flow.StaveNote({keys: [noteToAdd], duration: duration});
+            }//end of else (natural)   
+        }//end of else (no dot)
+    } //end of else (treble clef)
 
     //push the note to notes (array of note objects)
     notes.push(apple);
     //go to the next function 
     clef();
-};
-
-
+}; //end of addNotes function
 
 //calculates the duration of the last note based on how many times the note occurs (for example if the music array has C/4 4 times, it will only show C/4 once as a half note); base (if note only occurs one time), is an eighth note; calls addNotes with duration parameters
 var rhythm = function() {
@@ -264,13 +270,36 @@ var rhythm = function() {
         duration = "8";
         addNotes(duration, false);
     }//end of else (last 2 notes are different)
-};
+}; //end of rhythm function
 
 
+//================================================================================================================================
+//================================================================================================================================
+//================================================================================================================================
+//takes each stave (each within a canvas) and gets the image url as a data URI
+var save = function() {
+    //loop through all the canvases on the page; starts with 1
+    var HTMLstring=""; 
+    for(var i = 1; i <= staveNum; i++){
+        var id = String("canvas" + i); 
+        var myCanvas = document.getElementById(id);
+        var musicImage =  myCanvas.toDataURL();
+        // window.open(musicImage);
+        shortHTMLstring = " <img src=" + "\"" + musicImage +"\"" + ">";
+        HTMLstring = HTMLstring.concat(shortHTMLstring);
+        console.log(HTMLstring);
+    }
+        
+        document.open();
+        document.write("<script src='http://code.jquery.com/jquery-2.1.0.min.js'></script>" + HTMLstring + "<script>$('#test').append(HTMLstring)</script>");
+        document.close();
 
+}; //end of save function
 
-
-
+//================================================================================================================================
+//================================================================================================================================
+//the code that actually determines the notes being played (written by Myron Apostolakis); github: https://github.com/myapos/e-tuner
+//================================================================================================================================
 //================================================================================================================================
 
 var goalfrequency; //Hz
@@ -653,12 +682,6 @@ if(map[index1][index2]==goalfrequency){
 //console.log("Matching note is:"+map[index1][0]);
 
 
-
-
-
-
-
-//THIS IS THE MOST IMPORTANT PART!!! using jquery to access object with id noteString; this is the note if it matches the frequency; if doesn't match exactly is below
 //==========================================================================================================================================================
 //===============================================================================================================================================================================================================
 //====================================================================================================================================================================================================================================================================================
@@ -695,12 +718,6 @@ nearestIndex = calculateNearestValue();
 //======================
 $(noteString).text( map[nearestIndex][0]);
 
-//==========================================================================================================================================================
-//==========================================================================================================================================================
-//==========================================================================================================================================================
-//==========================================================================================================================================================
-//==========================================================================================================================================================
-//==========================================================================================================================================================
 
 deviation = goalfrequency-map[nearestIndex][1];
 //console.log("Nearest tone is:"+map[nearestIndex][0]+ " with deviation:"+deviation);
@@ -716,12 +733,14 @@ if(addToArray === true){
         if(filterOctave < 2 || filterOctave > 6){
         //don't add the note to the array if it is out of range 
         } else {
+        totalNotes.push(map[nearestIndex][0]);
         //update array music that contains notes
         music.push(map[nearestIndex][0]);
         //update the sheet music (the first step is function rhythm, each function goes to another function that eventually draws the music)
         rhythm();
         }
     } else {
+        totalNotes.push(map[nearestIndex][0]);
         //update array music that contains notes
         music.push(map[nearestIndex][0]);
         //update the sheet music (the first step is function rhythm, each function goes to another function that eventually draws the music)
@@ -729,7 +748,7 @@ if(addToArray === true){
    }
 
 }
-//console.log(music);
+
 //end stuff i edited 
 //==========================================================================================================================================================
 //==========================================================================================================================================================
