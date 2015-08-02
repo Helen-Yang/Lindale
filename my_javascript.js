@@ -14,8 +14,9 @@ var totalNotes = [];
 var filterNotes = false;
 //the current note being converted from string to object
 var noteToAdd;
-var clef1, clef2;
-var currentClef; 
+//clef of the previous note being added, if defined; clef of the current note beng added
+var previousClef, currentClef;
+
 //================================================================================================================================
 
 //when start button clicked, clears array, then starts adding notes to array based on audio input
@@ -42,9 +43,9 @@ var notesPerLine = function(){
 };
 //================================================================================================================================
 
-//draws the actual music with parameter stave (int) which is the number (1 = 1st stave on page, etc.)
+//draws the actual music with parameter staveNum (int) which is the number (1 = 1st stave on page, etc.)
 var drawStaves = function (staveNum) {
-    //convert stave (int) to string
+    //convert staveNum (int) to string
     staveNum = String(staveNum);
     //create string id for which canvas the stave should be located on
     var id = "div." + staveNum + " canvas";
@@ -98,61 +99,43 @@ var createStaves = function(){
 };
 //decides whether to use treble or bass clef
 var clef = function(){
-    // //variables that count the number of notes that should be using bass clef and treble clef
-    // var bassClef = 0;
-    // var trebleClef = 0; 
-    // //get the octaves
-    // for (var i = 0; i < notes.length; i++){
-    //     //get the string of the note
-    //     var key = notes[i].keys[0];
-    //     //get the octave from the string note, make it into an integer
-    //     var octave = parseInt(key.substring(key.length-1));
-    //     //if the octave is less than or equal to 3, then it should be using bass clef, otherwise it should be using treble clef
-    //     if(octave <= 3){
-    //         bassClef ++;
-    //     } else {
-    //         trebleClef ++;
-    //     }
-    // }
-    // //check if more notes are in the bass clef range or treble clef range, return clef so that in drawNotes the correct clef will be created
-    // // console.log(bassClef, trebleClef);
-    // if (bassClef > trebleClef){
-    //     return "bass";
-    // } else {
-    //     return "treble";
-    // }
+    //key is the string of the current note 
     var key = notes[notes.length-1].keys[0];
+        //octave is the number of the octave (the last character of the string key), convert to number to be able to use operators to compare
         var octave = parseInt(key.substring(key.length-1));
+        //if the octave is less than or equal to 3, set currentClef to bass clef; otherwise set it to treble
         if (octave <= 3){
-            clef2 = "bass";
+            currentClef = "bass";
         } else {
-            clef2 = "treble";
+            currentClef = "treble";
         }
-    currentClef = clef2;
 
-    if (notes.length>1) {
+    //only checks for the clef of the note before the current note if the previous note actually exists
+    if (notes.length > 1) {
+        //key is string of note before the current note
         var key = notes[notes.length-2].keys[0];
+        //again, octave is the number of the octave (the last character of the string key), convert to number to be able to use operators to compare
         var octave = parseInt(key.substring(key.length-1));
         if (octave <= 3){
-            clef1 = "bass";
+            previousClef = "bass";
         } else {
-            clef1 = "treble";
+            previousClef = "treble";
         }
 
-        
-//NEED TO FIX THIS PART WONT WORK
         //if clefs are different, start a new staff
-        if (clef1 != clef2){
+        if ((previousClef === "treble" && currentClef === "bass") || (previousClef === "bass" && currentClef === "treble")){
             staveNum += 1; 
-        //reset music (strings) for a new line
-        music = [];
-        totalNotes = totalNotes.concat(notes);
-        notes = notes.slice(notes.length-1);
+            //reset music (strings) for a new line
+            music = music.slice(music.length-1);
+            totalNotes = totalNotes.concat(notes);
+            notes = notes.slice(notes.length-1);
         }
     }
+    //stop if there are more than 15 staves (currently there are only 15 divs with canvases on the page)
     if (staveNum>15){
         return;
     }
+    //go to the next function
     createStaves();
 };
 
@@ -269,8 +252,28 @@ var rhythm = function() {
 
 
 
+//================================================================================================================================
+//================================================================================================================================
+//================================================================================================================================
+//comment here.........................................
+var save = function() {
+    //loop through all the canvases on the page; starts with 1
+    var HTMLstring=""; 
+    for(var i = 1; i <= staveNum; i++){
+        var id = String("canvas" + i); 
+        var myCanvas = document.getElementById(id);
+        var musicImage =  myCanvas.toDataURL();
+        // window.open(musicImage);
+        shortHTMLstring = " <img src=" + "\"" + musicImage +"\"" + ">";
+        HTMLstring = HTMLstring.concat(shortHTMLstring);
+        console.log(HTMLstring);
+    }
+        
+        document.open();
+        document.write("<script src='http://code.jquery.com/jquery-2.1.0.min.js'></script>" + HTMLstring + "<script>$('#test').append(HTMLstring)</script>");
+        document.close();
 
-
+};
 //================================================================================================================================
 
 var goalfrequency; //Hz
