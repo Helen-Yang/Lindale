@@ -29,11 +29,13 @@ var start = function() {
     //reset staveNum so notes will be added to first stave
     staveNum = 1;
     addToArray = true;
+    $("#recording").show();
 };
 
 //when stop button clicked, stops adding notes to array
 var stop = function() {
     addToArray = false; 
+    $("#recording").hide();
 };
 
 //stop recording, basically start over by clearing the staves and resetting the notes recorded
