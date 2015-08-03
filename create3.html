@@ -171,11 +171,25 @@
     padding-left: 10px;
 }
 
+#table2 {
+    left: 3%;
+    top: 15%;
+    padding-left: 10px;
+}
+
 #title {
 	font-family: 'Josefin Slab';
 	font-weight: bold;
     padding-left: 20px;
     top: 5%
+}
+
+#page2 {
+	display: none;
+}
+
+#page1 {
+	display: block;
 }
 
 /*#table2 {
@@ -242,8 +256,9 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
+            <div id="page1">
                 <h1 style="font-size:50px;text-decoration:none;color:#0066CC" id="title"> Songs in Progress</h1>
-	<table class="table table-striped" style="font-family: 'Josefin Slab'; font-weight: bold;">
+	<table class="table table-striped" style="font-family: 'Josefin Slab'; font-weight: bold;" id="table">
       <thead>
         <tr>
           <th></th>
@@ -281,12 +296,13 @@
 
 			  </div>
 			</div>
+			<a href="#" class="btn btn-default btn-sm" role="button" id="publish1">Publish</a>
           </td>
         </tr>
         <tr>
           <th></th>
           <th style="font-size: 18px">2</th>
-          <td style="font-size: 18px">Lady's Walk</td>
+          <td style="font-size: 18px">Lady Walk</td>
           <td> <a href="create4.html" class="btn btn-default btn-sm" role="button">Edit</a> <button class="btn btn-default btn-sm" role="button" data-toggle="modal" data-target="#myModal">Delete</button>
 
 			<!-- Modal -->
@@ -309,6 +325,7 @@
 
 			  </div>
 			</div>
+			<a href="#" class="btn btn-default btn-sm" role="button" id="publish2">Publish</a>
 			</td>
         </tr>
         <tr>
@@ -337,6 +354,7 @@
 
 			  </div>
 			</div>
+			<a href="#" class="btn btn-default btn-sm" role="button" id="publish3">Publish</a>
           </td>
         </tr>
         <tr>
@@ -344,7 +362,40 @@
         </tr>
       </tbody>
     </table>
-            </div>
+    </div>
+    	<div id="page2">
+        <h1 style="font-size:50px;text-decoration:none;color:#0066CC" id="title"> Song Collage</h1>
+	<table class="table table-hover" style="font-family: 'Josefin Slab'; font-weight: bold;" id="table2">
+      <thead>
+        <tr>
+          <th></th>
+          <th style="font-size:30px;vertical-align:middle; text-decoration:none;color:#42ADFF">&#9839;</th>
+          <th style="font-size:24px;vertical-align:middle; text-decoration:none;color:#42ADFF">Song Name</th>
+          <th style="font-size:24px;vertical-align:middle; text-decoration:none;color:#42ADFF"> Actions &#9838;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th></th>
+          <th style="font-size: 18px">1</th>
+          <td style="font-size: 18px">Sonata Bot</td>
+          <td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td>
+        </tr>
+        <tr>
+          <th></th>
+          <th style="font-size: 18px">2</th>
+          <td style="font-size: 18px">Stormy Heart</td>
+          <td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td>
+        </tr>
+        <tr>
+          <th></th>
+          <th style="font-size: 18px">3</th>
+          <td style="font-size: 18px">School Bells</td>
+          <td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
         </div>
         <!-- /#page-content-wrapper -->
     </div>
@@ -354,6 +405,22 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/sidebar_menu.js"></script>
     <script type="text/javascript">
+    	$("#publish1").click(function(){
+    		$("#page1").css("display","none");
+    		$("#page2").css("display","block");
+    		$('#table2').append('<tr><th></th><th style="font-size: 18px">4</th><td style="font-size: 18px">Night Serenade</td><td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td></tr>');
+
+    	});
+    	$("#publish2").click(function(){
+    		$("#page1").css("display","none");
+    		$("#page2").css("display","block");
+    		$('#table2').append('<tr><th></th><th style="font-size: 18px">4</th><td style="font-size: 18px">Lady Walk</td><td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td></tr>');
+    	});
+    	$("#publish3").click(function(){
+    		$("#page1").css("display","none");
+    		$("#page2").css("display","block");
+    		$('#table2').append('<tr><th></th><th style="font-size: 18px">4</th><td style="font-size: 18px">Cherry Breeze</td><td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td></tr>');
+    	});
     	var deletesong = function() {
     		alert("Deleting...");
     	};
