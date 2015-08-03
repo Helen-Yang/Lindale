@@ -11,7 +11,7 @@
 
 <div class="container">
   <ul class="list-inline">
-    <li class="container-fluid" style="float:right"><a href="#" title="Doge" data-toggle="popover" data-placement="bottom" data-content="Level 1" ><img src="https://pbs.twimg.com/profile_images/417201275466690560/TzVjIXv2.jpeg" width="35px" height="35px"></a></li>
+    <li class="container-fluid" style="float:right" id="doge"><a href="#" title="Doge" data-toggle="popover" data-placement="bottom" data-content="Level 1<br />level2"><img src="https://pbs.twimg.com/profile_images/417201275466690560/TzVjIXv2.jpeg" width="35px" height="35px"></a>
   </ul>
 </div>
 
@@ -19,6 +19,21 @@
 $(document).ready(function(){
     $('[data-toggle="popover"]').popover();   
 });
+
+$("#doge").hover(function () {
+    $(this).popover({
+        title: "Doge",
+        placement:"bottom",
+
+        content: "Level: 1 <br />Songs: 3 <br />",
+        // content: <a href="Main Homepage.html"> Log Out</a>
+        html: true
+    }).popover('show');
+}, function () {
+    $(this).popover('hide');
+});
+
+
 </script>
 
 </body>
