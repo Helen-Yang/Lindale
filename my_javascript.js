@@ -16,7 +16,8 @@ var filterNotes = false;
 var noteToAdd;
 //clef of the previous note being added, if defined; clef of the current note beng added
 var previousClef, currentClef;
-
+//when start is pressed, then this is true; clears notes and music so if there were notes picked up right before start, they won't be drawn on the music
+var firstTime; 
 //for debugging, total notes recorded after start pressed until stop pressed
 var totalNotes = [];
 //================================================================================================================================
@@ -30,6 +31,7 @@ var start = function() {
     staveNum = 1;
     addToArray = true;
     $("#recording").show();
+    firstTime = true; 
 };
 
 //when stop button clicked, stops adding notes to array
@@ -62,6 +64,34 @@ var filter = function() {
     document.getElementById("filter").style.background= "#5FACF8";
     filterNotes = true;
 };
+
+//takes each stave (each within a canvas) and gets the image url as a data URI
+var save = function() {
+    //get the height and width of one of the staves (all 15 should be the same)
+    var height = document.getElementById("canvas1").height;
+    var width = document.getElementById("canvas1").width;
+    //make sure the new canvas will be tall enough for all of the staves
+    var newHeight = 16*height; 
+    //create the new canvas
+    document.getElementById("newCanvas").innerHTML = "<canvas id='downloadCanvas'" + " height=" + newHeight + " width=" + width +"></canvas>";
+    //select downloadCanvas which will be the combination of all the canvases
+    var downloadCanvas = document.getElementById("downloadCanvas");
+    var ctx1 = downloadCanvas.getContext("2d");   
+    //go through each of the canvases that are used
+    for (var i = 1; i <= 15; i++){
+        var id = String("canvas" + i); 
+        console.log(id);
+        var canvas = document.getElementById(id);
+        //added each of the canvases to downloadCanvas
+        //width, height
+        ctx1.drawImage(canvas, 0, height*i);
+    }
+    //get the data url for the combined staves
+    var musicImage =  downloadCanvas.toDataURL();
+    //put the combined staves as the link for the download button
+    $("#enterButton").attr("href", musicImage);
+
+}; //end of save function
 
 //================================================================================================================================
 
@@ -113,11 +143,12 @@ var createStaves = function(){
     //num is the ideal number of notes per line calculated by function notesPerLine
     var num = notesPerLine();
     //if the notes that will be put on this line is greater than the ideal number of notes per line
-    if (notes.length > num){
+    if (notes.length === num){
         //reset music (array of strings) for a new line
         music = [];
         //
-        notes = notes.slice(num);
+        notes = [];
+        // notes = notes.slice(num);
         //go to the next stave
         staveNum +=1;
     }
@@ -234,7 +265,79 @@ var rhythm = function() {
                         if (noteToAdd === music[music.length-7]){
                             if  (noteToAdd === music[music.length-8]){
                                 if (noteToAdd === music[music.length-9]){
+                                    if (noteToAdd === music[music.length-10]){
+                                        if (noteToAdd === music[music.length-11]){
+                                            if (noteToAdd === music[music.length-12]){
+                                                if (noteToAdd === music[music.length-13]){
+                                                    if (noteToAdd === music[music.length-14]){
+                                                        if (noteToAdd === music[music.length-15]){
+                                                            if (noteToAdd === music[music.length-16]){
+                                                                if (noteToAdd === music[music.length-17]){
 
+                                                                } else {
+                                                                    //last 16 are same but not 17th
+                                                                    //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+                                                                    notes.pop();
+                                                                    duration = "w";
+                                                                    addNotes(duration, false);
+                                                                }
+                                                            } else {
+                                                                //last 15 are same but not 16th
+                                                                //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+                                                                notes.pop();
+                                                                //should be double dotted half tied to 16th but rounded
+                                                                duration = "w";
+                                                                addNotes(duration, false);
+                                                            }
+                                                        } else {
+                                                            //last 14 are same but not 15th
+                                                            //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+                                                            notes.pop();
+                                                            //should be double dotted half note but rounded
+                                                            duration = "hd";
+                                                            addNotes(duration, true);
+                                                        }
+                                                    } else {
+                                                        //last 13 are same but not 14th
+                                                        //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+                                                        notes.pop();
+                                                        //should be dotted half tied to 16th but rounded
+                                                        duration = "hd";
+                                                        addNotes(duration, true);
+
+                                                    }
+                                                } else {
+                                                     //last 12 are same but not 13th
+                                                    //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+                                                    notes.pop();
+                                                    
+                                                    duration = "hd";
+                                                    addNotes(duration, true);   
+                                                }
+                                            } else {
+                                                //last 11 are same but not 12th
+                                                //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+                                                notes.pop();
+                                                //should be half tied to dotted eighth but rounded
+                                                duration = "hd";
+                                                addNotes(duration, true);
+                                            }
+                                        } else {
+                                            //last 10 are same but not 11th
+                                            //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+                                            notes.pop();
+                                            //should be half tied to 16th but rounded
+                                            duration = "h";
+                                            addNotes(duration, false);
+                                        }
+                                    } else {
+                                        //last 9 are same but not 10th
+                                        //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+                                        notes.pop();
+                                        //should be half tied to 16th but rounded
+                                        duration = "h";
+                                        addNotes(duration, false);
+                                    }
                                 } else {
                                     //last 8 are same but not 9th
                                     //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
@@ -302,32 +405,7 @@ var rhythm = function() {
 //================================================================================================================================
 //================================================================================================================================
 //================================================================================================================================
-//takes each stave (each within a canvas) and gets the image url as a data URI
-var save = function() {
-    //get the height and width of one of the staves (all 15 should be the same)
-    var height = document.getElementById("canvas1").height;
-    var width = document.getElementById("canvas1").width;
-    //make sure the new canvas will be tall enough for all of the staves
-    var newHeight = 15*height; 
-    //create the new canvas
-    document.getElementById("newCanvas").innerHTML = "<canvas id='downloadCanvas'" + " height=" + newHeight + " width=" + width +"></canvas>";
-    //select downloadCanvas which will be the combination of all the canvases
-    var downloadCanvas = document.getElementById("downloadCanvas");
-    var ctx1 = downloadCanvas.getContext("2d");   
-    //go through each of the canvases that are used
-    for (var i = 1; i <= staveNum; i++){
-        var id = String("canvas" + i); 
-        var canvas = document.getElementById(id);
-        //added each of the canvases to downloadCanvas
-        //width, height
-        ctx1.drawImage(canvas, 0, height*i);
-    }
-    //get the data url for the combined staves
-    var musicImage =  downloadCanvas.toDataURL();
-    //put the combined staves as the link for the download button
-    $("#enterButton").attr("href", musicImage);
 
-}; //end of save function
 
 //================================================================================================================================
 //================================================================================================================================
@@ -761,6 +839,11 @@ deviation = goalfrequency-map[nearestIndex][1];
 //=============================================================================
 //if the start button is pressed (and then start function changes addToArray to true), add the notes picked up by microphone to array music
 if(addToArray === true){
+    if(firstTime === true){
+        music = [];
+        notes = []; 
+        firstTime = false;
+    }
     if(filterNotes === true){
         var filterOctave = parseInt(map[nearestIndex][0].substring(map[nearestIndex][0].length-1));
         if(filterOctave < 2 || filterOctave > 6){
