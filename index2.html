@@ -202,7 +202,7 @@ body{
     background: #E6E7ED;
     -moz-border-radius: 20px;
     -webkit-border-radius: 20px;
-    background-image: url(doge.jog);
+    background-image: url(dog.jpg);
     background-position:50% 50%;
     background-repeat:no-repeat;    
 }
@@ -238,8 +238,14 @@ body{
                     </button> -->
 
                 </div><!-- navbar-header-->
-                <button onlick=""><div id="userImage" ><img src="https://pbs.twimg.com/profile_images/417201275466690560/TzVjIXv2.jpeg" width="40px" height="40px" style="float:right;right:10%;padding:0px">
-                </div></button>
+                <!-- <div id="userImage" ><img src="https://pbs.twimg.com/profile_images/417201275466690560/TzVjIXv2.jpeg" width="40px" height="40px" style="float:right;right:10%;padding:0px">
+                </div> -->
+
+                <div class="container">
+                  <ul class="list-inline">
+                    <li class="container-fluid" style="float:right" id="doge"><a href="#" title="Doge" data-toggle="popover" data-placement="bottom" data-content="Level 1<br />level2"><img src="https://pbs.twimg.com/profile_images/417201275466690560/TzVjIXv2.jpeg" width="35px" height="35px" style="float:right;right:10%;padding:0px"></a>
+                  </ul>
+                </div>
 
  
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="position:fixed;">
@@ -370,6 +376,23 @@ body{
         );
       }
     $(document).ready(function() {initMenu();});
+
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover();   
+    });
+
+    $("#doge").hover(function () {
+        $(this).popover({
+            title: "Doge",
+            placement:"bottom",
+
+            content: "Level: 1 <br />Songs: 3 <br />",
+            // content: <a href="Main Homepage.html"> Log Out</a>
+            html: true
+        }).popover('show');
+    }, function () {
+        $(this).popover('hide');
+    });
 
         
 	</script>
