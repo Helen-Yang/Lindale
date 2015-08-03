@@ -309,19 +309,20 @@ var save = function() {
     // for(var i = 1; i <= staveNum; i++){
         var height = document.getElementById("canvas1").height;
         var width = document.getElementById("canvas1").width;
-        height = 15*height; 
-        document.getElementById("newCanvas").innerHTML = "<canvas id='downloadCanvas'" + " height=" + height + " width=" + width +"></canvas>";
+        newHeight = 15*height; 
+        document.getElementById("newCanvas").innerHTML = "<canvas id='downloadCanvas'" + " height=" + newHeight + " width=" + width +"></canvas>";
 
       var downloadCanvas = document.getElementById("downloadCanvas");
       var ctx1 = downloadCanvas.getContext("2d");   
         for (var i = 1; i <= staveNum; i++){
             var id = String("canvas" + i); 
             var canvas = document.getElementById(id);
-           //  var width = canvas.width; 
-            ctx1.drawImage(canvas, width*i ,0);
+            //width, height
+            ctx1.drawImage(canvas, 0, height*i);
         }
        
-        var musicImage =  downloadCanvas.toDataURL("image/jpeg", 1.0);
+        var musicImage =  downloadCanvas.toDataURL();
+
     //     // window.open(musicImage);
     //     shortHTMLstring = " <img src=" + "\"" + musicImage +"\"" + ">";
     //     HTMLstring = HTMLstring.concat(shortHTMLstring);
@@ -331,8 +332,8 @@ var save = function() {
         // document.open();
         // document.write("<script src='http://code.jquery.com/jquery-2.1.0.min.js'></script>" + HTMLstring + "<script>$('#test').append(HTMLstring)</script>");
         // document.close();
-        $("#downloadButton").show();
         $("#downloadButton").attr("href", musicImage);
+        $("#downloadButton").show();
 }; //end of save function
 
 //================================================================================================================================
