@@ -165,6 +165,135 @@
     }
 }
 
+#page1 {
+	display: block;
+}
+#page2 {
+	display: none;
+}
+#page3 {
+	display: none;
+}
+#page4 {
+	display: none;
+}
+#page5 {
+	display: none;
+}
+#page6 {
+	display: none;
+}
+#page7 {
+	display: none;
+}
+#page8 {
+	display: none;
+}
+
+
+
+/*=================================Page 1 CSS==============================================*/
+#hometable {
+    position: relative;
+    left: 3%;
+    top: 15%;
+    padding-left: 20px;
+}
+
+#hometitle {
+    font-family: 'Josefin Slab';
+    font-weight: bold;
+    padding-left: 25px;
+    top: 5%
+}
+
+#hometable2 {
+    position: relative;
+    top: 50%;
+    left: 3%;
+    padding-left: 20px;
+}
+
+#hometitle2 {
+    font-family: 'Josefin Slab';
+    font-weight: bold;
+    padding-left: 25px;
+    top: 40%;
+}
+.userImage{
+    display: block;
+    width: 40px;
+    height: 40px;
+    background: #E6E7ED;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    background-image: url(dog.jpg);
+    background-position:50% 50%;
+    background-repeat:no-repeat;    
+}
+
+/*=======================================Page 2 CSS======================================================*/
+.create1centered1 {
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    transform:translate(-50%, -50%);
+}
+
+.create1centered2 {
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform:translate(-50%, -50%);
+}
+
+/*=====================================Page 3 CSS================================================================*/
+#starting {
+    position: relative;
+    left: 10%;
+    top: 10%;
+}
+
+#stopping {
+    position: relative;
+    left: 80%;
+    top: 10%;
+}
+#filter {
+    position: relative;
+    left: 45%;
+    top: 15%;
+}
+#noteString {
+    position: relative;
+    top: 10%;
+    left: 46%;
+}
+#recording {
+    position: relative;
+    top: 20%;
+    left: 42%;
+}
+
+#title {
+    display: none;
+}
+
+#infobutton {
+	position: relative;
+	left: 45%;
+    top: 16%;
+}
+#info {
+	display: none;
+}
+#helpbutton {
+	position: relative;
+	left: 1%;
+    top: 1%;
+}
+
+/*=====================================Page 4 CSS=====================================================*/
 #table {
     left: 3%;
     top: 15%;
@@ -183,25 +312,37 @@
     padding-left: 20px;
     top: 5%
 }
-
-#page2 {
-	display: none;
+/*========================================Page 6 CSS=============================================*/
+#create4starting {
+    position: relative;
+    left: 10%;
+    top: 10%;
 }
 
-#page1 {
-	display: block;
+#create4stopping {
+    position: relative;
+    left: 80%;
+    top: 10%;
+}
+#create4filter {
+    position: relative;
+    left: 45%;
+    top: 15%;
+}
+#create4noteString {
+    position: relative;
+    top: 10%;
+    left: 46%;
+}
+#create4recording {
+    position: relative;
+    top: 20%;
+    left: 42%;
 }
 
-/*#table2 {
-    top: 50%;
-    left: 3%;
-    padding-left: 10px;
+#create4title {
+    display: none;
 }
-
-#title2 {
-    padding-left: 20px;
-    top: 40%;
-}*/
 
 
     </style>
@@ -237,13 +378,13 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
                 <li>
-                    <a href="index2.html"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Home</a>
+                    <a href="#" id="home"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Home</a>
                 </li>
                 <li>
-                    <a href="create1.html"> <span class="fa-stack fa-lg pull-left"><i class="fa fa-cart-plus fa-stack-1x "></i></span>Create</a>
+                    <a href="#" id="create1"> <span class="fa-stack fa-lg pull-left"><i class="fa fa-cart-plus fa-stack-1x "></i></span>Create</a>
                 </li>
                 <li>
-                    <a href="Finishedsong.html"><span class="fa-stack fa-lg pull-left"><i class="fa fa-youtube-play fa-stack-1x "></i></span>Finished Pieces</a>
+                    <a href="#" id="Finishedsong"><span class="fa-stack fa-lg pull-left"><i class="fa fa-youtube-play fa-stack-1x "></i></span>Finished Pieces</a>
                 </li>
                 <li>
                     <a href="donation.html"><span class="fa-stack fa-lg pull-left"><i class="fa fa-wrench fa-stack-1x "></i></span>Donate</a>
@@ -256,12 +397,184 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
+            <!-- ==============================Page 1 HTML======================================================= -->
             <div id="page1">
+            	<h3 style="font-size:40px;text-decoration:none;color:#0066CC" id="hometitle">Recent Activity</h3>
+<table class="table table-hover" id="hometable">
+    <tbody>
+        <tr>
+          <th><div style="list-style:none; color:black"><a href=""><span style="font-size:20px;text-decoration:none;color:#FF000F";>&#9839;</span></a></div>Post 1</th>
+        </tr>
+        <tr>
+          <th><div style="list-style:none; color:black"><a href=""><span style="font-size:20px;text-decoration:none;color:#FF000F";>&#9839;</span></a></div>Post 2</th>
+        </tr>
+        <tr>
+          <th> <div style="list-style:none; color:black"><a href=""><span style="font-size:20px;text-decoration:none;color:#FF000F";>&#9839;</span></a></div>Post 3</th>
+        </tr>
+        <tr>
+            <th></th>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:40px;text-decoration:none;color:#0066CC" id="hometitle2">Recent Posts</h3>
+<table class="table table-hover" id="hometable2">
+    <tbody>
+        <tr>
+          <th><div style="list-style:none; color:black"><a href=""><span style="font-size:20px;text-decoration:none;color:#FF000F";>&#9839;</span></a></div>Post 1</th>
+        </tr>
+        <tr>
+          <th><div style="list-style:none; color:black"><a href=""><span style="font-size:20px;text-decoration:none;color:#FF000F";>&#9839;</span></a></div>Post 2</th>
+        </tr>
+        <tr>
+          <th> <div style="list-style:none; color:black"><a href=""><span style="font-size:20px;text-decoration:none;color:#FF000F";>&#9839;</span></a></div>Post 3</th>
+        </tr>
+        <tr>
+            <th></th>
+        </tr>
+      </tbody>
+    </table>
+            </div>
+            <!-- =================================================Page 2 HTML========================================= -->
+	            <div id="page2" class="page2">
+	            <center><a href= "#" type="button" class="btn btn-primary btn-lg create1centered1" id="create2">Create New Music</a><br>
+	    <p></p></br>
+	    <p></p></br>
+	    <button type="button" class="btn btn-primary btn-lg create1centered2" id="create3" >Edit Existing Music</button></center></div>
+	    <!-- =========================================Page 3 HTML================================================== -->
+	    	<div id="page3">
+	    		<p id="noteString"></p>
+            <a href="#" data-toggle="popover" title="Help" data-content="Only works on Firefox. If program does not request for microphone, press the microphone button located next to the url." id="helpbutton"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a>
+            
+    <button type="button" class="btn btn-primary" id="filter" onclick="filter()">Filter</button> 
+    <a href="#" data-toggle="popover" title="About" data-content="Filter button filters out all the notes outside of a human voice range." id="infobutton"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a>
+    <br>
+     <button type="button" id="starting" class="btn btn-primary" onclick="start()"><span class="glyphicon glyphicon-record"></span> start</button>
+    <button id="stopping" class="btn btn-primary" role="button" onclick="stop()"onclick="save()" data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-record"></span> stop</button>
+            <div id="myModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                   <center><h4 class="modal-title">Actions</h4></center> 
+                  </div>
+                  <div class="modal-body">
+                    <center>Do you want to: <br> <br> <button class="btn btn-default btn-sm" role="button" id="saving" >Save</button> 
+                        <form role="form" id="title">
+                            <div class="form-group">
+                                <br>
+                                <label for="Title">Title:</label>
+                                <input type="text" class="form-control" id="Title">
+                                <br>
+                                <a id="enterButton" type="button" class="btn btn-default" onclick="save()" >Enter</a>
+                            </div>
+                            
+                        </form>
+   
+                    <button class="btn btn-default btn-sm" role="button" onclick="clearStaves()" id="clearing" data-dismiss="modal">Redo</button></center>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" id="footer" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+    
+    <br>
+    <a id="downloadButton" href="" style="display:none">Download</a>
+    <p style="display:none" id="recording"> 
+        <img src="Recording.png">
+        Recording...
+        </p>
+    <div id="newCanvas"></div>    
+    <div id="staves">
+    
+    <div class="description 1">
+        <canvas id= "canvas1" width=window.innerWidth height=200></canvas>
+        <!-- sheet music will go here (modified by javascript) -->
+    </div>
+
+    <div class="description 2">
+        <canvas id = "canvas2" width=window.innerWidth height=200></canvas>
+        <!-- sheet music will go here (modified by javascript) -->
+    </div>
+
+    <div class="description 3">
+        <canvas id = "canvas3" width=window.innerWidth height=200></canvas>
+        <!-- sheet music will go here (modified by javascript) -->
+    </div>
+
+    <div class="description 4">
+        <canvas id = "canvas4" width=window.innerWidth height=200></canvas>
+        <!-- sheet music will go here (modified by javascript) -->
+    </div>
+
+    <div class="description 5">
+        <canvas id = "canvas5" width=window.innerWidth height=200></canvas>
+        <!-- sheet music will go here (modified by javascript) -->
+    </div>
+
+    <div class="description 6">
+        <canvas id = "canvas6" width=window.innerWidth height=200></canvas>
+        <!-- sheet music will go here (modified by javascript) -->
+    </div>
+
+    <div class="description 7">
+        <canvas id = "canvas7" width=window.innerWidth height=200></canvas>
+        <!-- sheet music will go here (modified by javascript) -->
+    </div>
+
+    <div class="description 8">
+        <canvas id = "canvas8" width=window.innerWidth height=200></canvas>
+        <!-- sheet music will go here (modified by javascript) -->
+    </div>
+
+    <div class="description 9">
+        <canvas id = "canvas9" width=window.innerWidth height=200></canvas>
+        <!-- sheet music will go here (modified by javascript) -->
+    </div>
+
+    <div class="description 10">
+        <canvas id = "canvas10" width=window.innerWidth height=200></canvas>
+        <!-- sheet music will go here (modified by javascript) -->
+    </div>
+
+    <div class="description 11">
+        <canvas id = "canvas11" width=window.innerWidth height=200></canvas>
+        <!-- sheet music will go here (modified by javascript) -->
+    </div>
+
+    <div class="description 12">
+        <canvas id = "canvas12" width=window.innerWidth height=200></canvas>
+        <!-- sheet music will go here (modified by javascript) -->
+    </div>
+
+    <div class="description 13">
+        <canvas id = "canvas13" width=window.innerWidth height=200></canvas>
+        <!-- sheet music will go here (modified by javascript) -->
+    </div>
+
+    <div class="description 14">
+        <canvas id = "canvas14" width=window.innerWidth height=200></canvas>
+        <!-- sheet music will go here (modified by javascript) -->
+    </div>
+
+    <div class="description 15">
+        <canvas id = "canvas15" width=window.innerWidth height=200></canvas>
+        <!-- sheet music will go here (modified by javascript) -->
+    </div>
+    </div>
+	    	</div>
+            <!-- ============================================Page 4 HTML============================================== -->
+            <div id="page4">
                 <h1 style="font-size:50px;text-decoration:none;color:#0066CC" id="title"> Songs in Progress</h1>
 	<table class="table table-striped" style="font-family: 'Josefin Slab'; font-weight: bold;" id="table">
       <thead>
         <tr>
-          <th></th>
+          
           <th style="font-size:30px;vertical-align:middle; text-decoration:none;color:#42ADFF">&#9839;</th>
           <th style="font-size:24px;vertical-align:middle; text-decoration:none;color:#42ADFF">Song Name</th>
           <th style="font-size:24px;vertical-align:middle; text-decoration:none;color:#42ADFF"> Actions &#9838;</th>
@@ -269,18 +582,15 @@
       </thead>
       <tbody>
         <tr>
-          <th></th>
+          
           <th style="font-size: 18px">1</th>
           <td style="font-size: 18px">Night Serenade</td>
-          <td> <a href="create4.html" class="btn btn-default btn-sm" role="button">Edit</a> 
-          <!-- <button class="btn btn-default btn-sm" role="button" data-toggle="modal" data-target="#myModal">Delete</button> -->
+          <td> <a href="#" class="btn btn-default btn-sm" role="button">Edit</a> 
           <button class="btn btn-default btn-sm" role="button" data-toggle="modal" data-target="#myModal">Delete</button>
 
-			<!-- Modal -->
 			<div id="myModal" class="modal fade" role="dialog">
 			  <div class="modal-dialog">
 
-			    <!-- Modal content-->
 			    <div class="modal-content">
 			      <div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -300,10 +610,10 @@
           </td>
         </tr>
         <tr>
-          <th></th>
+          
           <th style="font-size: 18px">2</th>
           <td style="font-size: 18px">Lady Walk</td>
-          <td> <a href="create4.html" class="btn btn-default btn-sm" role="button">Edit</a> <button class="btn btn-default btn-sm" role="button" data-toggle="modal" data-target="#myModal">Delete</button>
+          <td> <a href="#" class="btn btn-default btn-sm" role="button">Edit</a> <button class="btn btn-default btn-sm" role="button" data-toggle="modal" data-target="#myModal">Delete</button>
 
 			<!-- Modal -->
 			<div id="myModal" class="modal fade" role="dialog">
@@ -329,10 +639,10 @@
 			</td>
         </tr>
         <tr>
-          <th></th>
+          
           <th style="font-size: 18px">3</th>
           <td style="font-size: 18px">Cherry Breeze</td>
-          <td> <a href="create4.html" class="btn btn-default btn-sm" role="button">Edit</a> <button class="btn btn-default btn-sm" role="button" data-toggle="modal" data-target="#myModal">Delete</button>
+          <td> <a href="#.html" class="btn btn-default btn-sm" role="button">Edit</a> <button class="btn btn-default btn-sm" role="button" data-toggle="modal" data-target="#myModal">Delete</button>
 
 			<!-- Modal -->
 			<div id="myModal" class="modal fade" role="dialog">
@@ -357,13 +667,11 @@
 			<a href="#" class="btn btn-default btn-sm" role="button" id="publish3">Publish</a>
           </td>
         </tr>
-        <tr>
-            <th></th>
-        </tr>
       </tbody>
     </table>
     </div>
-    	<div id="page2">
+    <!-- ===================================Page 5 HTML============================================== -->
+    	<div id="page5">
         <h1 style="font-size:50px;text-decoration:none;color:#0066CC" id="title"> Song Collage</h1>
 	<table class="table table-hover" style="font-family: 'Josefin Slab'; font-weight: bold;" id="table2">
       <thead>
@@ -396,34 +704,17 @@
       </tbody>
     </table>
     </div>
-        </div>
-        <!-- /#page-content-wrapper -->
-    </div>
+    <!-- ====================================Page 6 HTML======================================================= -->
+    	<div id="page 6">
+    	</div>
     <!-- /#wrapper -->
     <!-- jQuery -->
+   <!--  ======================================================= -->
     <script src="js/jquery-1.11.2.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/sidebar_menu.js"></script>
     <script type="text/javascript">
-    	$("#publish1").click(function(){
-    		$("#page1").css("display","none");
-    		$("#page2").css("display","block");
-    		$('#table2').append('<tr><th></th><th style="font-size: 18px">4</th><td style="font-size: 18px">Night Serenade</td><td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td></tr>');
-
-    	});
-    	$("#publish2").click(function(){
-    		$("#page1").css("display","none");
-    		$("#page2").css("display","block");
-    		$('#table2').append('<tr><th></th><th style="font-size: 18px">4</th><td style="font-size: 18px">Lady Walk</td><td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td></tr>');
-    	});
-    	$("#publish3").click(function(){
-    		$("#page1").css("display","none");
-    		$("#page2").css("display","block");
-    		$('#table2').append('<tr><th></th><th style="font-size: 18px">4</th><td style="font-size: 18px">Cherry Breeze</td><td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td></tr>');
-    	});
-    	var deletesong = function() {
-    		alert("Deleting...");
-    	};
+    	
     	$("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
@@ -453,6 +744,133 @@
         );
       }
     $(document).ready(function() {initMenu();});
+
+    //=====================================JS for Page 1=============================================================
+    $("#home").click(function() {
+    	$("#page1").css("display","block");
+    	$("#page2").css("display","none");
+    	$("#page3").css("display","none");
+    	$("#page4").css("display","none");
+    	$("#page5").css("display","none");
+    	$("#page6").css("display","none");
+    	$("#page7").css("display","none");
+    	$("#page8").css("display","none");
+    	$("body").css({ 'background-color': '#ffffff' });
+     	$("body").css('background-image', 'none');
+    });
+    // 	$(document).ready(function() {initMenu();});
+
+    // $(document).ready(function(){
+    //     $('[data-toggle="popover"]').popover();   
+    // });
+
+    // $("#doge").hover(function () {
+    //     $(this).popover({
+    //         title: "Doge",
+    //         placement:"bottom",
+
+    //         content: "Level: 1 <br />Songs: 3 <br />",
+    //         // content: <a href="Main Homepage.html"> Log Out</a>
+    //         html: true
+    //     }).popover('show');
+    // }, function () {
+    //     $(this).popover('hide');
+    // });
+
+    //============================Page 2 JS============================================
+    $("#create1").click(function() {
+    	$("#page2").css("display","block");
+    	$("#page1").css("display","none");
+    	$("#page3").css("display","none");
+    	$("#page4").css("display","none");
+    	$("#page5").css("display","none");
+    	$("#page6").css("display","none");
+    	$("#page7").css("display","none");
+    	$("#page8").css("display","none");
+    	//$('body').css('background', '#000 url('paper26.jpg') no-repeat');
+    	$('body').css('background-image','url(paper26.jpg)');
+    });
+    //============================PAge 3 JS======================================================
+    $("#create2").click(function() {
+    	$("#page3").css("display","block");
+    	$("#page1").css("display","none");
+    	$("#page2").css("display","none");
+    	$("#page4").css("display","none");
+    	$("#page5").css("display","none");
+    	$("#page6").css("display","none");
+    	$("#page7").css("display","none");
+    	$("#page8").css("display","none");
+    	$("body").css({ 'background-color': '#ffffff' });
+     	$("body").css('background-image', 'none');
+    });
+    $(document).ready(function(){
+	    $('[data-toggle="popover"]').popover();   
+	});
+
+
+        $("#saving").click(function (){
+            $("#title").show();
+            $("#clearing").hide();
+            $("#footer").hide();
+        });
+
+    //========================Page 4 JS======================================
+    $("#create3").click(function() {
+    	$("#page4").css("display","block");
+    	$("#page1").css("display","none");
+    	$("#page2").css("display","none");
+    	$("#page3").css("display","none");
+    	$("#page5").css("display","none");
+    	$("#page6").css("display","none");
+    	$("#page7").css("display","none");
+    	$("#page8").css("display","none");
+    	$("body").css({ 'background-color': '#ffffff' });
+     	$("body").css('background-image', 'none');
+    });
+
+    $("#publish1").click(function(){
+    		$(this).closest('tr').remove();
+    		$('#table2').append('<tr><th></th><th style="font-size: 18px">6</th><td style="font-size: 18px">Night Serenade</td><td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td></tr>');
+
+    	});
+    	$("#publish2").click(function(){
+    		$(this).closest('tr').remove();
+    		$('#table2').append('<tr><th></th><th style="font-size: 18px">5</th><td style="font-size: 18px">Lady Walk</td><td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td></tr>');
+    	});
+    	$("#publish3").click(function(){
+    		$(this).closest('tr').remove();
+    		$('#table2').append('<tr><th></th><th style="font-size: 18px">4</th><td style="font-size: 18px">Cherry Breeze</td><td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td></tr>');
+    	});
+
+    //==========================Page 5 JS==============================================
+
+   $("#Finishedsong").click(function() {
+    	$("#page5").css("display","block");
+    	$("#page1").css("display","none");
+    	$("#page2").css("display","none");
+    	$("#page3").css("display","none");
+    	$("#page4").css("display","none");
+    	$("#page6").css("display","none");
+    	$("#page7").css("display","none");
+    	$("#page8").css("display","none");
+    	$("body").css({ 'background-color': '#ffffff' });
+     	$("body").css('background-image', 'none');
+    });
+
+   //=========================Page 6 JS==========================================================
+
+   $("#create4").click(function() {
+    	$("#page6").css("display","block");
+    	$("#page1").css("display","none");
+    	$("#page2").css("display","none");
+    	$("#page3").css("display","none");
+    	$("#page4").css("display","none");
+    	$("#page5").css("display","none");
+    	$("#page7").css("display","none");
+    	$("#page8").css("display","none");
+    	$("body").css({ 'background-color': '#ffffff' });
+     	$("body").css('background-image', 'none');
+    });
     </script>
 </body>
 </html>

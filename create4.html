@@ -164,34 +164,34 @@
     }
 }
 
-#starting {
+#create4starting {
     position: relative;
     left: 10%;
     top: 10%;
 }
 
-#stopping {
+#create4stopping {
     position: relative;
     left: 80%;
     top: 10%;
 }
-#filter {
+#create4filter {
     position: relative;
     left: 45%;
     top: 15%;
 }
-#noteString {
+#create4noteString {
     position: relative;
     top: 10%;
     left: 46%;
 }
-#recording {
+#create4recording {
     position: relative;
     top: 20%;
     left: 42%;
 }
 
-#title {
+#create4title {
     display: none;
 }
     </style>
@@ -249,11 +249,11 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-            <p id="noteString"></p>
-    <button type="button" class="btn btn-primary" id="filter" onclick="filter()">Filter</button>
+            <p id="create4noteString"></p>
+    <button type="button" class="btn btn-primary" id="create4filter" onclick="filter()">Filter</button>
     <br>
-     <button type="button" id="starting" class="btn btn-primary" onclick="start()"><span class="glyphicon glyphicon-record"></span> start</button>
-    <button id="stopping" class="btn btn-primary" role="button" onclick="stop()" data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-record"></span> stop</button>
+     <button type="button" id="create4starting" class="btn btn-primary" onclick="start()"><span class="glyphicon glyphicon-record"></span> start</button>
+    <button id="create4stopping" class="btn btn-primary" role="button" onclick="stop()" data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-record"></span> stop</button>
             <div id="myModal" class="modal fade" role="dialog">
               <div class="modal-dialog">
 
@@ -385,10 +385,10 @@
             alert("Deleting...");
         };
 
-        $("#saving").click(function (){
-            $("#title").show();
-            $("#clearing").hide();
-            $("#footer").hide();
+        $("#create4saving").click(function (){
+            $("#create4title").show();
+            $("#create4clearing").hide();
+            $("#create4footer").hide();
         });
 
 		$("#menu-toggle").click(function(e) {
