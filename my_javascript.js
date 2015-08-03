@@ -240,15 +240,15 @@ var rhythm = function() {
                                     //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
                                     notes.pop();
 
-                                    duration = "w";
+                                    duration = "h";
                                     addNotes(duration, false);
                                 }
                             } else {
                                 //last 7 are same but not 8th
                                 //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
                                 notes.pop();
-                                //technically this should be a double dotted half note, but double dotted notes are not supported yet
-                                duration = "hd";
+                                //technically this should be a double dotted quarter note, but double dotted notes are not supported yet
+                                duration = "qd";
                                 addNotes(duration, true);
                             }
                         } else {
@@ -256,15 +256,15 @@ var rhythm = function() {
                             //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
                             notes.pop();
 
-                            duration = "hd";
+                            duration = "qd";
                             addNotes(duration, true);
                         }
                     } else {
                         //last 5 are same but not 6th
                         //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
                         notes.pop();
-                        //technically this should be a half note tied to an eighth note, but ties aren't supported yet
-                        duration = "h";
+                        //technically this should be a quarter note tied to an 16th note, but ties aren't supported yet
+                        duration = "q";
                         addNotes(duration, false);
                     }
                 } else {
@@ -272,7 +272,7 @@ var rhythm = function() {
                     //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
                     notes.pop();
 
-                    duration = "h";
+                    duration = "q";
                     addNotes(duration, false);
                 }
             } else {
@@ -280,7 +280,7 @@ var rhythm = function() {
                 //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
                 notes.pop();
 
-                duration = "qd";
+                duration = "8d";
                 addNotes(duration, true);
             }
         } else {
@@ -288,12 +288,12 @@ var rhythm = function() {
             //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
             notes.pop();
             
-            duration = "q";
+            duration = "8";
             addNotes(duration, false);
         }
     } else {
         //last 2 notes are different, so create new note with relative length 1
-        duration = "8";
+        duration = "16";
         addNotes(duration, false);
     }//end of else (last 2 notes are different)
 }; //end of rhythm function
@@ -304,21 +304,28 @@ var rhythm = function() {
 //================================================================================================================================
 //takes each stave (each within a canvas) and gets the image url as a data URI
 var save = function() {
-    //loop through all the canvases on the page; starts with 1
-    var HTMLstring=""; 
-    for(var i = 1; i <= staveNum; i++){
+    //get the height and width of one of the staves (all 15 should be the same)
+    var height = document.getElementById("canvas1").height;
+    var width = document.getElementById("canvas1").width;
+    //make sure the new canvas will be tall enough for all of the staves
+    var newHeight = 15*height; 
+    //create the new canvas
+    document.getElementById("newCanvas").innerHTML = "<canvas id='downloadCanvas'" + " height=" + newHeight + " width=" + width +"></canvas>";
+    //select downloadCanvas which will be the combination of all the canvases
+    var downloadCanvas = document.getElementById("downloadCanvas");
+    var ctx1 = downloadCanvas.getContext("2d");   
+    //go through each of the canvases that are used
+    for (var i = 1; i <= staveNum; i++){
         var id = String("canvas" + i); 
-        var myCanvas = document.getElementById(id);
-        var musicImage =  myCanvas.toDataURL();
-        // window.open(musicImage);
-        shortHTMLstring = " <img src=" + "\"" + musicImage +"\"" + ">";
-        HTMLstring = HTMLstring.concat(shortHTMLstring);
-        console.log(HTMLstring);
+        var canvas = document.getElementById(id);
+        //added each of the canvases to downloadCanvas
+        //width, height
+        ctx1.drawImage(canvas, 0, height*i);
     }
-        
-        document.open();
-        document.write("<script src='http://code.jquery.com/jquery-2.1.0.min.js'></script>" + HTMLstring + "<script>$('#test').append(HTMLstring)</script>");
-        document.close();
+    //get the data url for the combined staves
+    var musicImage =  downloadCanvas.toDataURL();
+    //put the combined staves as the link for the download button
+    $("#enterButton").attr("href", musicImage);
 
 }; //end of save function
 

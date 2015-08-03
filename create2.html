@@ -17,6 +17,14 @@
     transition: all 0.5s ease;
 }
  
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+ 
 #wrapper.toggled {
     padding-left: 250px;
 }
@@ -72,12 +80,12 @@
 .sidebar-nav li a {
     display: block;
     text-decoration: none;
-    color: #999999;
+    color: #fff;
 }
  
 .sidebar-nav li a:hover {
     text-decoration: none;
-    color: #fff;
+    color: #CCFFFF;
     background: rgba(255,255,255,0.2);
     border-left: red 2px solid;
 }
@@ -94,11 +102,11 @@
 }
  
 .sidebar-nav > .sidebar-brand a {
-    color: #999999;
+    color: #fff;
 }
  
 .sidebar-nav > .sidebar-brand a:hover {
-    color: #fff;
+    color: #CCFFFF;
     background: none;
 }
 .no-margin{
@@ -156,6 +164,7 @@
     }
 }
 
+
 #starting {
     position: relative;
     left: 10%;
@@ -186,6 +195,20 @@
 #title {
     display: none;
 }
+
+#infobutton {
+	position: relative;
+	left: 45%;
+    top: 16%;
+}
+#info {
+	display: none;
+}
+#helpbutton {
+	position: relative;
+	left: 2%;
+    top: 2%;
+}
     </style>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
     <meta charset="utf-8">
@@ -197,11 +220,14 @@
     <link href="css/simple-sidebar.css" rel="stylesheet">
     <link href="font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <meta charset="UTF-8">
-    <script src="http://www.vexflow.com/support/vexflow-debug.js"></script>
-    <script src="http://www.vexflow.com/support/vexflow-min.js"></script>
+    <script src="VexFlowSource/docs/vexflow-debug.js"></script>
+    <script src="VexFlowSource/docs/vexflow-min.js"></script>
+    <script src="VexFlowSource/src/dot.js"></script>
     <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-</head>
+</head> 
 <body>
 <nav class="navbar navbar-default no-margin">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -242,10 +268,13 @@
         <div id="page-content-wrapper">
             <div class="container-fluid">
             <p id="noteString"></p>
-    <button type="button" class="btn btn-primary" id="filter" onclick="filter()">Filter</button>
+            <a href="#" data-toggle="popover" title="Help" data-content="Only works on Firefox. If program does not request for microphone, press the microphone button located next to the url." id="helpbutton"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a>
+            
+    <button type="button" class="btn btn-primary" id="filter" onclick="filter()">Filter</button> 
+    <a href="#" data-toggle="popover" title="About" data-content="Filter button filters out all the notes outside of a human voice range." id="infobutton"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a>
     <br>
      <button type="button" id="starting" class="btn btn-primary" onclick="start()"><span class="glyphicon glyphicon-record"></span> start</button>
-    <button id="stopping" class="btn btn-primary" role="button" onclick="stop()" data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-record"></span> stop</button>
+    <button id="stopping" class="btn btn-primary" role="button" onclick="stop()"onclick="save()" data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-record"></span> stop</button>
             <div id="myModal" class="modal fade" role="dialog">
               <div class="modal-dialog">
 
@@ -263,7 +292,7 @@
                                 <label for="Title">Title:</label>
                                 <input type="text" class="form-control" id="Title">
                                 <br>
-                                <button type="button" class="btn btn-default" onclick="save()" >Enter</button>
+                                <a id="enterButton" type="button" class="btn btn-default" onclick="save()" >Enter</a>
                             </div>
                             
                         </form>
@@ -279,11 +308,14 @@
             </div>
     
     <br>
+    <a id="downloadButton" href="" style="display:none">Download</a>
     <p style="display:none" id="recording"> 
         <img src="Recording.png">
         Recording...
         </p>
+    <div id="newCanvas"></div>    
     <div id="staves">
+    
     <div class="description 1">
         <canvas id= "canvas1" width=window.innerWidth height=200></canvas>
         <!-- sheet music will go here (modified by javascript) -->
@@ -372,10 +404,10 @@
   
 	
 	<script type="text/javascript">
+	$(document).ready(function(){
+	    $('[data-toggle="popover"]').popover();   
+	});
 
-    var deletesong = function() {
-            alert("Deleting...");
-        };
 
         $("#saving").click(function (){
             $("#title").show();
