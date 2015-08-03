@@ -24,7 +24,7 @@ body{
 }
 
 #wrapper {
-    padding-left: 0;
+    padding-left: 0px;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -32,7 +32,7 @@ body{
 }
  
 #wrapper.toggled {
-    padding-left: 250px;
+    padding-left: 150px;
 }
  
 #sidebar-wrapper {
@@ -50,13 +50,13 @@ body{
     transition: all 0.5s ease;
 }
 #wrapper.toggled #sidebar-wrapper {
-    width: 250px;
+    width: 0px;
 }
  
 #page-content-wrapper {
     width: 100%;
     position: absolute;
-    padding: 15px;
+    padding: 0px;
 }
  
 #wrapper.toggled #page-content-wrapper {
@@ -76,6 +76,7 @@ body{
     padding: 0;
     list-style: none;
     margin-top: 2px;
+
 }
  
 .sidebar-nav li {
@@ -194,6 +195,21 @@ body{
     padding-left: 25px;
     top: 40%;
 }
+.userImage{
+    display: block;
+    width: 40px;
+    height: 40px;
+    background: #E6E7ED;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    background-image: url(doge.jog);
+    background-position:50% 50%;
+    background-repeat:no-repeat;    
+}
+
+
+}
+
 	</style>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
     <meta charset="utf-8">
@@ -211,13 +227,22 @@ body{
  
     <nav class="navbar navbar-default no-margin">
     <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header fixed-brand">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"  id="menu-toggle">
-                      <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+                <div class="navbar-header fixed-brand" style="position:fixed">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"  id="menu-toggle" style="position:fixed">
+                      <span class="glyphicon glyphicon-th-large" aria-hidden="true" style="position:fixed"></span>
                     </button>
+                <!-- <div id="userImage" ><img src="https://pbs.twimg.com/profile_images/417201275466690560/TzVjIXv2.jpeg" width="30px" height="30px" style="float:right">
+                </div> -->
+
+                    <!-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"  id="menu-toggle" style="position:fixed"><img src="image/doge.jpg">
+                    </button> -->
+
                 </div><!-- navbar-header-->
+                <button onlick=""><div id="userImage" ><img src="https://pbs.twimg.com/profile_images/417201275466690560/TzVjIXv2.jpeg" width="40px" height="40px" style="float:right;right:10%;padding:0px">
+                </div></button>
+
  
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="position:fixed;">
                             <ul class="nav navbar-nav">
                                 <li class="active" ><button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2"> <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span></button></li>
                             </ul>
@@ -245,7 +270,7 @@ body{
             </ul>
         </div><!-- /#sidebar-wrapper -->
         <!-- Page Content -->
-        <div id="page-content-wrapper">
+        <div id="page-content-wrapper" style="padding:70px">
             <div class="container-fluid">
                 <h3 style="font-size:40px;text-decoration:none;color:#0066CC" id="title">Recent Activity</h3>
 <table class="table table-hover" id="table">
