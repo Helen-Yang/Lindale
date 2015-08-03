@@ -246,7 +246,7 @@
     <button type="button" class="btn btn-primary" id="filter" onclick="filter()">Filter</button>
     <br>
      <button type="button" id="starting" class="btn btn-primary" onclick="start()"><span class="glyphicon glyphicon-record"></span> start</button>
-    <button id="stopping" class="btn btn-primary" role="button" onclick="stop()" data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-record"></span> stop</button>
+    <button id="stopping" class="btn btn-primary" role="button" onclick="stop()"onclick="save()" data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-record"></span> stop</button>
             <div id="myModal" class="modal fade" role="dialog">
               <div class="modal-dialog">
 
@@ -264,7 +264,7 @@
                                 <label for="Title">Title:</label>
                                 <input type="text" class="form-control" id="Title">
                                 <br>
-                                <button type="button" class="btn btn-default" onclick="save()" >Enter</button>
+                                <a id="enterButton" type="button" class="btn btn-default" onclick="save()" >Enter</a>
                             </div>
                             
                         </form>
