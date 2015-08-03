@@ -243,7 +243,7 @@
         <div id="page-content-wrapper">
             <div class="container-fluid">
             <p id="noteString"></p>
-    <button type="button" class="btn btn-primary" id="filter" onclick="filter()">Filter</button>
+    <button type="button" class="btn btn-primary" id="filter" onclick="filter()">Filter <i class="icon-large icon-info-sign"></i></button>
     <br>
      <button type="button" id="starting" class="btn btn-primary" onclick="start()"><span class="glyphicon glyphicon-record"></span> start</button>
     <button id="stopping" class="btn btn-primary" role="button" onclick="stop()"onclick="save()" data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-record"></span> stop</button>
@@ -376,10 +376,6 @@
   
 	
 	<script type="text/javascript">
-
-    var deletesong = function() {
-            alert("Deleting...");
-        };
 
         $("#saving").click(function (){
             $("#title").show();
