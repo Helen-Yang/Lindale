@@ -305,21 +305,35 @@ var rhythm = function() {
 //takes each stave (each within a canvas) and gets the image url as a data URI
 var save = function() {
     //loop through all the canvases on the page; starts with 1
-    var HTMLstring=""; 
-    for(var i = 1; i <= staveNum; i++){
-        var id = String("canvas" + i); 
-        var myCanvas = document.getElementById(id);
-        var musicImage =  myCanvas.toDataURL();
-        // window.open(musicImage);
-        shortHTMLstring = " <img src=" + "\"" + musicImage +"\"" + ">";
-        HTMLstring = HTMLstring.concat(shortHTMLstring);
-        console.log(HTMLstring);
-    }
-        
-        document.open();
-        document.write("<script src='http://code.jquery.com/jquery-2.1.0.min.js'></script>" + HTMLstring + "<script>$('#test').append(HTMLstring)</script>");
-        document.close();
+    // var HTMLstring=""; 
+    // for(var i = 1; i <= staveNum; i++){
+        var height = document.getElementById("canvas1").height;
+        var width = document.getElementById("canvas1").width;
+        newHeight = 15*height; 
+        document.getElementById("newCanvas").innerHTML = "<canvas id='downloadCanvas'" + " height=" + newHeight + " width=" + width +"></canvas>";
 
+      var downloadCanvas = document.getElementById("downloadCanvas");
+      var ctx1 = downloadCanvas.getContext("2d");   
+        for (var i = 1; i <= staveNum; i++){
+            var id = String("canvas" + i); 
+            var canvas = document.getElementById(id);
+            //width, height
+            ctx1.drawImage(canvas, 0, height*i);
+        }
+       
+        var musicImage =  downloadCanvas.toDataURL();
+
+    //     // window.open(musicImage);
+    //     shortHTMLstring = " <img src=" + "\"" + musicImage +"\"" + ">";
+    //     HTMLstring = HTMLstring.concat(shortHTMLstring);
+    //     console.log(HTMLstring);
+    // }
+        // document.getElementById("download").innerHTML = "<a href=" + musicImage + " download='mySong'>DOWNLOAD</a>";
+        // document.open();
+        // document.write("<script src='http://code.jquery.com/jquery-2.1.0.min.js'></script>" + HTMLstring + "<script>$('#test').append(HTMLstring)</script>");
+        // document.close();
+        $("#downloadButton").attr("href", musicImage);
+        $("#downloadButton").show();
 }; //end of save function
 
 //================================================================================================================================
