@@ -308,7 +308,7 @@ var save = function() {
     var HTMLstring=""; 
     for(var i = 1; i <= staveNum; i++){
         var id = String("canvas" + i); 
-        var myCanvas = document.getElementById(id);
+        var myCanvas = docum ent.getElementById(id);
         var musicImage =  myCanvas.toDataURL();
         // window.open(musicImage);
         shortHTMLstring = " <img src=" + "\"" + musicImage +"\"" + ">";
