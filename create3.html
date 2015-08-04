@@ -3,6 +3,7 @@
 <head>
 	<title> Edit Current Pieces</title>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="logo.png"> <!-- icon on the tab -->
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -343,6 +344,16 @@
 #create4title {
     display: none;
 }
+/*=========================page seven css=========================*/
+.body{
+    background-image: url(paper27.jpg);
+}
+/*======================page 8 css=========================*/
+.contactName{
+    font-family: serif;
+    font-size: 10px;
+    }
+}
 
 
 
@@ -395,10 +406,10 @@
                     <a href="#" id="Finishedsong"><span class="fa-stack fa-lg pull-left"><i class="fa fa-youtube-play fa-stack-1x "></i></span>Finished Pieces</a>
                 </li>
                 <li>
-                    <a href="donation.html"><span class="fa-stack fa-lg pull-left"><i class="fa fa-wrench fa-stack-1x "></i></span>Donate</a>
+                    <a href="#" id="donate"><span class="fa-stack fa-lg pull-left"><i class="fa fa-wrench fa-stack-1x "></i></span>Donate</a>
                 </li>
                 <li>
-                    <a href="contactus.html"><span class="fa-stack fa-lg pull-left"><i class="fa fa-server fa-stack-1x "></i></span>Contact</a>
+                    <a href="#" id="contact"><span class="fa-stack fa-lg pull-left"><i class="fa fa-server fa-stack-1x "></i></span>Contact</a>
                 </li>
             </ul>
         </div><!-- /#sidebar-wrapper -->
@@ -719,6 +730,56 @@
     <!-- /#wrapper -->
     <!-- jQuery -->
    <!--  ======================================================= -->
+   <!-- =======================page7 HTML====================== -->
+
+                <div id="page7"><center><a href= "http://www.hungryformusic.org/donate-instrument.html" type="button" class="btn btn-primary btn-lg centered1">Donate Today</a><br></div>
+    <!-- ======================page 8 HTML====================== -->
+
+           
+            <div id="page8" style="color:#4747B2">
+                &nbsp About Us<br>
+                <div class="container-fluid" id="text" style="color:black; font-size:25px; padding:20px; border:5px">
+                We are three music lovers who want to promote any music lovers to compose their original music pieces.
+                </div>
+
+            <div class="container-fluid" style="color:#4747B2">
+                Cassandra Overney<br>
+                <div class="container-fluid" id="text" style="color:black; font-size:25px">
+                <img src="image/selfie.jpg"><br>
+                Composer
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                Helen Yang
+                <div class="container-fluid" id="text" style="color:black; font-size:25px">
+                <img src="image/selfie.jpg"><br>
+                Happy
+                </div>
+
+            </div>
+
+            <div class="container-fluid"  style="color:#4747B2">
+                Shiran Chen
+                <div class="container-fluid" id="text" style="color:black;font-size:25px">
+                <img src="image/selfie.jpg"><br>
+                <div id="contactName" style="font-size:25px" > Cybersecruity lover, doge master<br>
+                I own the junta of doge<br>
+                play piano, once played violin<br>
+                Contact: <a href>shiranchen399@gmail.com</a></div>
+
+
+
+                </div>
+            </div>
+            </div>
+
+
+
+
+        
+        <!-- /#page-content-wrapper -->
+    
     <script type="text/javascript" src="my_javascript.js"></script>
     <script src="js/jquery-1.11.2.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -880,6 +941,32 @@
     	$("#page8").css("display","none");
     	$("body").css({ 'background-color': '#ffffff' });
      	$("body").css('background-image', 'none');
+    });
+   //==================Page 7 JS====================================
+   $("#donate").click(function() {
+        $("#page7").css("display","block");
+        $("#page1").css("display","none");
+        $("#page2").css("display","none");
+        $("#page3").css("display","none");
+        $("#page4").css("display","none");
+        $("#page5").css("display","none");
+        $("#page6").css("display","none");
+        $("#page8").css("display","none");
+        $("body").css({ 'background-color': '#ffffff' });
+        $("body").css('background-image', 'none');
+    });
+   //=======================Page 8 JS==========================
+    $("#contact").click(function() {
+        $("#page8").css("display","block");
+        $("#page1").css("display","none");
+        $("#page2").css("display","none");
+        $("#page3").css("display","none");
+        $("#page4").css("display","none");
+        $("#page5").css("display","none");
+        $("#page6").css("display","none");
+        $("#page7").css("display","none");
+        $("body").css({ 'background-color': '#ffffff' });
+        $("body").css('background-image', 'none');
     });
     </script>
 </body>
