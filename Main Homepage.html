@@ -140,14 +140,15 @@
 		<center>
 		<form id="loginform" style="font-weight:bold">
 		Username:<br>
-		<input type="text" name="username">
+		<input type="text" name="username" style="color: black" id="newusername">
 		<br>
 		<br>
 		Password:<br>
-		<input type="password" name="password">
+		<input type="password" name="password" style="color: black" id="newpassword">
 		<br>
+		<p style="color:#FFCACA;font-size:12pt;" id="incorrect">Username and password do not match</p>
 		<br>
-		<a href="create3.html" class="btn btn-default">Submit</a>
+		<a href="#" class="btn btn-default" onclick="checkusername()">Submit</a>
 		<!-- <button class="btn btn-default" id="button">Submit</button> -->
 		<hr>
 		<div>New Member?</div>
@@ -159,14 +160,15 @@
 	<div id="header">Unleash Your Musical Talent</div>
 	<form>
 	Username:<br>
-	<input id="name" type="text" name="username">
+	<input type="text" name="username" id="newusername1">
 	<br>
 	<br>
 	Password:<br>
-	<input id="password" type="password" name="password">
+	<input type="password" name="password" id="newpassword">
 	<br>
+	<p style="color:#CC0000;font-size:12pt;" id="newuser">Username already taken, please type another one</p>
 	<br>
-	<button id="button" class="btn btn-default"><a href="index2.html">Create</a></button>
+	<button id="button" class="btn btn-default" onclick="newusername()"><a href="#">Create</a></button>
 	</form>
 </div>
 
@@ -176,6 +178,7 @@
     	$("#loginpage").css("display","block");
     	$("#homepage").css("display","none");
     	$("#joinpage").css("display","none");
+    	$("#incorrect").css("display","none");
     	//$('body').css('background', '#000 url('paper26.jpg') no-repeat');
     	$('body').css('background-image','url(paper24.jpg)');
     });
@@ -184,6 +187,7 @@
     	$("#loginpage").css("display","none");
     	$("#homepage").css("display","none");
     	$("#joinpage").css("display","block");
+    	$("#newuser").css("display","none");
     	//$('body').css('background', '#000 url('paper26.jpg') no-repeat');
     	$('body').css('background-image','url(paper38.jpg)');
     });
@@ -192,9 +196,37 @@
     	$("#loginpage").css("display","none");
     	$("#homepage").css("display","none");
     	$("#joinpage").css("display","block");
+    	$("#newuser").css("display","none");
     	//$('body').css('background', '#000 url('paper26.jpg') no-repeat');
     	$('body').css('background-image','url(paper38.jpg)');
     });
+
+
+    var checkusername = function() {
+    	var userInput = document.getElementById("usernameinput").value;
+    	var userInput2 = document.getElementById("passwordinput").value;
+    	String(userInput);
+    	String(userInput2);
+    	if (userInput === "Lindale" && userInput2 === "dogemaster") {
+    		window.location.href = "create3.html";
+    	}
+    	else if (userInput !== "Lindale" || userInput2 !== "dogemaster") {
+    		$("#incorrect").css("display","block");
+    	}
+    };
+
+    var newusername = function() {
+    	var newInput = document.getElementById("newusername1").value;
+    	var newInput2 = document.getElementById("newpassword").value;
+    	String(newInput);
+    	String(newInput2);
+    	if (newInput !== "Lindale") {
+    		window.location.href = "create3.html";
+    	}
+    	else if (newInput === "Lindale") {
+    		$("#newuser").css("display","block");
+    	}
+    };
 	
 	
 	// var rotate = false;
