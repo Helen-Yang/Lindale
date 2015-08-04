@@ -250,38 +250,38 @@
         <div id="page-content-wrapper">
             <div class="container-fluid">
             <p id="create4noteString"></p>
-    <button type="button" class="btn btn-primary" id="create4filter" onclick="filter()">Filter</button>
-    <br>
-     <button type="button" id="create4starting" class="btn btn-primary" onclick="start()"><span class="glyphicon glyphicon-record"></span> start</button>
-    <button id="create4stopping" class="btn btn-primary" role="button" onclick="stop()" data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-record"></span> stop</button>
-            <div id="myModal" class="modal fade" role="dialog">
-              <div class="modal-dialog">
+                <button type="button" class="btn btn-primary" id="create4filter" onclick="filter()">Filter</button>
+                <br>
+                 <button type="button" id="create4starting" class="btn btn-primary" onclick="start()"><span class="glyphicon glyphicon-record"></span> start</button>
+                <button id="create4stopping" class="btn btn-primary" role="button" onclick="stop()" data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-record"></span> stop</button>
+                        <div id="myModal" class="modal fade" role="dialog">
+                          <div class="modal-dialog">
 
-                <!-- Modal content-->
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                   <center><h4 class="modal-title">Actions</h4></center> 
-                  </div>
-                  <div class="modal-body">
-                    <center>Do you want to: <br> <br> <button class="btn btn-default btn-sm" role="button" id="saving" >Save</button> 
-                        <form role="form" id="title">
-                            <div class="form-group">
-                                <br>
-                                <label for="Title">Title:</label>
-                                <input type="text" class="form-control" id="Title">
-                                <br>
-                                <button type="button" class="btn btn-default" onclick="save()" >Enter</button>
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                               <center><h4 class="modal-title">Actions</h4></center> 
+                              </div>
+                              <div class="modal-body">
+                                <center>Do you want to: <br> <br> <button class="btn btn-default btn-sm" role="button" id="saving" >Save</button> 
+                                    <form role="form" id="title">
+                                        <div class="form-group">
+                                            <br>
+                                            <label for="Title">Title:</label>
+                                            <input type="text" class="form-control" id="Title">
+                                            <br>
+                                            <button type="button" class="btn btn-default" onclick="save()" >Enter</button>
+                                        </div>
+                                        
+                                    </form>
+               
+                                <button class="btn btn-default btn-sm" role="button" onclick="clearStaves()" id="clearing" data-dismiss="modal">Redo</button></center>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default" id="footer" data-dismiss="modal">Close</button>
+                              </div>
                             </div>
-                            
-                        </form>
-   
-                    <button class="btn btn-default btn-sm" role="button" onclick="clearStaves()" id="clearing" data-dismiss="modal">Redo</button></center>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" id="footer" data-dismiss="modal">Close</button>
-                  </div>
-                </div>
 
               </div>
             </div>

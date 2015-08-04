@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title> Edit Current Pieces</title>
-	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<meta charset="utf-8">
+    <title> Edit Current Pieces</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="logo.png"> <!-- icon on the tab -->
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Slab" />
     <style type="text/css">
-    	#wrapper {
+                #wrapper {
     padding-left: 0;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -166,28 +167,30 @@
 }
 
 #page1 {
-	display: block;
+    display: block;
 }
 #page2 {
-	display: none;
+    display: none;
 }
 #page3 {
-	display: none;
+    display: none;
 }
 #page4 {
-	display: none;
+    display: none;
 }
 #page5 {
-	display: none;
+    display: none;
 }
 #page6 {
-	display: none;
+    display: none;
 }
 #page7 {
-	display: none;
+    display: none;
 }
 #page8 {
-	display: none;
+    display: none;
+    font-family: 'Josefin Slab';
+    font-weight: bold;
 }
 
 
@@ -280,16 +283,16 @@
 }
 
 #infobutton {
-	position: relative;
-	left: 45%;
+    position: relative;
+    left: 45%;
     top: 16%;
 }
 #info {
-	display: none;
+    display: none;
 }
 #helpbutton {
-	position: relative;
-	left: 1%;
+    position: relative;
+    left: 1%;
     top: 1%;
 }
 
@@ -307,8 +310,8 @@
 }
 
 #title {
-	font-family: 'Josefin Slab';
-	font-weight: bold;
+    font-family: 'Josefin Slab';
+    font-weight: bold;
     padding-left: 20px;
     top: 5%
 }
@@ -343,6 +346,51 @@
 #create4title {
     display: none;
 }
+/*=========================page seven css=========================*/
+.body{
+    background-image: url(paper27.jpg);
+}
+.donationcentered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%, -50%);
+}
+
+.circle {
+  width: 200px;
+  height: 200px;
+  border: 1px solid black;
+  border-radius: 100px;
+  background: url('http://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Ski_trail_rating_symbol-blue_square.svg/600px-Ski_trail_rating_symbol-blue_square.svg.png') center;
+  background-size: 130%;   
+}
+.logout{
+          width: 100px;
+          height: 100px;
+          color: #ffffff;
+          background-color: #3498db;
+          font-family:Open Sans Condensed;
+          text-decoration: none;
+          font-size: 1.8em;
+          border: 2px #ffffff solid;
+          margin: 10px 0 0 5px;
+          
+          -webkit-transition: all 0.5s;
+          -moz-transition: all 0.5s;
+          transition: all 0.5s;
+        }
+
+
+        /*magic starts here*/
+            .logout:hover{
+              cursor: pointer;
+            }
+
+            .logout:hover{
+              background-color: #FFffff;
+              color: #3498db;
+            }
 
 
 
@@ -365,7 +413,7 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 <body>
-	
+    
 
    <nav class="navbar navbar-default no-margin">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -374,10 +422,27 @@
                       <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
                     </button>
                 </div><!-- navbar-header-->
+
+                <div class="container">
+                  <ul class="list-inline">
+                    <li class="container-fluid" style="float:right" id="doge"><!-- a href="#" title="Lindale" data-toggle="popover" data-placement="bottom" data-content="Level 1<br />level2"> --><img src="http://www.beautifulpeople.com/cdn/beautifulpeople/images/default_profile/signup_male.png" width="35px" height="35px"></a>
+                    </li>
+
+                    <!-- <li><a href= "#" type="button" class="btn btn-primary btn-lg create1centered1" id="create2">Log Out</a></li> -->
+
+                  </ul>
+                </div>
+
+                <!-- <a href= "#" type="button" class="btn btn-primary btn-lg create1centered1" id="create2">Log Out</a> -->
+
+
  
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav">
                                 <li class="active" ><button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2"> <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span></button></li>
+
+                                <li style="float:right; left:1180px; bottom:10px" ><a href="Main Homepage.html"><button type="button" class="btn btn-default" id="logout">Log Out</button></a>
+                                <!-- <a href= "#" type="button" class="btn btn-primary create1centered1" id="logout">Log Out</a> --></li>
                             </ul>
                 </div><!-- bs-example-navbar-collapse-1 -->
     </nav>
@@ -395,10 +460,10 @@
                     <a href="#" id="Finishedsong"><span class="fa-stack fa-lg pull-left"><i class="fa fa-youtube-play fa-stack-1x "></i></span>Finished Pieces</a>
                 </li>
                 <li>
-                    <a href="donation.html"><span class="fa-stack fa-lg pull-left"><i class="fa fa-wrench fa-stack-1x "></i></span>Donate</a>
+                    <a href="#" id="donate"><span class="fa-stack fa-lg pull-left"><i class="fa fa-wrench fa-stack-1x "></i></span>Donate</a>
                 </li>
                 <li>
-                    <a href="contactus.html"><span class="fa-stack fa-lg pull-left"><i class="fa fa-server fa-stack-1x "></i></span>Contact</a>
+                    <a href="#" id="contact"><span class="fa-stack fa-lg pull-left"><i class="fa fa-server fa-stack-1x "></i></span>Contact</a>
                 </li>
             </ul>
         </div><!-- /#sidebar-wrapper -->
@@ -407,17 +472,17 @@
             <div class="container-fluid">
             <!-- ==============================Page 1 HTML======================================================= -->
             <div id="page1">
-            	<h3 style="font-size:40px;text-decoration:none;color:#0066CC" id="hometitle">Recent Activity</h3>
+                <h3 style="font-size:40px;text-decoration:none;color:#0066CC" id="hometitle">Recent Activity</h3>
 <table class="table table-hover" id="hometable">
     <tbody>
         <tr>
-          <th><div style="list-style:none; color:black"><a href=""><span style="font-size:20px;text-decoration:none;color:#FF000F";>&#9839;</span></a></div>Post 1</th>
+          <th><div style="list-style:none; color:black"><a href=""><span style="font-size:20px;text-decoration:none;color:#FF000F";>&#9839;</span></a></div></th>
         </tr>
         <tr>
-          <th><div style="list-style:none; color:black"><a href=""><span style="font-size:20px;text-decoration:none;color:#FF000F";>&#9839;</span></a></div>Post 2</th>
+          <th><div style="list-style:none; color:black"><a href=""><span style="font-size:20px;text-decoration:none;color:#FF000F";>&#9839;</span></a></div></th>
         </tr>
         <tr>
-          <th> <div style="list-style:none; color:black"><a href=""><span style="font-size:20px;text-decoration:none;color:#FF000F";>&#9839;</span></a></div>Post 3</th>
+          <th> <div style="list-style:none; color:black"><a href=""><span style="font-size:20px;text-decoration:none;color:#FF000F";>&#9839;</span></a></div></th>
         </tr>
         <tr>
             <th></th>
@@ -429,13 +494,13 @@
 <table class="table table-hover" id="hometable2">
     <tbody>
         <tr>
-          <th><div style="list-style:none; color:black"><a href=""><span style="font-size:20px;text-decoration:none;color:#FF000F";>&#9839;</span></a></div>Post 1</th>
+          <th><div style="list-style:none; color:black"><a href=""><span style="font-size:20px;text-decoration:none;color:#FF000F";>&#9839;</span></a></div></th>
         </tr>
         <tr>
-          <th><div style="list-style:none; color:black"><a href=""><span style="font-size:20px;text-decoration:none;color:#FF000F";>&#9839;</span></a></div>Post 2</th>
+          <th><div style="list-style:none; color:black"><a href=""><span style="font-size:20px;text-decoration:none;color:#FF000F";>&#9839;</span></a></div></th>
         </tr>
         <tr>
-          <th> <div style="list-style:none; color:black"><a href=""><span style="font-size:20px;text-decoration:none;color:#FF000F";>&#9839;</span></a></div>Post 3</th>
+          <th> <div style="list-style:none; color:black"><a href=""><span style="font-size:20px;text-decoration:none;color:#FF000F";>&#9839;</span></a></div></th>
         </tr>
         <tr>
             <th></th>
@@ -444,14 +509,14 @@
     </table>
             </div>
             <!-- =================================================Page 2 HTML========================================= -->
-	            <div id="page2" class="page2">
-	            <center><a href= "#" type="button" class="btn btn-primary btn-lg create1centered1" id="create2">Create New Music</a><br>
-	    <p></p></br>
-	    <p></p></br>
-	    <button type="button" class="btn btn-primary btn-lg create1centered2" id="create3" >Edit Existing Music</button></center></div>
-	    <!-- =========================================Page 3 HTML================================================== -->
-	    	<div id="page3">
-	    		<p id="noteString"></p>
+                <div id="page2" class="page2">
+                <center><a href= "#" type="button" class="btn btn-primary btn-lg create1centered1" id="create2">Create New Music</a><br>
+        <p></p></br>
+        <p></p></br>
+        <button type="button" class="btn btn-primary btn-lg create1centered2" id="create3" >Edit Existing Music</button></center></div>
+        <!-- =========================================Page 3 HTML================================================== -->
+            <div id="page3">
+                <p id="noteString"></p>
             <a href="#" data-toggle="popover" title="Help" data-content="Only works on Firefox. If program does not request for microphone, press the microphone button located next to the url." id="helpbutton"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a>
             
     <button type="button" class="btn btn-primary" id="filter" onclick="filter()">Filter</button> 
@@ -576,156 +641,148 @@
         <!-- sheet music will go here (modified by javascript) -->
     </div>
     </div>
-	    	</div>
+            </div>
             <!-- ============================================Page 4 HTML============================================== -->
-            <div id="page4">
+                        <div id="page4" style="padding:30px">
                 <h1 style="font-size:50px;text-decoration:none;color:#0066CC" id="title"> Songs in Progress</h1>
-	<table class="table table-striped" style="font-family: 'Josefin Slab'; font-weight: bold;" id="table">
+    <table class="table table-striped" style="font-family: 'Josefin Slab'; font-weight: bold;" id="table">
       <thead>
         <tr>
           
           <th style="font-size:30px;vertical-align:middle; text-decoration:none;color:#42ADFF">&#9839;</th>
           <th style="font-size:24px;vertical-align:middle; text-decoration:none;color:#42ADFF">Song Name</th>
           <th style="font-size:24px;vertical-align:middle; text-decoration:none;color:#42ADFF"> Actions &#9838;</th>
+
+
         </tr>
       </thead>
+
       <tbody>
         <tr>
-          
-          <th style="font-size: 18px">1</th>
-          <td style="font-size: 18px">Night Serenade</td>
-          <td> <a href="#" class="btn btn-default btn-sm" role="button">Edit</a> 
-          <button class="btn btn-default btn-sm" role="button" data-toggle="modal" data-target="#myModal">Delete</button>
 
-			<div id="myModal" class="modal fade" role="dialog">
-			  <div class="modal-dialog">
-
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <button type="button" class="close" data-dismiss="modal">&times;</button>
-			       <center><h4 class="modal-title">Confirmation</h4></center> 
-			      </div>
-			      <div class="modal-body">
-			        <center>Are you sure you want to delete? <br> <br> <button class="btn btn-default btn-sm" role="button" onclick="deletesong()" >Yes</button> <button class="btn btn-default btn-sm" role="button"data-dismiss="modal">No</button></center>
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			      </div>
-			    </div>
-
-			  </div>
-			</div>
-			<a href="#" class="btn btn-default btn-sm" role="button" id="publish1">Publish</a>
-          </td>
-        </tr>
-        <tr>
-          
-          <th style="font-size: 18px">2</th>
-          <td style="font-size: 18px">Lady Walk</td>
-          <td> <a href="#" class="btn btn-default btn-sm" role="button">Edit</a> <button class="btn btn-default btn-sm" role="button" data-toggle="modal" data-target="#myModal">Delete</button>
-
-			<!-- Modal -->
-			<div id="myModal" class="modal fade" role="dialog">
-			  <div class="modal-dialog">
-
-			    <!-- Modal content-->
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <button type="button" class="close" data-dismiss="modal">&times;</button>
-			       <center><h4 class="modal-title">Confirmation</h4></center> 
-			      </div>
-			      <div class="modal-body">
-			        <center>Are you sure you want to delete? <br> <br> <button class="btn btn-default btn-sm" role="button" onclick="deletesong()" >Yes</button> <button class="btn btn-default btn-sm" role="button" data-dismiss="modal">No</button></center>
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			      </div>
-			    </div>
-
-			  </div>
-			</div>
-			<a href="#" class="btn btn-default btn-sm" role="button" id="publish2">Publish</a>
-			</td>
-        </tr>
-        <tr>
-          
-          <th style="font-size: 18px">3</th>
-          <td style="font-size: 18px">Cherry Breeze</td>
-          <td> <a href="#.html" class="btn btn-default btn-sm" role="button">Edit</a> <button class="btn btn-default btn-sm" role="button" data-toggle="modal" data-target="#myModal">Delete</button>
-
-			<!-- Modal -->
-			<div id="myModal" class="modal fade" role="dialog">
-			  <div class="modal-dialog">
-
-			    <!-- Modal content-->
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <button type="button" class="close" data-dismiss="modal">&times;</button>
-			       <center><h4 class="modal-title">Confirmation</h4></center> 
-			      </div>
-			      <div class="modal-body">
-			        <center>Are you sure you want to delete? <br> <br> <button class="btn btn-default btn-sm" role="button" onclick="deletesong()" >Yes</button> <button class="btn btn-default btn-sm" role="button" data-dismiss="modal">No</button></center>
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			      </div>
-			    </div>
-
-			  </div>
-			</div>
-			<a href="#" class="btn btn-default btn-sm" role="button" id="publish3">Publish</a>
           </td>
         </tr>
       </tbody>
     </table>
+    <center><p> You haven't created any music piece yet.</p></center>
     </div>
+    <!-- ==
     <!-- ===================================Page 5 HTML============================================== -->
-    	<div id="page5">
-        <h1 style="font-size:50px;text-decoration:none;color:#0066CC" id="title"> Song Collage</h1>
-	<table class="table table-hover" style="font-family: 'Josefin Slab'; font-weight: bold;" id="table2">
+        <div id="page5" style="padding:30px">
+         <h1 style="font-size:50px;text-decoration:none;color:#0066CC" id="title"> Songs in Progress</h1>
+    <table class="table table-striped" style="font-family: 'Josefin Slab'; font-weight: bold;" id="table">
       <thead>
         <tr>
-          <th></th>
+          
           <th style="font-size:30px;vertical-align:middle; text-decoration:none;color:#42ADFF">&#9839;</th>
           <th style="font-size:24px;vertical-align:middle; text-decoration:none;color:#42ADFF">Song Name</th>
           <th style="font-size:24px;vertical-align:middle; text-decoration:none;color:#42ADFF"> Actions &#9838;</th>
         </tr>
       </thead>
+
+    </div>     <!-- ====================================Page 6 HTML======================================================= -->
+        <div id="page6" style="padding:30px">
+        <h1 style="font-size:50px;text-decoration:none;color:#0066CC" id="title"> Song Collage</h1>
+    <table class="table table-hover" style="font-family: 'Josefin Slab'; font-weight: bold; padding:15px" id="table2">
       <tbody>
-        <tr>
-          <th></th>
-          <th style="font-size: 18px">1</th>
-          <td style="font-size: 18px">Sonata Bot</td>
-          <td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td>
-        </tr>
-        <tr>
-          <th></th>
-          <th style="font-size: 18px">2</th>
-          <td style="font-size: 18px">Stormy Heart</td>
-          <td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td>
-        </tr>
-        <tr>
-          <th></th>
-          <th style="font-size: 18px">3</th>
-          <td style="font-size: 18px">School Bells</td>
-          <td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td>
-        </tr>
+       
+
+
       </tbody>
     </table>
+        <center><p> You haven't published any music piece yet.</p></center>
     </div>
-    <!-- ====================================Page 6 HTML======================================================= -->
-    	<div id="page 6">
-    	</div>
+
     <!-- /#wrapper -->
     <!-- jQuery -->
    <!--  ======================================================= -->
+   <!-- =======================page7 HTML====================== -->
+
+                <div id="page7"><a href= "http://www.hungryformusic.org/donate-instrument.html" type="button" class="btn btn-primary btn-lg donationcentered"> Donate Today</a></div>
+    <!-- ======================page 8 HTML====================== -->
+
+           
+            <div id="page8" style="color:#4747B2; padding:30px">
+              
+                <div class="container-fluid" id="text" style="color:#4747B2 font-family: 'Josefin Slab'; font-weight: bold; font-size:30px;"> About Us <br>
+                 <div class="container-fluid" id="text" style="color:black; font-size:20px">We are three music lovers who want to promote any music lovers to compose their original music pieces.<br>
+                Contact: <a href="#"> lindale.melody@gmail.com </a></div>
+                <br>
+                </div>
+
+            <div style="color:#4747B2 font-family: 'Josefin Slab'; font-weight: bold; font-size:30px">
+                Cassandra Overney<br>
+                <div class="container-fluid" id="text" style="color:black; font-size:20px">
+              <!--   <img src="image/selfie.jpg"><br> -->
+                Composed
+                <div id="contactName" style="font-size:20px" > Classical music listener, Volleyball player, Descendant of Elrond<br>
+                Explorer of the microscopic world.<br>
+                Piano player<br>
+                </div>
+                </div>
+                <br>
+            </div>
+
+            <div style="color:#4747B2 font-family: 'Josefin Slab'; font-weight: bold; font-size:30px">
+                Helen Yang
+                <div class="container-fluid" id="text" style="color:black; font-size:20px">
+               <!--  <img src="image/selfie.jpg"><br> -->
+                Happy
+                <div id="contactName" style="font-size:20px" > Music Lover, Book Worm<br>
+                Animal Lover <br>
+                Clarinet and piano player<br>
+                </div>
+                </div>
+                <br>
+            </div>
+
+            <div style="color:#4747B2 font-family: 'Josefin Slab'; font-weight: bold; font-size:30px">
+                Shiran Chen
+                <div class="container-fluid" id="text" style="color:black;font-size:20px">
+                <!-- <img src="image/selfie.jpg"><br> -->
+                <div id="contactName" style="font-size:20px" > Cybersecruity lover, doge master<br>
+                I own the junta of doge<br>
+                Plays piano, once played violin<br>
+                </div>
+                </div>
+                <br>
+            </div>
+
+            <div style="color:#4747B2 font-family: 'Josefin Slab'; font-weight: bold; font-size:30px">
+                Thanks To
+                <div class="container-fluid" id="text" style="color:black;font-size:20px">
+                <!-- <img src="image/selfie.jpg"><br> -->
+                <div id="contactName" style="font-size:20px" >Mohit Muthanna, creator of VexFlow music notation API <a href="http://vexflow.com">(website)</a><br>Myron Apostolakis, creator of our tuner code <a href="https://github.com/myapos/e-tuner">(github)</a><br>
+                </div>
+                </div>
+            </div>
+
+               
+
+
+
+                
+            </div>
+
+
+
+
+        
+        <!-- /#page-content-wrapper -->
+    
     <script type="text/javascript" src="my_javascript.js"></script>
     <script src="js/jquery-1.11.2.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/sidebar_menu.js"></script>
     <script type="text/javascript">
-    	
-    	$("#menu-toggle").click(function(e) {
+        
+ <script type="text/javascript" src="my_javascript.js"></script>
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/sidebar_menu.js"></script>
+    <script type="text/javascript">
+        
+        $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
@@ -757,18 +814,18 @@
 
     //=====================================JS for Page 1=============================================================
     $("#home").click(function() {
-    	$("#page1").css("display","block");
-    	$("#page2").css("display","none");
-    	$("#page3").css("display","none");
-    	$("#page4").css("display","none");
-    	$("#page5").css("display","none");
-    	$("#page6").css("display","none");
-    	$("#page7").css("display","none");
-    	$("#page8").css("display","none");
-    	$("body").css({ 'background-color': '#ffffff' });
-     	$("body").css('background-image', 'none');
+        $("#page1").css("display","block");
+        $("#page2").css("display","none");
+        $("#page3").css("display","none");
+        $("#page4").css("display","none");
+        $("#page5").css("display","none");
+        $("#page6").css("display","none");
+        $("#page7").css("display","none");
+        $("#page8").css("display","none");
+        $("body").css({ 'background-color': '#ffffff' });
+        $("body").css('background-image', 'none');
     });
-    // 	$(document).ready(function() {initMenu();});
+    //  $(document).ready(function() {initMenu();});
 
     // $(document).ready(function(){
     //     $('[data-toggle="popover"]').popover();   
@@ -789,33 +846,33 @@
 
     //============================Page 2 JS============================================
     $("#create1").click(function() {
-    	$("#page2").css("display","block");
-    	$("#page1").css("display","none");
-    	$("#page3").css("display","none");
-    	$("#page4").css("display","none");
-    	$("#page5").css("display","none");
-    	$("#page6").css("display","none");
-    	$("#page7").css("display","none");
-    	$("#page8").css("display","none");
-    	//$('body').css('background', '#000 url('paper26.jpg') no-repeat');
-    	$('body').css('background-image','url(paper26.jpg)');
+        $("#page2").css("display","block");
+        $("#page1").css("display","none");
+        $("#page3").css("display","none");
+        $("#page4").css("display","none");
+        $("#page5").css("display","none");
+        $("#page6").css("display","none");
+        $("#page7").css("display","none");
+        $("#page8").css("display","none");
+        //$('body').css('background', '#000 url('paper26.jpg') no-repeat');
+        $('body').css('background-image','url(paper26.jpg)');
     });
     //============================PAge 3 JS======================================================
     $("#create2").click(function() {
-    	$("#page3").css("display","block");
-    	$("#page1").css("display","none");
-    	$("#page2").css("display","none");
-    	$("#page4").css("display","none");
-    	$("#page5").css("display","none");
-    	$("#page6").css("display","none");
-    	$("#page7").css("display","none");
-    	$("#page8").css("display","none");
-    	$("body").css({ 'background-color': '#ffffff' });
-     	$("body").css('background-image', 'none');
+        $("#page3").css("display","block");
+        $("#page1").css("display","none");
+        $("#page2").css("display","none");
+        $("#page4").css("display","none");
+        $("#page5").css("display","none");
+        $("#page6").css("display","none");
+        $("#page7").css("display","none");
+        $("#page8").css("display","none");
+        $("body").css({ 'background-color': '#ffffff' });
+        $("body").css('background-image', 'none');
     });
     $(document).ready(function(){
-	    $('[data-toggle="popover"]').popover();   
-	});
+        $('[data-toggle="popover"]').popover();   
+    });
 
 
         $("#saving").click(function (){
@@ -825,62 +882,113 @@
         });
 
     //========================Page 4 JS======================================
-    $("#create3").click(function() {
-    	$("#page4").css("display","block");
-    	$("#page1").css("display","none");
-    	$("#page2").css("display","none");
-    	$("#page3").css("display","none");
-    	$("#page5").css("display","none");
-    	$("#page6").css("display","none");
-    	$("#page7").css("display","none");
-    	$("#page8").css("display","none");
-    	$("body").css({ 'background-color': '#ffffff' });
-     	$("body").css('background-image', 'none');
+    $("#edit1").click(function() {
+        $("#page3").css("display", "block");
+        $("#editExisting").html("<img src='song1.png'>");
+        $("#page4").css("display", "none");
     });
 
-    $("#publish1").click(function(){
-    		$(this).closest('tr').remove();
-    		$('#table2').append('<tr><th></th><th style="font-size: 18px">6</th><td style="font-size: 18px">Night Serenade</td><td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td></tr>');
+    
 
-    	});
-    	$("#publish2").click(function(){
-    		$(this).closest('tr').remove();
-    		$('#table2').append('<tr><th></th><th style="font-size: 18px">5</th><td style="font-size: 18px">Lady Walk</td><td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td></tr>');
-    	});
-    	$("#publish3").click(function(){
-    		$(this).closest('tr').remove();
-    		$('#table2').append('<tr><th></th><th style="font-size: 18px">4</th><td style="font-size: 18px">Cherry Breeze</td><td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td></tr>');
-    	});
+    $("#create3").click(function() {
+        $("#page4").css("display","block");
+        $("#page1").css("display","none");
+        $("#page2").css("display","none");
+        $("#page3").css("display","none");
+        $("#page5").css("display","none");
+        $("#page6").css("display","none");
+        $("#page7").css("display","none");
+        $("#page8").css("display","none");
+        $("body").css({ 'background-color': '#ffffff' });
+        $("body").css('background-image', 'none');
+    });
+
+    // $("#publish1").click(function(){
+    //         $(this).closest('tr').remove();
+    //         $('#table2').append('<tr><th></th><th style="font-size: 18px">6</th><td style="font-size: 18px">Night Serenade</td><td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td></tr>');
+
+    //     });
+    //     $("#publish2").click(function(){
+    //         $(this).closest('tr').remove();
+    //         $('#table2').append('<tr><th></th><th style="font-size: 18px">5</th><td style="font-size: 18px">Lady Walk</td><td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td></tr>');
+    //     });
+    //     $("#publish3").click(function(){
+    //         $(this).closest('tr').remove();
+    //         $('#table2').append('<tr><th></th><th style="font-size: 18px">4</th><td style="font-size: 18px">Cherry Breeze</td><td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td></tr>');
+    //     });
 
     //==========================Page 5 JS==============================================
 
    $("#Finishedsong").click(function() {
-    	$("#page5").css("display","block");
-    	$("#page1").css("display","none");
-    	$("#page2").css("display","none");
-    	$("#page3").css("display","none");
-    	$("#page4").css("display","none");
-    	$("#page6").css("display","none");
-    	$("#page7").css("display","none");
-    	$("#page8").css("display","none");
-    	$("body").css({ 'background-color': '#ffffff' });
-     	$("body").css('background-image', 'none');
+        $("#page5").css("display","block");
+        $("#page1").css("display","none");
+        $("#page2").css("display","none");
+        $("#page3").css("display","none");
+        $("#page4").css("display","none");
+        $("#page6").css("display","none");
+        $("#page7").css("display","none");
+        $("#page8").css("display","none");
+        $("body").css({ 'background-color': '#ffffff' });
+        $("body").css('background-image', 'none');
     });
 
    //=========================Page 6 JS==========================================================
 
    $("#create4").click(function() {
-    	$("#page6").css("display","block");
-    	$("#page1").css("display","none");
-    	$("#page2").css("display","none");
-    	$("#page3").css("display","none");
-    	$("#page4").css("display","none");
-    	$("#page5").css("display","none");
-    	$("#page7").css("display","none");
-    	$("#page8").css("display","none");
-    	$("body").css({ 'background-color': '#ffffff' });
-     	$("body").css('background-image', 'none');
+        $("#page6").css("display","block");
+        $("#page1").css("display","none");
+        $("#page2").css("display","none");
+        $("#page3").css("display","none");
+        $("#page4").css("display","none");
+        $("#page5").css("display","none");
+        $("#page7").css("display","none");
+        $("#page8").css("display","none");
+        $("body").css({ 'background-color': '#ffffff' });
+        $("body").css('background-image', 'none');
     });
+   //==================Page 7 JS====================================
+   $("#donate").click(function() {
+        $("#page7").css("display","block");
+        $("#page1").css("display","none");
+        $("#page2").css("display","none");
+        $("#page3").css("display","none");
+        $("#page4").css("display","none");
+        $("#page5").css("display","none");
+        $("#page6").css("display","none");
+        $("#page8").css("display","none");
+        $('body').css('background-image','url(paper27.jpg)');
+    });
+   //=======================Page 8 JS==========================
+    $("#contact").click(function() {
+        $("#page8").css("display","block");
+        $("#page1").css("display","none");
+        $("#page2").css("display","none");
+        $("#page3").css("display","none");
+        $("#page4").css("display","none");
+        $("#page5").css("display","none");
+        $("#page6").css("display","none");
+        $("#page7").css("display","none");
+        $("body").css({ 'background-color': '#ffffff' });
+        $("body").css('background-image', 'none');
+    });
+    //====================DogeUser JS==========================
+   
+
+    $("#doge").hover(function () {
+        $(this).popover({
+            title: "New Composer",
+            placement:"bottom",
+
+            content: "Level: 1 <br />Songs: 0 <br />",
+            // content: <a href="Main Homepage.html"> Log Out</a>
+            html: true
+        }).popover('show');
+    }, function () {
+        $(this).popover('hide');
+    });
+    </script>
+</body>
+</html>
     </script>
 </body>
 </html>
