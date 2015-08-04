@@ -18,6 +18,8 @@ var noteToAdd;
 var previousClef, currentClef;
 //when start is pressed, then this is true; clears notes and music so if there were notes picked up right before start, they won't be drawn on the music
 var firstTime; 
+
+var indices = []; 
 //for debugging, total notes recorded after start pressed until stop pressed
 var totalNotes = [];
 //================================================================================================================================
@@ -92,6 +94,29 @@ var save = function() {
     $("#enterButton").attr("href", musicImage);
 
 }; //end of save function
+
+//plays back the song you just created (based on the sheet music created), uses Web Audio API
+var playback = function() {
+    var i = 0; 
+    window.setInterval(function(){
+        if (i < indices.length){
+            var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            var oscillator = audioCtx.createOscillator();
+            var gainNode = audioCtx.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            var frequency = map[indices[i]][1];
+
+            console.log(frequency);
+            oscillator.frequency.value = frequency;
+
+            oscillator.start(0);
+            oscillator.stop(.05);
+            i++;
+        }
+}, 50);
+};
 
 //================================================================================================================================
 
@@ -249,6 +274,9 @@ var addNotes = function(duration, dot){
 
     //push the note to notes (array of note objects)
     notes.push(apple);
+    if (notes.length > 1 && notes[notes.length-2].duration === "16"){
+        notes.splice(notes.length-2, 1);
+    }
     //go to the next function 
     clef();
 }; //end of addNotes function
@@ -839,16 +867,13 @@ deviation = goalfrequency-map[nearestIndex][1];
 //=============================================================================
 //if the start button is pressed (and then start function changes addToArray to true), add the notes picked up by microphone to array music
 if(addToArray === true){
-    if(firstTime === true){
-        music = [];
-        notes = []; 
-        firstTime = false;
-    }
+    
     if(filterNotes === true){
         var filterOctave = parseInt(map[nearestIndex][0].substring(map[nearestIndex][0].length-1));
         if(filterOctave < 2 || filterOctave > 6){
         //don't add the note to the array if it is out of range 
         } else {
+        indices.push(nearestIndex);
         totalNotes.push(map[nearestIndex][0]);
         //update array music that contains notes
         music.push(map[nearestIndex][0]);
@@ -856,12 +881,18 @@ if(addToArray === true){
         rhythm();
         }
     } else {
+        indices.push(nearestIndex);
         totalNotes.push(map[nearestIndex][0]);
         //update array music that contains notes
         music.push(map[nearestIndex][0]);
         //update the sheet music (the first step is function rhythm, each function goes to another function that eventually draws the music)
         rhythm();
    }
+   if(firstTime === true){
+        music = [];
+        notes = []; 
+        firstTime = false;
+    }
 
 }
 
