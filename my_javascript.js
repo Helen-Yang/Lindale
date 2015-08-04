@@ -97,27 +97,27 @@ var save = function() {
 
 //plays back the song you just created (based on the sheet music created), uses Web Audio API
 var playback = function() {
-    var i = 0; 
-    window.setInterval(function(){
-        if (i < indices.length){
-            var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            var oscillator = audioCtx.createOscillator();
-            var gainNode = audioCtx.createGain();
-            oscillator.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
+    var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    var oscillator = audioCtx.createOscillator();
+    var gainNode = audioCtx.createGain();
+    oscillator.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    oscillator.start(0);
+    var i = 0;
 
-            var frequency = map[indices[i]][1];
-
-            console.log(frequency);
-            oscillator.frequency.value = frequency;
-
-            oscillator.start(0);
-            oscillator.stop(.05);
-            i++;
+    var timer = setInterval(function(){
+        var frequency = map[indices[i]][1];
+        console.log(map[indices[i]][0]);
+        console.log(frequency);
+        oscillator.frequency.value = frequency;
+        i++;
+        if(i > indices.length -1){
+            oscillator.stop();
+            clearInterval(timer);
         }
-}, 50);
+    }, 250);
+    
 };
-
 //================================================================================================================================
 
 //linear regression; takes in the width and determines the optimal notes per line (very subjective)
