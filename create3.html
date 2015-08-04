@@ -354,6 +354,14 @@
     font-size: 10px;
     }
 }
+.circle {
+  width: 200px;
+  height: 200px;
+  border: 1px solid black;
+  border-radius: 100px;
+  background: url('http://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Ski_trail_rating_symbol-blue_square.svg/600px-Ski_trail_rating_symbol-blue_square.svg.png') center;
+  background-size: 130%;   
+}
 
 
 
@@ -385,6 +393,17 @@
                       <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
                     </button>
                 </div><!-- navbar-header-->
+
+                <div class="container">
+                  <ul class="list-inline">
+                    <li class="container-fluid" style="float:right" id="circle"><a href="#" title="Doge" data-toggle="popover" data-placement="bottom" data-content="Level 1<br />level2"><img src="https://pbs.twimg.com/profile_images/417201275466690560/TzVjIXv2.jpeg" width="35px" height="35px"></a>
+                  
+
+                  <a href= "#" type="button" class="btn btn-primary btn-lg create1centered1" id="create2">Log Out</a></li>
+                  </ul>
+                </div>
+
+
  
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav">
@@ -776,7 +795,6 @@
 
 
 
-
         
         <!-- /#page-content-wrapper -->
     
@@ -967,6 +985,23 @@
         $("#page7").css("display","none");
         $("body").css({ 'background-color': '#ffffff' });
         $("body").css('background-image', 'none');
+    });
+    //====================DogeUser JS==========================
+    $(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+    });
+
+    $("#doge").hover(function () {
+        $(this).popover({
+            title: "Doge",
+            placement:"bottom",
+
+            content: "Level: 1 <br />Songs: 3 <br />",
+            // content: <a href="Main Homepage.html"> Log Out</a>
+            html: true
+        }).popover('show');
+    }, function () {
+        $(this).popover('hide');
     });
     </script>
 </body>
