@@ -1091,20 +1091,26 @@
     $("#edit1").click(function() {
     	$("#page3").css("display", "block");
     	$("#editExisting").html("<img src='example2.png'>");
-    	$("#title").hide();
+    	$("#saving").click(function (){
+            $("#myModal1").hide();
+        });
     	$("#page4").css("display", "none");
     });
 
     $("#edit2").click(function() {
     	$("#page3").css("display", "block");
-    	$("#title").hide();
+    	$("#saving").click(function (){
+            $("#myModal2").hide();
+        });
     	$("#editExisting").html("<img src='song1.png'>");
     	$("#page4").css("display", "none");
     });
 
     $("#edit3").click(function() {
     	$("#page3").css("display", "block");
-    	$("#title").hide();
+    	$("#saving").click(function (){
+            $("#myModal3").hide();
+        });
     	$("#editExisting").html("<img src='song3.png'>");
     	$("#page4").css("display", "none");
     });
