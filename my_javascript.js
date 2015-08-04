@@ -18,7 +18,7 @@ var noteToAdd;
 var previousClef, currentClef;
 //when start is pressed, then this is true; clears notes and music so if there were notes picked up right before start, they won't be drawn on the music
 var firstTime; 
-
+//an array of the indices of each of the elements of music in the array map (so if music has "C#/0", then indices will have 1); this is used to get the frequencies of the corresponding note in the playback function
 var indices = []; 
 //for debugging, total notes recorded after start pressed until stop pressed
 var totalNotes = [];
@@ -97,20 +97,25 @@ var save = function() {
 
 //plays back the song you just created (based on the sheet music created), uses Web Audio API
 var playback = function() {
+    //set up for Web Audio API
     var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     var oscillator = audioCtx.createOscillator();
     var gainNode = audioCtx.createGain();
     oscillator.connect(gainNode);
     gainNode.connect(audioCtx.destination);
+    //start playing the oscillator
     oscillator.start(0);
+    //a variable for counting to go through indices
     var i = 0;
 
+    //every 250 milliseconds, change the frequency to play the next note
     var timer = setInterval(function(){
+        // get the frequency of the note 
         var frequency = map[indices[i]][1];
-        console.log(map[indices[i]][0]);
-        console.log(frequency);
+        //set the oscillator's frequency to the frequency of the note
         oscillator.frequency.value = frequency;
         i++;
+        //after going through all the notes, stop playing sound and get stop the setInterval function
         if(i > indices.length -1){
             oscillator.stop();
             clearInterval(timer);
@@ -274,6 +279,7 @@ var addNotes = function(duration, dot){
 
     //push the note to notes (array of note objects)
     notes.push(apple);
+    //if there are random 16th notes, they might be anomalies so remove them
     if (notes.length > 1 && notes[notes.length-2].duration === "16"){
         notes.splice(notes.length-2, 1);
     }
@@ -873,6 +879,7 @@ if(addToArray === true){
         if(filterOctave < 2 || filterOctave > 6){
         //don't add the note to the array if it is out of range 
         } else {
+        //indices is used for the playback function
         indices.push(nearestIndex);
         totalNotes.push(map[nearestIndex][0]);
         //update array music that contains notes
@@ -889,6 +896,7 @@ if(addToArray === true){
         rhythm();
    }
    if(firstTime === true){
+        indices = [];
         music = [];
         notes = []; 
         firstTime = false;
