@@ -3,170 +3,175 @@
 <head>
 	<title></title>
 	<style type="text/css">
-				@font-face {
-		  font-family: 'Open Sans Condensed';
-		  font-style: normal;
-		  font-weight: 300;
-		  src: local('Open Sans CondLight'),local('OpenSansCondensedLight'),url(http://themes.googleusercontent.com/static/fonts/opensanscondensed/v7/gk5FxslNkTTHtojXrkp-xF1YPouZEKgzpqZW9wN-3Ek.woff) format('woff');
-		}
+		* {
+    margin: 0;
+    padding: 0;
+  	-moz-box-sizing: border-box;
+		-o-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+	}
 
-		/*basic stuff incoming*/
-		*{
-		  margin: 0;
-		  padding: 0;
-		  
-		  -webkit-backface-visibility: hidden;
-		    
-		  -webkit-transition: all 0.5s;
-		  -moz-transition: all 0.5s;
-		  transition: all 0.5s;
-		}
+	body {
+		width: 100%;
+		height: 100%;
+		font-family: "helvetica neue", helvetica, arial, sans-serif;
+		font-size: 13px;
+		text-align: center;
+		background: #333 url();
+	}
 
-		#container{
-		  width: 330px;
-		  margin: 25px auto;
-		}
+	ul {
+		margin: 30px auto;
+		text-align: center;
+	}
 
+	li {
+		list-style: none;
+		position: relative;
+		display: inline-block;
+		width: 100px;
+		height: 100px;
+	}
 
-		/*for lack a better headline*/
-		h1{
-		  color: #333;
-		  font-family:Open Sans Condensed;
-		  font-size: 2.5em;
-		  text-align: center;
-		  margin-bottom: 40px;
-		}
+	@-moz-keyframes rotate {
+		0% {transform: rotate(0deg);}
+		100% {transform: rotate(-360deg);}
+	}
 
-		h1:hover{
-		  font-size: 2.5em;
-		}
+	@-webkit-keyframes rotate {
+		0% {transform: rotate(0deg);}
+		100% {transform: rotate(-360deg);}
+	}
 
-		h1:hover:before, h1:hover:after{
-		  font-style: italic;
-		  font-size: 0.5em;
-		}
+	@-o-keyframes rotate {
+		0% {transform: rotate(0deg);}
+		100% {transform: rotate(-360deg);}
+	}
 
-		h1:hover:before{
-		  content: "some ";
-		}
+	@keyframes rotate {
+		0% {transform: rotate(0deg);}
+		100% {transform: rotate(-360deg);}
+	}
 
-		h1:hover:after{
-		  content: " by NobodyRocks";
-		}
+	.round {
+		display: block;
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		padding-top: 30px;		
+		text-decoration: none;		
+		text-align: center;
+		font-size: 25px;		
+		text-shadow: 0 1px 0 rgba(255,255,255,.7);
+		letter-spacing: -.065em;
+		font-family: "Hammersmith One", sans-serif;		
+		-webkit-transition: all .25s ease-in-out;
+		-o-transition: all .25s ease-in-out;
+		-moz-transition: all .25s ease-in-out;
+		transition: all .25s ease-in-out;
+		box-shadow: 2px 2px 7px rgba(0,0,0,.2);
+		border-radius: 300px;
+		z-index: 1;
+		border-width: 4px;
+		border-style: solid;
+	}
 
+	.round:hover {
+		width: 130%;
+		height: 130%;
+		left: -15%;
+		top: -15%;
+		font-size: 33px;
+		padding-top: 38px;
+		-webkit-box-shadow: 5px 5px 10px rgba(0,0,0,.3);
+		-o-box-shadow: 5px 5px 10px rgba(0,0,0,.3);
+		-moz-box-shadow: 5px 5px 10px rgba(0,0,0,.3);
+		box-shadow: 5px 5px 10px rgba(0,0,0,.3);
+		z-index: 2;
+		border-size: 10px;
+		-webkit-transform: rotate(-360deg);
+		-moz-transform: rotate(-360deg);
+		-o-transform: rotate(-360deg);
+		transform: rotate(-360deg);
+	}
 
-		/*i'm a button, click me!*/
-		button{
-		  width: 100px;
-		  height: 100px;
-		  color: #ffffff;
-		  background-color: #3498db;
-		  font-family:Open Sans Condensed;
-		  text-decoration: none;
-		  font-size: 1.8em;
-		  border: 2px #ffffff solid;
-		  margin: 10px 0 0 5px;
-		  
-		  -webkit-transition: all 0.5s;
-		  -moz-transition: all 0.5s;
-		  transition: all 0.5s;
-		}
+	/*a.red {
+		background-color: rgba(239,57,50,1);
+		color: rgba(133,32,28,1);
+		border-color: rgba(133,32,28,.2);
+	}
 
+	a.red:hover {
+		color: rgba(239,57,50,1);
+	}*/
 
-		/*magic starts here*/
-		button:hover{
-		  cursor: pointer;
-		}
+	a.green {
+		background-color: rgba(1,151,171,1);
+		color: rgba(0,63,71,1);
+		border-color: rgba(0,63,71,.2);
+	}
 
-		.highlight:hover{
-		  background-color: #FFffff;
-		  color: #3498db;
-		}
+	a.green:hover {
+		color: rgba(1,151,171,1);
+	}
 
-		.fade:hover{
-		  border: 0px;
-		  color: #009999;
-		  opacity:0;
-		}
+	/*a.yellow {
+		background-color: rgba(252,227,1,1);
+		color: rgba(153,38,0,1);
+		border-color: rgba(153,38,0,.2);
+	}
 
-		.boom:hover{
-		  color: #009999;
-		  border: #009999;
-		  opacity: 0;
-		  
-		  -webkit-transform: scale(2, 2);
-		  -moz-transform: scale(2, 2);
-		  transform: scale(2, 2);
-		}
+	a.yellow:hover {
+		color: rgba(252,227,1,1);
+	}*/
 
-		.focus:hover{
-		  border-width: 20px;
-		}
+	.round span.round {
+		display: block;
+		opacity: 0;
+		-webkit-transition: all .5s ease-in-out;
+		-moz-transition: all .5s ease-in-out;
+		-o-transition: all .5s ease-in-out;
+		transition: all .5s ease-in-out;
+		font-size: 1px;
+		border: none;
+		padding: 40% 20% 0 20%;
+		color: #fff;
+	}
 
-		.rotate:hover{
-		  -webkit-transform: rotate(90deg);
-		  -moz-transform: rotate(90deg);
-		  transform: rotate(90deg);
-		}
+	.round span:hover {
+		opacity: .85;
+		font-size: 16px;
+		-webkit-text-shadow: 0 1px 1px rgba(0,0,0,.5);
+		-moz-text-shadow: 0 1px 1px rgba(0,0,0,.5);
+		-o-text-shadow: 0 1px 1px rgba(0,0,0,.5);
+		text-shadow: 0 1px 1px rgba(0,0,0,.5);	
+	}
 
-		.knit:hover{
-		  height: 0px;
-		}
+	.green span {
+		background: rgba(0,63,71,.7);		
+	}
 
-		.shrink:hover{
-		  -webkit-transform: scale(0.0,0.0);
-		  -moz-transform: scale(0.0,0.0);
-		  transform: scale(0.0,0.0);
-		}
+	/*.red span {
+		background: rgba(133,32,28,.7);		
+	}
 
-		.squezze:hover{
-		 -webkit-transform: scale(1.5, 0.0);
-		 -moz-transform: scale(1.5, 0.0);
-		 transform: scale(1.5, 0.0);
-		}
+	.yellow span {
+		background: rgba(161,145,0,.7);	
 
-		.deform:hover{
-		  -webkit-transform: skew(45deg,45deg);
-		  -moz-transform: skew(45deg,45deg);
-		  transform: skew(45deg,45deg);
-		}
-
-
-		/*for the sake of responsiveness...*/
-		@media (max-width: 330px) {
-		  
-		  #container{
-		    width: 100%;
-		  }
-		  
-		  button{
-		    width: 90%;
-		    margin: 5% 0 0 5%;
-		  }
+	}*/
 
 	</style>
+<head>
 
-</head>
 <body>
-	<div id="container">
-	  
-	  <h1>CSS3 Animated Buttons</h1>
-	  
-	  <button class="highlight">  Highlight</button>
-	  <button class="fade">       Fade</button>
-	  <button class="boom">       Boom</button>
-	  
-	  <button class="focus">      Focus</button>
-	  <button class="rotate">     Rotate</button>
-	  <button class="knit">       Knit</button>
-	  
-	  <button class="shrink">     Shrink</button>
-	  <button class="squezze">    Squezze</button>
-	  <button class="deform">     Deform</button>
-	  
-	</div>
-
-	<div id="linkBack" style="position:absolute;right:0px;top:0px;background-color:#333;margin:0;width:60px;"><a href="http://www.f-rilling.com/projects/" target="_blank" style="font-size:14px;text-decoration:none;color:#fff;padding:0 0 0 5px;font-family:sans-serif">My Site</a></div>
+<ul>
+  <li><a href="#" class="round green">Login<span class="round">That is, if you already have an account.</span></a></li>
+  <!-- <li><a href="#" class="round red">Sign Up<span class="round">But only if you really, really want to. </span></a></li>
+	<li><a href="#" class="round yellow">Demo<span class="round">Take a look. This product is totally rad!</span></a></li> -->
+</ul> 
 
 </body>
 </html>

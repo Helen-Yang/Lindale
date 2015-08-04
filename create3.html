@@ -362,6 +362,33 @@
   background: url('http://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Ski_trail_rating_symbol-blue_square.svg/600px-Ski_trail_rating_symbol-blue_square.svg.png') center;
   background-size: 130%;   
 }
+.logout{
+          width: 100px;
+          height: 100px;
+          color: #ffffff;
+          background-color: #3498db;
+          font-family:Open Sans Condensed;
+          text-decoration: none;
+          font-size: 1.8em;
+          border: 2px #ffffff solid;
+          margin: 10px 0 0 5px;
+          
+          -webkit-transition: all 0.5s;
+          -moz-transition: all 0.5s;
+          transition: all 0.5s;
+        }
+
+
+        /*magic starts here*/
+            .logout:hover{
+              cursor: pointer;
+            }
+
+            .logout:hover{
+              background-color: #FFffff;
+              color: #3498db;
+            }
+
 
 
 
@@ -396,18 +423,24 @@
 
                 <div class="container">
                   <ul class="list-inline">
-                    <li class="container-fluid" style="float:right" id="circle"><a href="#" title="Doge" data-toggle="popover" data-placement="bottom" data-content="Level 1<br />level2"><img src="https://pbs.twimg.com/profile_images/417201275466690560/TzVjIXv2.jpeg" width="35px" height="35px"></a>
-                  
+                    <li class="container-fluid" style="float:right" id="doge"><a href="#" title="Lindale" data-toggle="popover" data-placement="bottom" data-content="Level 1<br />level2"><img src="https://pbs.twimg.com/profile_images/417201275466690560/TzVjIXv2.jpeg" width="35px" height="35px"></a>
+                    </li>
 
-                  <a href= "#" type="button" class="btn btn-primary btn-lg create1centered1" id="create2">Log Out</a></li>
+                    <!-- <li><a href= "#" type="button" class="btn btn-primary btn-lg create1centered1" id="create2">Log Out</a></li> -->
+
                   </ul>
                 </div>
+
+                <!-- <a href= "#" type="button" class="btn btn-primary btn-lg create1centered1" id="create2">Log Out</a> -->
 
 
  
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav">
                                 <li class="active" ><button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2"> <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span></button></li>
+
+                                <li style="float:right; left:1180px; bottom:10px" ><a href="Main Homepage.html"><button type="button" class="btn btn-default" id="logout">Log Out</button></a>
+                                <!-- <a href= "#" type="button" class="btn btn-primary create1centered1" id="logout">Log Out</a> --></li>
                             </ul>
                 </div><!-- bs-example-navbar-collapse-1 -->
     </nav>
