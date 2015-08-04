@@ -5,8 +5,63 @@
 
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Slab" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 	<style type="text/css">
+	#homepage {
+		display: block;
+	}
+	#loginpage {
+		display: none;
+		}
+		#joinpage {
+			display: none;
+		}
+
+	/*==================Log in Page CSS===============================*/
+
+	form{
+		font-family: 'Josefin Slab';
+    	font-weight: bold;
+		font-size: 24px;
+		font-style: normal;
+		font-variant: normal;
+		font-weight: 500;
+		line-height: 26.3999996185303px;
+	    display:block;
+	    text-align:center;
+	    position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    transform: translateX(-50%) translateY(-50%);
+	}
+
+	#loginform {
+		color: #fff;
+	}
+	/*======================= Join Page CSS=====================================*/
+	#header {
+			font-family: Calibri, Candara, Segoe, 'Segoe UI', Optima, Arial, sans-serif;
+			font-size: 40px;
+			font-style: normal;
+			font-variant: normal;
+			font-weight: 500;
+			line-height: 26.3999996185303px;
+			position: absolute;
+			top: 20%;
+		    left: 50%;
+		    transform: translateX(-50%) translateY(-20%);
+		}
+
+		button{
+			font-family: Calibri, Candara, Segoe, 'Segoe UI', Optima, Arial, sans-serif;
+			font-size: 12px;
+			font-style: normal;
+			font-variant: normal;
+			font-weight: 500;
+			line-height: 26.3999996185303px;
+		}
+		/*==============================Home page CSS======================================*/
 	#logbutton {
 		font-family: 'Josefin Slab';
 		font-size: 20px;
@@ -67,26 +122,81 @@
 	</style>
 	
 </head>
-<body id = "change">
-	
-	<a href="log in pop up.html" class="btn btn-default pull-right btn-sm" role="button" id = "logbutton">Log in</a>
+<body>
+	<div id="homepage">
+	<a href="#" class="btn btn-default pull-right btn-sm" role="button" id = "logbutton">Log in</a>
 	<div class="container">
 		<div class="row">
 			<h1 class="centered2" style="font-family: 'Josefin Slab'">From Sound to Song</h1>
-			<a href="join.html" class="btn btn-large centered1 btn-primary" role="button" id="joinbutton" style="background:#66CCFF">Join</a>	
+			<a href="#" class="btn btn-large centered1 btn-primary" role="button" id="joinbutton" style="background:#66CCFF">Join</a>	
 		</div>
 		<div class="img-responsive">
 	    <img src="logo.png" style="width:400px;height:400px;">
 	</div>
 
 	</div>
+	</div>
+	<div id="loginpage">
+		<center>
+		<form id="loginform" style="font-weight:bold">
+		Username:<br>
+		<input type="text" name="username">
+		<br>
+		<br>
+		Password:<br>
+		<input type="password" name="password">
+		<br>
+		<br>
+		<a href="create3.html" class="btn btn-default">Submit</a>
+		<!-- <button class="btn btn-default" id="button">Submit</button> -->
+		<hr>
+		<div>New Member?</div>
+		<a href="#" class="btn btn-default" id="joinbutton2">Join Today</a>
+		</form>
+		</center>
+	</div>
+<div id="joinpage">
+	<div id="header">Unleash Your Musical Talent</div>
+	<form>
+	Username:<br>
+	<input id="name" type="text" name="username">
+	<br>
+	<br>
+	Password:<br>
+	<input id="password" type="password" name="password">
+	<br>
+	<br>
+	<button id="button" class="btn btn-default"><a href="index2.html">Create</a></button>
+	</form>
+</div>
+
 
 	<script type="text/javascript">
+	$("#logbutton").click(function() {
+    	$("#loginpage").css("display","block");
+    	$("#homepage").css("display","none");
+    	$("#joinpage").css("display","none");
+    	//$('body').css('background', '#000 url('paper26.jpg') no-repeat');
+    	$('body').css('background-image','url(paper24.jpg)');
+    });
 
-	var login = function () {
-		console.log("login");
-	};
+    $("#joinbutton").click(function() {
+    	$("#loginpage").css("display","none");
+    	$("#homepage").css("display","none");
+    	$("#joinpage").css("display","block");
+    	//$('body').css('background', '#000 url('paper26.jpg') no-repeat');
+    	$('body').css('background-image','url(paper38.jpg)');
+    });
 
+    $("#joinbutton2").click(function() {
+    	$("#loginpage").css("display","none");
+    	$("#homepage").css("display","none");
+    	$("#joinpage").css("display","block");
+    	//$('body').css('background', '#000 url('paper26.jpg') no-repeat');
+    	$('body').css('background-image','url(paper38.jpg)');
+    });
+	
+	
 	// var rotate = false;
 	// function setbackground(){
 	//   window.setTimeout( "setbackground()", 5000);

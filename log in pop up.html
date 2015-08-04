@@ -4,10 +4,21 @@
 	<title> Log In</title>
 
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Slab" />
 
 	<style type="text/css">
+		#loginpage {
+		display: block;
+		}
+		#joinpage {
+			display: none;
+		}
+
+	/*==================Log in Page CSS===============================*/
+
 	form{
-		font-family: Calibri, Candara, Segoe, 'Segoe UI', Optima, Arial, sans-serif;
+		font-family: 'Josefin Slab';
+    	font-weight: bold;
 		font-size: 24px;
 		font-style: normal;
 		font-variant: normal;
@@ -20,21 +31,36 @@
 	    left: 50%;
 	    transform: translateX(-50%) translateY(-50%);
 	}
+	/*======================= Join Page CSS=====================================*/
+	#header {
+			font-family: Calibri, Candara, Segoe, 'Segoe UI', Optima, Arial, sans-serif;
+			font-size: 40px;
+			font-style: normal;
+			font-variant: normal;
+			font-weight: 500;
+			line-height: 26.3999996185303px;
+			position: absolute;
+			top: 20%;
+		    left: 50%;
+		    transform: translateX(-50%) translateY(-20%);
+		}
 
-	button{
-		font-family: Calibri, Candara, Segoe, 'Segoe UI', Optima, Arial, sans-serif;
-		font-size: 12px;
-		font-style: normal;
-		font-variant: normal;
-		font-weight: 500;
-		line-height: 26.3999996185303px;
-	}
+		button{
+			font-family: Calibri, Candara, Segoe, 'Segoe UI', Optima, Arial, sans-serif;
+			font-size: 12px;
+			font-style: normal;
+			font-variant: normal;
+			font-weight: 500;
+			line-height: 26.3999996185303px;
+		}
+
 
 	</style>
 </head>
 <body>
+<div id="loginpage">
 	<center>
-	<form>
+	<form id="loginform">
 	Username:<br>
 	<input type="text" name="username">
 	<br>
@@ -50,7 +76,20 @@
 	<a href="join.html" class="btn btn-default">Join Today</a>
 	</form>
 	</center>
-	<script type="text/javascript">
-	</script>
+</div>
+<div id="joinpage">
+	<div id="header">Unleash Your Musical Talent</div>
+	<form>
+	Username:<br>
+	<input id="name" type="text" name="username">
+	<br>
+	<br>
+	Password:<br>
+	<input id="password" type="password" name="password">
+	<br>
+	<br>
+	<button id="button" class="btn btn-default"><a href="index2.html">Create</a></button>
+	</form>
+</div>
 </body>
 </html>
