@@ -191,7 +191,7 @@
 	</div>
 	<div id="loginpage">
 		<center>
-		<form id="loginform" style="font-weight:bold">
+		<form id="loginform" style="font-weight:bold" onsubmit="return false">
 		Username:<br>
 		<input type="text" name="username" style="color: black" id="usernameinput">
 		<br>
@@ -211,7 +211,7 @@
 	</div>
 <div id="joinpage">
 	<div id="header">Unleash Your Musical Talent</div>
-	<form>
+	<form onsubmit="return false">
 	Username:<br>
 	<input type="text" name="username" id="newusername1">
 	<br>
@@ -270,12 +270,15 @@
 
     var newusername = function() {
     	var newInput = $("#newusername1").val();
-    	var newInput2 = $("#newpassword").val();
+    	
     	console.log(newInput);
     	String(newInput);
-    	String(newInput2);
+    	
     	if (newInput === "Lindale"){
     		$("#newuser").css("display","block");
+    		// $("#homepage").css("display", "none");
+
+    		console.log("new username");
     	} else {
     		window.open("create3.html");
     	}
