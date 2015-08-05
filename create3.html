@@ -11,6 +11,10 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Slab" />
     <style type="text/css">
+    body {
+        font-family: "Josefin Slab";
+    }
+
     	#wrapper {
     padding-left: 0;
     -webkit-transition: all 0.5s ease;
@@ -118,6 +122,7 @@
 @media(min-width:768px) {
     #wrapper {
         padding-left: 150px;
+        /*display: none;*/
     }
     .fixed-brand{
     width: 150px;
@@ -481,6 +486,7 @@
 
 
     </nav> -->
+    <nav class="navbar-toggle collapse in">
     <div id="wrapper">
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
@@ -503,6 +509,7 @@
             </ul>
         </div>
     </div><!-- /#sidebar-wrapper -->
+    </nav>
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
@@ -877,7 +884,7 @@
         <canvas id = "canvas3" width=window.innerWidth height=200></canvas>
         <!-- sheet music will go here (modified by javascript) -->
     </div>
-
+ 
     <div class="description 4">
         <canvas id = "canvas4" width=window.innerWidth height=200></canvas>
         <!-- sheet music will go here (modified by javascript) -->
@@ -1017,8 +1024,9 @@
    
     <script type="text/javascript">
     	
-    $("#menu-toggle").click(function(e) {
+    $("#menu-toggle-2").click(function(e) {
         e.preventDefault();
+        //$("#wrapper").css("display", "block");
         $("#wrapper").toggleClass("toggled");
     });
 
@@ -1027,11 +1035,11 @@
         
     });
 
-     $("#menu-toggle-2").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled-2");
-        $('#menu ul').hide();
-    });
+    //  $("#menu-toggle-2").click(function(e) {
+    //     e.preventDefault();
+    //     $("#wrapper").toggleClass("toggled-2");
+    //     $('#menu ul').hide();
+    // });
  
      function initMenu() {
       $('#menu ul').hide();
@@ -1124,6 +1132,13 @@
             $("#footer").hide();
         });
 
+        $("#stopping").click(function() {
+        $("#title").hide();
+            $("#clearing").show();
+            $("#play").show();
+            $("#footer").show();
+         });
+    
     //========================Page 4 JS======================================
     $("#edit1").click(function() {
     	$("#page3").css("display", "block");
