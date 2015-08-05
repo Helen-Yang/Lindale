@@ -256,24 +256,27 @@
 /*=====================================Page 3 CSS================================================================*/
 #starting {
     position: relative;
-    left: 10%;
-    top: 10%;
+    left: 2%;
+    top: 20%;
+    
 }
 
 #stopping {
     position: relative;
     left: 80%;
-    top: 10%;
+    top: 20%;
+    
 }
 #filter {
     position: relative;
-    left: 45%;
+    left: 40%;
     top: 15%;
+    
 }
 #noteString {
     position: relative;
     top: 10%;
-    left: 46%;
+    left: 43%;
 }
 #recording {
     position: relative;
@@ -287,7 +290,7 @@
 
 #infobutton {
 	position: relative;
-	left: 45%;
+	left: 41%;
     top: 16%;
 }
 #info {
@@ -319,7 +322,7 @@
     top: 5%
 }
 /*========================================Page 6 CSS=============================================*/
-#create4starting {
+/*#create4starting {
     position: relative;
     left: 10%;
     top: 10%;
@@ -348,7 +351,7 @@
 
 #create4title {
     display: none;
-}
+}*/
 /*=========================page seven css=========================*/
 .body{
     background-image: url(paper27.jpg);
@@ -721,7 +724,7 @@
           <td> <a href="#" id="edit1" class="btn btn-default btn-sm" role="button">Edit</a> 
           <button class="btn btn-default btn-sm" role="button" data-toggle="modal" data-target="#myModal1">Delete</button>
 
-			<div id="myModal1" class="modal fade" role="dialog">
+			<div class="modal fade" id="myModal1" role="dialog">
 			  <div class="modal-dialog">
 
 			    <div class="modal-content">
@@ -730,7 +733,7 @@
 			       <center><h4 class="modal-title">Confirmation</h4></center> 
 			      </div>
 			      <div class="modal-body">
-			        <center>Are you sure you want to delete? <br> <br> <button class="btn btn-default btn-sm" role="button" onclick="deletesong()" >Yes</button> <button class="btn btn-default btn-sm" role="button"data-dismiss="modal">No</button></center>
+			        <center>Are you sure you want to delete? <br> <br> <button class="btn btn-default btn-sm" role="button" data-dismiss="modal">Yes</button> <button class="btn btn-default btn-sm" role="button"data-dismiss="modal">No</button></center>
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -742,15 +745,15 @@
 			<a href="#" class="btn btn-default btn-sm" role="button" id="publish1">Publish</a>
           </td>
         </tr>
-        <tr>
+        <tr id="Ladywalk">
           
           <th style="font-size: 18px">2</th>
           <td style="font-size: 18px">Lady Walk</td>
           <td> <a href="#" id="edit2" class="btn btn-default btn-sm" role="button">Edit</a> <button class="btn btn-default btn-sm" role="button" data-toggle="modal" data-target="#myModal2">Delete</button>
 
 			<!-- Modal -->
-			<div id="myModal2" class="modal fade" role="dialog">
-			  <div class="modal-dialog">
+			<div class="modal fade" id="myModal2" role="dialog">
+			  <div class="modal-dialog" >
 
 			    <!-- Modal content-->
 			    <div class="modal-content">
@@ -759,7 +762,7 @@
 			       <center><h4 class="modal-title">Confirmation</h4></center> 
 			      </div>
 			      <div class="modal-body">
-			        <center>Are you sure you want to delete? <br> <br> <button class="btn btn-default btn-sm" role="button" onclick="deletesong()" >Yes</button> <button class="btn btn-default btn-sm" role="button" data-dismiss="modal">No</button></center>
+			        <center>Are you sure you want to delete? <br> <br> <button class="btn btn-default btn-sm" role="button" id="delete2" data-dismiss="modal">Yes</button> <button class="btn btn-default btn-sm" role="button" data-dismiss="modal">No</button></center>
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -771,7 +774,7 @@
 			<a href="#" class="btn btn-default btn-sm" role="button" id="publish2">Publish</a>
 			</td>
         </tr>
-        <tr>
+        <tr id="cherrybreeze">
           
           <th style="font-size: 18px">3</th>
           <td style="font-size: 18px">Cherry Breeze</td>
@@ -788,7 +791,7 @@
 			       <center><h4 class="modal-title">Confirmation</h4></center> 
 			      </div>
 			      <div class="modal-body">
-			        <center>Are you sure you want to delete? <br> <br> <button class="btn btn-default btn-sm" role="button" onclick="deletesong()" >Yes</button> <button class="btn btn-default btn-sm" role="button" data-dismiss="modal">No</button></center>
+			        <center>Are you sure you want to delete? <br> <br> <button class="btn btn-default btn-sm" role="button" data-dismiss="modal" id="delete3" >Yes</button> <button class="btn btn-default btn-sm" role="button" data-dismiss="modal">No</button></center>
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -966,7 +969,7 @@
    <!-- =======================page7 HTML====================== -->
 
                 <div id="page7">
-                <a href= "http://www.hungryformusic.org/donate-instrument.html" type="button" class="btn btn-primary btn-lg donationcentered"> Donate Today</a>
+                <a href= "http://www.hungryformusic.org/donate-instrument.html" target="_blank" type="button" class="btn btn-primary btn-lg donationcentered"> Donate Today</a>
                 </div>
     <!-- ======================page 8 HTML====================== -->
 
@@ -1180,6 +1183,20 @@
     	$("#editExisting").html("<img src='song3.png'>");
     	$("#page4").css("display", "none");
     });
+
+    // $("#delete1").click(function(){
+    //     $("#nightserenade").remove();
+    // });
+    // $("#delete2").click(function(){
+    //     $("#Ladywalk").remove();
+    //     $('#myModal2').dialog( "close" );
+    //     // backdrop:true;
+    // });
+
+    // });
+    // $("#delete3").click(function(){
+    //     $("#cherrybreeze").remove();
+    // });
 
     $("#create3").click(function() {
     	$("#page4").css("display","block");
