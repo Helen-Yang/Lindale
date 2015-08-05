@@ -97,31 +97,34 @@ var save = function() {
 
 //plays back the song you just created (based on the sheet music created), uses Web Audio API
 var playback = function() {
-    //set up for Web Audio API
-    var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    var oscillator = audioCtx.createOscillator();
-    var gainNode = audioCtx.createGain();
-    oscillator.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
-    gainNode.gain.value = 1;
-    //start playing the oscillator
-    oscillator.start(0);
-    //a variable for counting to go through indices
-    var i = 0;
+    //make sure there is actually music to play
+    if(notes.length > 1) {
+        //set up for Web Audio API
+        var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        var oscillator = audioCtx.createOscillator();
+        var gainNode = audioCtx.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        gainNode.gain.value = 1;
+        //start playing the oscillator
+        oscillator.start(0);
+        //a variable for counting to go through indices
+        var i = 0;
 
-    //every 250 milliseconds, change the frequency to play the next note
-    var timer = setInterval(function(){
-        // get the frequency of the note 
-        var frequency = map[indices[i]][1];
-        //set the oscillator's frequency to the frequency of the note
-        oscillator.frequency.value = frequency;
-        i++;
-        //after going through all the notes, stop playing sound and get stop the setInterval function
-        if(i > indices.length -1){
-            oscillator.stop();
-            clearInterval(timer);
-        }
-    }, 250);
+        //every 250 milliseconds, change the frequency to play the next note
+        var timer = setInterval(function(){
+            // get the frequency of the note 
+            var frequency = map[indices[i]][1];
+            //set the oscillator's frequency to the frequency of the note
+            oscillator.frequency.value = frequency;
+            i++;
+            //after going through all the notes, stop playing sound and get stop the setInterval function
+            if(i > indices.length -1){
+                oscillator.stop();
+                clearInterval(timer);
+            }
+        }, 250);
+    }
     
 };
 //================================================================================================================================
