@@ -274,12 +274,12 @@
     	console.log(newInput);
     	String(newInput);
     	String(newInput2);
-    	if (newInput != "Lindale") {
-    		window.open("newcreate3.html");
-    	}
-    	else if (newInput === "Lindale") {
+    	if (newInput === "Lindale"){
     		$("#newuser").css("display","block");
+    	} else {
+    		window.open("create3.html");
     	}
+    	
     };
 	
 	
