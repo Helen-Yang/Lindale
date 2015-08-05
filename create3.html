@@ -11,6 +11,10 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Slab" />
     <style type="text/css">
+    body {
+        font-family: "Josefin Slab";
+    }
+
     	#wrapper {
     padding-left: 0;
     -webkit-transition: all 0.5s ease;
@@ -877,7 +881,7 @@
         <canvas id = "canvas3" width=window.innerWidth height=200></canvas>
         <!-- sheet music will go here (modified by javascript) -->
     </div>
-
+ 
     <div class="description 4">
         <canvas id = "canvas4" width=window.innerWidth height=200></canvas>
         <!-- sheet music will go here (modified by javascript) -->
@@ -1125,6 +1129,13 @@
             $("#footer").hide();
         });
 
+        $("#stopping").click(function() {
+        $("#title").hide();
+            $("#clearing").show();
+            $("#play").show();
+            $("#footer").show();
+         });
+    
     //========================Page 4 JS======================================
     $("#edit1").click(function() {
     	$("#page3").css("display", "block");
