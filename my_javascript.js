@@ -103,6 +103,7 @@ var playback = function() {
     var gainNode = audioCtx.createGain();
     oscillator.connect(gainNode);
     gainNode.connect(audioCtx.destination);
+    gainNode.gain.value = 1;
     //start playing the oscillator
     oscillator.start(0);
     //a variable for counting to go through indices
