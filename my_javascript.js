@@ -104,9 +104,9 @@ var playback = function() {
     if(totalNotes.length > 1) {
         //clear toRemove
         toRemove = []; 
-        console.log("in playback");
-        //go through indices and check if there are notes that only occur once; these will be filtered out
-        console.log(indices, "before");
+        // console.log("in playback");
+        // go through indices and check if there are notes that only occur once; these will be filtered out
+        // console.log(indices, "before");
         for (var i = 1; i < indices.length-1; i++){
             if ((indices[i] != indices[i-1]) && (indices[i] != indices[i+1])){
                 //add the indices of these elements to a new array (don't remove them yet because then the indices of the remaining elements will be different)
@@ -150,7 +150,7 @@ var playback = function() {
             }
         }, 250);
     }
-    console.log(indices, "after");
+    // console.log(indices, "after");
     
 };
 //================================================================================================================================
