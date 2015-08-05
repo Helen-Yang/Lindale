@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title> Sign Up</title>
+	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<style type="text/css">
 		body{
@@ -61,79 +62,79 @@
 	<button id="button" class="btn btn-default"><a href="index2.html">Create</a></button>
 	</form>
 	<script type="text/javascript">
-		combination = ["A","B","C","D","E","F","G","H","I","J","K","M","L","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",0,1,2,3,4,5,6,7,8,9];
-		hash_combination=[""]
-		var userDict =[];
-		var passDict =[]; 
-		$('#button').click(function(event){
-			var userName,
-				userPassword;
-			userName = $('#name').val();
-			userPassword = $('#password').val();
-			console.log(userName);
-			event.preventDefault();
-
-			userDict.push(userName);
-			passDict.push(userPassword);
-
-			for (var i=0; i<userDict.length; i++){
-				for (var j=0; j<userDict[i].length; j++){
-					for(var k=0; k<combination.length; k++){
-						if (userDict[i][j]==combination[k] || userDict[i][j]===combination[k]){
-							userDict[i][j]==
-						}
-					}
-				}
-			}
-			// userName.prototype.hashCode = function() {
-			//   var hash = 0, i, chr, len;
-			//   if (this.length == 0) return hash;
-			//   for (i = 0, len = this.length; i < len; i++) {
-			//     chr   = this.charCodeAt(i);
-			//     hash  = ((hash << 5) - hash) + chr;
-			//     hash |= 0; // Convert to 32bit integer
-			//   }
-			//   return hash;
-			// };
-			// userPassword.prototype.hashCode = function() {
-			//   var hash = 0, i, chr, len;
-			//   if (this.length == 0) return hash;
-			//   for (i = 0, len = this.length; i < len; i++) {
-			//     chr   = this.charCodeAt(i);
-			//     hash  = ((hash << 5) - hash) + chr;
-			//     hash |= 0; // Convert to 32bit integer
-			//   }
-			//   return hash;
-			// };
-
-		});
-
-
-
-		// var saveUser = function(){
-		// 	var userName;
-		// 	var userPassword;
-		// 	userName = $('.name').val();
-		// 	userPassword = $('.password').val();
+		// combination = ["A","B","C","D","E","F","G","H","I","J","K","M","L","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",0,1,2,3,4,5,6,7,8,9];
+		// hash_combination=[""]
+		// var userDict =[];
+		// var passDict =[]; 
+		// $('#button').click(function(event){
+		// 	var userName,
+		// 		userPassword;
+		// 	userName = $('#name').val();
+		// 	userPassword = $('#password').val();
 		// 	console.log(userName);
-		// 	alert("wow");
+		// 	event.preventDefault();
 
-		// 	if (userName==""){
-		// 		alert("Please enter a username!");
-		// 	}
-		// 	else if (userPassword==""){
-		// 		alert("Please enter a password!");
-		// 	}
-		// 	else if (userPassword.length < 6 || userPassword.length>14){
-		// 		alert("Please keep your password ")
-		// 	}
-		// 	else{
-		// 		userDict.push(userName);
-		// 		passDict.push(userPassword);
-		// 		alert("Thank you for joining us!");
+		// 	userDict.push(userName);
+		// 	passDict.push(userPassword);
 
+		// 	for (var i=0; i<userDict.length; i++){
+		// 		for (var j=0; j<userDict[i].length; j++){
+		// 			for(var k=0; k<combination.length; k++){
+		// 				if (userDict[i][j]==combination[k] || userDict[i][j]===combination[k]){
+		// 					userDict[i][j]==
+		// 				}
+		// 			}
+		// 		}
 		// 	}
-		// }
+		// 	// userName.prototype.hashCode = function() {
+		// 	//   var hash = 0, i, chr, len;
+		// 	//   if (this.length == 0) return hash;
+		// 	//   for (i = 0, len = this.length; i < len; i++) {
+		// 	//     chr   = this.charCodeAt(i);
+		// 	//     hash  = ((hash << 5) - hash) + chr;
+		// 	//     hash |= 0; // Convert to 32bit integer
+		// 	//   }
+		// 	//   return hash;
+		// 	// };
+		// 	// userPassword.prototype.hashCode = function() {
+		// 	//   var hash = 0, i, chr, len;
+		// 	//   if (this.length == 0) return hash;
+		// 	//   for (i = 0, len = this.length; i < len; i++) {
+		// 	//     chr   = this.charCodeAt(i);
+		// 	//     hash  = ((hash << 5) - hash) + chr;
+		// 	//     hash |= 0; // Convert to 32bit integer
+		// 	//   }
+		// 	//   return hash;
+		// 	// };
+
+	
+
+
+
+		// // var saveUser = function(){
+		// // 	var userName;
+		// // 	var userPassword;
+		// // 	userName = $('.name').val();
+		// // 	userPassword = $('.password').val();
+		// // 	console.log(userName);
+		// // 	alert("wow");
+
+		// // 	if (userName==""){
+		// // 		alert("Please enter a username!");
+		// // 	}
+		// // 	else if (userPassword==""){
+		// // 		alert("Please enter a password!");
+		// // 	}
+		// // 	else if (userPassword.length < 6 || userPassword.length>14){
+		// // 		alert("Please keep your password ")
+		// // 	}
+		// // 	else{
+		// // 		userDict.push(userName);
+		// // 		passDict.push(userPassword);
+		// // 		alert("Thank you for joining us!");
+
+		// // 	}
+		// // }
 	</script>
 </body>
 </html>
