@@ -877,30 +877,41 @@ if(addToArray === true){
     if(filterNotes === true){
         var filterOctave = parseInt(map[nearestIndex][0].substring(map[nearestIndex][0].length-1));
         if(filterOctave < 2 || filterOctave > 6){
-        //don't add the note to the array if it is out of range 
-        } else {
-        //indices is used for the playback function
-        indices.push(nearestIndex);
-        totalNotes.push(map[nearestIndex][0]);
-        //update array music that contains notes
-        music.push(map[nearestIndex][0]);
-        //update the sheet music (the first step is function rhythm, each function goes to another function that eventually draws the music)
-        rhythm();
+            //don't add the note to the array if it is out of range 
+            } else {
+            //if this is the first time through this after start pressed, don't add this note because it might be something left over from right before you pressed start
+            if(firstTime === true){
+                indices = [];
+                music = [];
+                notes = []; 
+                firstTime = false;
+            } else {
+                //indices is used for the playback function
+                indices.push(nearestIndex);
+                totalNotes.push(map[nearestIndex][0]);
+                //update array music that contains notes
+                music.push(map[nearestIndex][0]);
+                //update the sheet music (the first step is function rhythm, each function goes to another function that eventually draws the music)
+                rhythm();
+            }
         }
     } else {
-        indices.push(nearestIndex);
-        totalNotes.push(map[nearestIndex][0]);
-        //update array music that contains notes
-        music.push(map[nearestIndex][0]);
-        //update the sheet music (the first step is function rhythm, each function goes to another function that eventually draws the music)
-        rhythm();
+        //if this is the first time through this after start pressed, don't add this note because it might be something left over from right before you pressed start
+        if(firstTime === true){
+                indices = [];
+                music = [];
+                notes = []; 
+                firstTime = false;
+        } else {
+            indices.push(nearestIndex);
+            totalNotes.push(map[nearestIndex][0]);
+            //update array music that contains notes
+            music.push(map[nearestIndex][0]);
+            //update the sheet music (the first step is function rhythm, each function goes to another function that eventually draws the music)
+            rhythm();
+        }
    }
-   if(firstTime === true){
-        indices = [];
-        music = [];
-        notes = []; 
-        firstTime = false;
-    }
+   
 
 }
 
