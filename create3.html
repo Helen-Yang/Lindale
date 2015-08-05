@@ -118,6 +118,7 @@
 @media(min-width:768px) {
     #wrapper {
         padding-left: 150px;
+        /*display: none;*/
     }
     .fixed-brand{
     width: 150px;
@@ -478,6 +479,7 @@
 
 
     </nav> -->
+    <nav class="navbar-toggle collapse in">
     <div id="wrapper">
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
@@ -500,6 +502,7 @@
             </ul>
         </div>
     </div><!-- /#sidebar-wrapper -->
+    </nav>
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
@@ -1014,8 +1017,9 @@
    
     <script type="text/javascript">
     	
-    $("#menu-toggle").click(function(e) {
+    $("#menu-toggle-2").click(function(e) {
         e.preventDefault();
+        //$("#wrapper").css("display", "block");
         $("#wrapper").toggleClass("toggled");
     });
 
@@ -1024,11 +1028,11 @@
         
     });
 
-     $("#menu-toggle-2").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled-2");
-        $('#menu ul').hide();
-    });
+    //  $("#menu-toggle-2").click(function(e) {
+    //     e.preventDefault();
+    //     $("#wrapper").toggleClass("toggled-2");
+    //     $('#menu ul').hide();
+    // });
  
      function initMenu() {
       $('#menu ul').hide();
