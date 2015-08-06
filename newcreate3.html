@@ -576,7 +576,7 @@
                             
                         </form>
    
-                    <button class="btn btn-default btn-sm" role="button" onclick="clearStaves()" id="clearing" data-dismiss="modal">Redo</button> <button class="btn btn-default btn-sm" role="button" onclick="playback()" data-dismiss="modal">Playback</button></center>
+                    <button class="btn btn-default btn-sm" role="button" onclick="clearStaves()" id="clearing" data-dismiss="modal">Redo</button> <button id="play" class="btn btn-default btn-sm" role="button" onclick="playback()" data-dismiss="modal">Playback</button></center>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default" id="footer" data-dismiss="modal">Close</button>
@@ -891,12 +891,21 @@
     });
 
 
+       
         $("#saving").click(function (){
             $("#title").show();
             $("#clearing").hide();
+            $("#play").hide();
             $("#footer").hide();
         });
 
+        $("#stopping").click(function() {
+        $("#title").hide();
+            $("#clearing").show();
+            $("#play").show();
+            $("#footer").show();
+         });
+    
     //========================Page 4 JS======================================
     $("#edit1").click(function() {
         $("#page3").css("display", "block");
