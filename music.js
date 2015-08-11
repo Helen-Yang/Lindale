@@ -70,34 +70,34 @@ var filter = function() {
     filterNotes = true;
 };
 
-//takes each stave (each within a canvas) and gets the image url as a data URI
-var save = function() {
-    //get the height and width of one of the staves (all 15 should be the same)
-    var height = document.getElementById("canvas1").height;
-    var width = document.getElementById("canvas1").width;
-    //make sure the new canvas will be tall enough for all of the staves
-    var newHeight = 16*height; 
-    //create the new canvas
-    document.getElementById("newCanvas").innerHTML = "<canvas id='downloadCanvas'" + " height=" + newHeight + " width=" + width +"></canvas>";
-    //select downloadCanvas which will be the combination of all the canvases
-    var downloadCanvas = document.getElementById("downloadCanvas");
-    var ctx1 = downloadCanvas.getContext("2d");   
-    //go through each of the canvases that are used
-    for (var i = 1; i <= 15; i++){
-        var id = String("canvas" + i); 
-        console.log(id);
-        var canvas = document.getElementById(id);
-        //added each of the canvases to downloadCanvas
-        //width, height
-        ctx1.drawImage(canvas, 0, height*i);
-    }
-    //get the data url for the combined staves
-    var musicImage =  downloadCanvas.toDataURL();
-    //put the combined staves as the link for the download button
-    $("#enterButton").attr("href", musicImage);
-    return musicImage;
+// //takes each stave (each within a canvas) and gets the image url as a data URI
+// var save = function() {
+//     //get the height and width of one of the staves (all 15 should be the same)
+//     var height = document.getElementById("canvas1").height;
+//     var width = document.getElementById("canvas1").width;
+//     //make sure the new canvas will be tall enough for all of the staves
+//     var newHeight = 16*height; 
+//     //create the new canvas
+//     document.getElementById("newCanvas").innerHTML = "<canvas id='downloadCanvas'" + " height=" + newHeight + " width=" + width +"></canvas>";
+//     //select downloadCanvas which will be the combination of all the canvases
+//     var downloadCanvas = document.getElementById("downloadCanvas");
+//     var ctx1 = downloadCanvas.getContext("2d");   
+//     //go through each of the canvases that are used
+//     for (var i = 1; i <= 15; i++){
+//         var id = String("canvas" + i); 
+//         console.log(id);
+//         var canvas = document.getElementById(id);
+//         //added each of the canvases to downloadCanvas
+//         //width, height
+//         ctx1.drawImage(canvas, 0, height*i);
+//     }
+//     //get the data url for the combined staves
+//     var musicImage =  downloadCanvas.toDataURL();
+//     //put the combined staves as the link for the download button
+//     $("#enterButton").attr("href", musicImage);
+//     return musicImage;
 
-}; //end of save function
+// }; //end of save function
 
 //plays back the song you just created (based on the sheet music created), uses Web Audio API
 var playback = function() {
@@ -161,6 +161,11 @@ var notesPerLine = function(){
     var width = window.innerWidth-35;
     var notesPerLine = Math.round(2.62770060761149 + .017021763005526*width);
     return notesPerLine;
+};
+
+//allow parse.js to have staveNum so it will know how many canvases it has to combine when making Data URL
+var getStaveNum = function() {
+    return staveNum;
 };
 //================================================================================================================================
 //the actual conversion of strings to objects and subsequent drawing of those on the staves
