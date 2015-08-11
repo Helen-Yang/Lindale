@@ -95,6 +95,7 @@ var save = function() {
     var musicImage =  downloadCanvas.toDataURL();
     //put the combined staves as the link for the download button
     $("#enterButton").attr("href", musicImage);
+    return musicImage;
 
 }; //end of save function
 

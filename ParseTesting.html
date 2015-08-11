@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Parse Testing</title>
+	<script src="https://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head>
+<body>
+
+<form onsubmit="return false">
+	Username:<br>
+	<input type="text" name="username" id="newusername1">
+	<br>
+	<br>
+	Password:<br>
+	<input type="password" name="password" id="newpassword">
+	<br>
+	
+	<br>
+	<a><button id="button" class="btn btn-default" onclick="createParseStuff()">Create</button></a>
+	<button onclick="getParseStuff()">get stuff from parse</button>
+	<button onclick="runScript()">runScript()</button>
+	</form>
+
+    <div id="objectList"></div>
+	 <input type="file" id="uploadInput" name = "uploadInput" />
+<script type="text/javascript">
+	Parse.initialize("l5n5ejbZKJJVULRmjjEPF6YJfVMCYpuncq5gU6yg", "LczId30RAh0E5rbxnywhGVn57y9UtAYvYLWmYrha");
+
+var user;
+var createParseStuff = function () {
+
+	var User = Parse.Object.extend("User");
+	var user = new User();
+	console.log("created new user");
+	var u = document.getElementById("newusername1").value;
+	var p = document.getElementById("newpassword").value;
+	user.save(
+		{username: u, password: p} ).then(function(object){
+		alert("yay! it worked");
+	});
+	console.log("finished");
+
+	var query = new Parse.Query(User);
+	console.log("created a new query");
+	query.find({
+		success: function(results){
+			alert("yay got stuff!");
+			for (var i = 0; i < results.length; i ++){
+				var object = results[i];
+				alert(object.id + "  " + object.get('password'));
+			}
+		},
+		error: function(error){
+			alert(error.code + error.message);
+		}
+	});
+	
+};
+
+function runScript()
+{
+        //alert("Called signup user"); 
+      
+        //create new file from user uploaded File
+        var fileUploadControl = $("#uploadInput")[0];
+        if (fileUploadControl.files.length > 0) {
+            var file = fileUploadControl.files[0];
+            var name = "photo.jpg";
+
+            var parseFile = new Parse.File(name, file);
+        }
+      
+          
+      //creating a sample object, the equivalent of creating a class    
+      var TestObject = Parse.Object.extend("TestObject");
+      
+      //creating an instance of our TestObject class
+      var testObject = new TestObject();
+          
+      //you set and create attributes the same way
+      //the set method will both set an attribute if 
+      testObject.set("image", parseFile); 
+      testObject.save({name: "TestObject1"}, {
+      success: function(object) {
+        $(".success").show();
+      },
+      error: function(model, error) {
+        $(".error").show();
+      }
+    });
+     
+    //to grab information from the database you first set up a query
+    var query = new Parse.Query(TestObject);
+    
+    //then you set information for the query
+    //this will only return TestObject that have a name of TestObject1
+    //query.equalTo("name", "TestObject1"); 
+
+    //call find to actually access your database
+    //results is not a parameter to the function it actually is where the output
+    //of the function is stored
+        query.find({
+          success: function(results) {
+            alert("Successfully retrieved " + results.length + " scores.");
+            // Do something with the returned Parse.Object values
+            for (var i = 0; i < results.length; i++) {
+              var object = results[i];
+                //Plug the id and name into the html document at id objectList
+                $("#objectList").append("<br/>" + object.id + "-" + object.get("name") + "<br/>");
+               //alert(object.id + ' - ' + object.get("name"));
+                
+                //grab the image associated with the object
+                var img = object.get('image');
+                alert(img);
+                //create an html img tag to be added to the webpage 
+                var picture = document.createElement("IMG");
+                // alert(object.get('image').url());
+                //set the image src to be url on the database
+                picture.src = img.url();
+                //alert(picture);
+                //non jquery way to plug data in at certain id 
+                document.getElementById("objectList").appendChild(picture);
+            }
+          },
+          error: function(error) {
+            alert("Error: " + error.code + " " + error.message);
+          }
+        });
+	}
+</script>
+</body>
+</html>

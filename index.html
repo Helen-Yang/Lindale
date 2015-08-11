@@ -8,6 +8,8 @@
 	<link rel="shortcut icon" href="logo.png"> 
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Slab" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
+	<script src="parse.js"></script>
 
 	<style type="text/css">
 	#homepage {
@@ -201,7 +203,7 @@
 		<br>
 		<p style="color:#FFCACA;font-size:12pt;" id="incorrect">Username and password do not match</p>
 		<br>
-		<a href="#" class="btn btn-default" onclick="checkusername()">Submit</a>
+		<a href="#" class="btn btn-default" onclick="loginUser()">Submit</a>
 		<!-- <button class="btn btn-default" id="button">Submit</button> -->
 		<hr>
 		<div>New Member?</div>
@@ -221,7 +223,7 @@
 	<br>
 	<p style="color:#CC0000;font-size:12pt;" id="newuser">Username already taken, please type another one</p>
 	<br>
-	<a href="newcreate3.html"><button id="button" class="btn btn-default" onclick="newusername()">Create</button></a>
+	<a href="newcreate3.html"><button id="button" class="btn btn-default" onclick="createNewUser()">Create</button></a>
 	</form>
 </div>
 
