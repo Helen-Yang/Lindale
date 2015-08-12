@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script src="https://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
+    <script src="parse.js"></script>
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Slab" />
     <style type="text/css">
    
@@ -196,8 +199,9 @@
     font-weight: bold;
 }
 
+.footer {
 
-
+}
 /*=================================Page 1 CSS==============================================*/
 #hometable {
     position: relative;
@@ -321,37 +325,7 @@
     padding-left: 20px;
     top: 5%
 }
-/*========================================Page 6 CSS=============================================*/
-/*#create4starting {
-    position: relative;
-    left: 10%;
-    top: 10%;
-}
 
-#create4stopping {
-    position: relative;
-    left: 80%;
-    top: 10%;
-}
-#create4filter {
-    position: relative;
-    left: 45%;
-    top: 15%;
-}
-#create4noteString {
-    position: relative;
-    top: 10%;
-    left: 46%;
-}
-#create4recording {
-    position: relative;
-    top: 20%;
-    left: 42%;
-}
-
-#create4title {
-    display: none;
-}*/
 /*=========================page seven css=========================*/
 .body{
     background-image: url(paper27.jpg);
@@ -472,7 +446,7 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li id="doge" class="navbar-btn"><img src="https://pbs.twimg.com/profile_images/417201275466690560/TzVjIXv2.jpeg" width="35px" height="35px"> </li>
-      <li><a href="index.html">Log out</a></li>
+      <li><a href="index.html" onclick="logOutUser()">log out</a></li>
     </ul>
   </div>
 </nav>
@@ -539,7 +513,9 @@
     
         <!-- Page Content -->
         <div id="page-content-wrapper">
+
             <div class="container-fluid">
+
             <!-- ==============================Page 1 HTML======================================================= -->
             <div id="page1">
             	<h3 style="font-size:40px;text-decoration:none;color:#0066CC" id="hometitle">Recent Activity</h3>
@@ -594,7 +570,7 @@
     <a href="#" data-toggle="popover" title="About" data-content="Filter button filters out all the notes outside of a human voice range." id="infobutton"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a>
     <br>
      <button type="button" id="starting" class="btn btn-primary" onclick="start()"><span class="glyphicon glyphicon-record"></span> start</button>
-    <button id="stopping" class="btn btn-primary" role="button" onclick="stop()"onclick="save()" data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-record"></span> stop</button>
+    <button id="stopping" class="btn btn-primary" role="button" onclick="stop()" data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-record"></span> stop</button>
 
             <div id="myModal" class="modal fade" role="dialog">
               <div class="modal-dialog">
@@ -610,10 +586,10 @@
                         <form role="form" id="title">
                             <div class="form-group">
                                 <br>
-                                <label for="Title">Title:</label>
+                                <label for="Title">Title:</label><br>Titles can only have alphanumeric characters. <br>
                                 <input type="text" class="form-control" id="Title">
                                 <br>
-                                <a id="enterButton" type="button" class="btn btn-default" onclick="save()">Enter</a>
+                                <a id="enterButton" type="button" class="btn btn-default" onclick="saveUserSongs()" data-dismiss="modal">Enter</a>
                             </div>
                             
                         </form>
@@ -716,6 +692,7 @@
 	</div>
             <!-- ============================================Page 4 HTML============================================== -->
             <div id="page4">
+            <div id="mySongList"></div>
                 <h1 style="font-size:50px;text-decoration:none;color:#0066CC" id="title"> Songs in Progress</h1>
 	<table class="table table-striped" style="font-family: 'Josefin Slab'; font-weight: bold;" id="table">
       <thead>
@@ -851,129 +828,6 @@
     </table>
     </div>
 
-    <!-- ====================================Page 6 HTML======================================================= -->
-    	<div id="page6">
-    		<p id="create4noteString"></p>
-                <button type="button" class="btn btn-primary" id="create4filter" onclick="filter()">Filter</button>
-                <br>
-                 <button type="button" id="create4starting" class="btn btn-primary" onclick="start()"><span class="glyphicon glyphicon-record"></span> start</button>
-                <button id="create4stopping" class="btn btn-primary" role="button" onclick="stop()" data-toggle="modal" data-target="#myModal" ><span class="gl  yphicon glyphicon-record"></span> stop</button>
-                        <div id="myModal" class="modal fade" role="dialog">
-                          <div class="modal-dialog">
-
-                            <!-- Modal content dialog box that will open when stop is pressed-->
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                               <center><h4 class="modal-title">Actions</h4></center> 
-                              </div>
-                              <div class="modal-body">
-                                <center>Do you want to: <br> <br> <button class="btn btn-default btn-sm" role="button" id="saving" >Save</button> 
-                                    <form role="form" id="title">
-                                        <div class="form-group">
-                                            <br>
-                                            <label for="Title">Title:</label>
-                                            <input type="text" class="form-control" id="Title">
-                                            <br>
-                                            <button type="button" class="btn btn-default" onclick="save()" >Enter</button>
-                                        </div>
-                                        
-                                    </form>
-               
-                                <button class="btn btn-default btn-sm" role="button" onclick="clearStaves()" id="clearing" data-dismiss="modal">Redo</button></center>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-default" id="footer" data-dismiss="modal">Close</button>
-                              </div>
-                            </div>
-              </div>
-            </div>
-    
-    <br>
-    <p style="display:none" id="recording"> 
-        <img src="Recording.png">
-        Recording...
-        </p>
-     
-    <div id="staves">
-    <div class="description 1">
-        <canvas id= "canvas1" width=window.innerWidth height=200></canvas>
-        <!-- sheet music will go here (modified by javascript) -->
-    </div>
-
-    <div class="description 2">
-        <canvas id = "canvas2" width=window.innerWidth height=200></canvas>
-        <!-- sheet music will go here (modified by javascript) -->
-    </div>
-
-    <div class="description 3">
-        <canvas id = "canvas3" width=window.innerWidth height=200></canvas>
-        <!-- sheet music will go here (modified by javascript) -->
-    </div>
- 
-    <div class="description 4">
-        <canvas id = "canvas4" width=window.innerWidth height=200></canvas>
-        <!-- sheet music will go here (modified by javascript) -->
-    </div>
-
-    <div class="description 5">
-        <canvas id = "canvas5" width=window.innerWidth height=200></canvas>
-        <!-- sheet music will go here (modified by javascript) -->
-    </div>
-
-    <div class="description 6">
-        <canvas id = "canvas6" width=window.innerWidth height=200></canvas>
-        <!-- sheet music will go here (modified by javascript) -->
-    </div>
-
-    <div class="description 7">
-        <canvas id = "canvas7" width=window.innerWidth height=200></canvas>
-        <!-- sheet music will go here (modified by javascript) -->
-    </div>
-
-    <div class="description 8">
-        <canvas id = "canvas8" width=window.innerWidth height=200></canvas>
-        <!-- sheet music will go here (modified by javascript) -->
-    </div>
-
-    <div class="description 9">
-        <canvas id = "canvas9" width=window.innerWidth height=200></canvas>
-        <!-- sheet music will go here (modified by javascript) -->
-    </div>
-
-    <div class="description 10">
-        <canvas id = "canvas10" width=window.innerWidth height=200></canvas>
-        <!-- sheet music will go here (modified by javascript) -->
-    </div>
-
-    <div class="description 11">
-        <canvas id = "canvas11" width=window.innerWidth height=200></canvas>
-        <!-- sheet music will go here (modified by javascript) -->
-    </div>
-
-    <div class="description 12">
-        <canvas id = "canvas12" width=window.innerWidth height=200></canvas>
-        <!-- sheet music will go here (modified by javascript) -->
-    </div>
-
-    <div class="description 13">
-        <canvas id = "canvas13" width=window.innerWidth height=200></canvas>
-        <!-- sheet music will go here (modified by javascript) -->
-    </div>
-
-    <div class="description 14">
-        <canvas id = "canvas14" width=window.innerWidth height=200></canvas>
-        <!-- sheet music will go here (modified by javascript) -->
-    </div>
-
-    <div class="description 15">
-        <canvas id = "canvas15" width=window.innerWidth height=200></canvas>
-        <!-- sheet music will go here (modified by javascript) -->
-    </div>
-    </div>
-    	</div>
-    <!-- /#wrapper -->
-    <!-- jQuery -->
    <!--  ======================================================= -->
    <!-- =======================page7 HTML====================== -->
 
@@ -1034,19 +888,27 @@
                 Thanks To
                 <div class="container-fluid" id="text" style="color:black;font-size:20px">
                 <!-- <img src="image/selfie.jpg"><br> -->
-                <div id="contactName" style="font-size:20px" >Mohit Muthanna, creator of VexFlow music notation API <a href="http://vexflow.com">(website)</a><br>Myron Apostolakis, creator of our tuner code <a href="https://github.com/myapos/e-tuner">(github)</a><br>
+                <div id="contactName" style="font-size:20px" >Mohit Muthanna, creator of VexFlow music notation API <a href="http://vexflow.com">(website)</a><br>Myron Apostolakis, creator of our tuner code <a href="https://github.com/myapos/e-tuner">(github)</a><br><br>
+
                 </div>
                 </div>
             </div>
-                
+            <div style="text-align: center; font-size: 20px">This project was originally created for Girls Who Code Intel Summer 2015. <br><b>Teaching Staff</b>: Kristie Howard, Nishtha Bhatia, and Kaylynn Crawford<br>Special shoutout to Iris Virus Meow! </div>
+
             </div>
+
+                <div class="footer navbar-fixed-bottom">
+          <div class="container">
+            <p class="text-muted">Any trademarks are property of their respective owners.</p>
+          </div>
+        </div>
 
 
 
         
         <!-- /#page-content-wrapper -->
     
-    <script type="text/javascript" src="my_javascript.js"></script>
+    <script type="text/javascript" src="music.js"></script>
    
     <script type="text/javascript">
     	
@@ -1218,6 +1080,7 @@
     	$("#page8").css("display","none");
     	$("body").css({ 'background-color': '#ffffff' });
      	$("body").css('background-image', 'none');
+        getUserSongs();
     });
 	var nextnum = 4;
     $("#publish1").click(function(){
@@ -1312,6 +1175,7 @@
     }, function () {
         $(this).popover('hide');
     });
+
     </script>
 </body>
 </html>
