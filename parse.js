@@ -71,7 +71,7 @@ var saveDataURL = function(staveNum) {
         var canvas = document.getElementById(id);
         //added each of the canvases to downloadCanvas
         //width, height
-        ctx1.drawImage(canvas, 0, height*i);
+        ctx1.drawImage(canvas, 0, height*(i-1));
     }
     //get the data url for the combined staves
     var musicImage =  downloadCanvas.toDataURL();
@@ -151,6 +151,7 @@ var getUserSongs = function() {
 
 //update the edit existing song page with a table displaying all the songs the user has created but not published
 var getUnpublishedSongs = function() {
+	$("#unpublishedSongsTable").html("");
 	currentUser = Parse.User.current();
 	var query = new Parse.Query("UnpublishedSongs");
 	query.equalTo("createdBy", currentUser);
@@ -171,9 +172,14 @@ var getUnpublishedSongs = function() {
 				name = name.slice(j+1);
 				console.log("name", name);
 				//create an HTML table row with the name that links to the file
-				$("#unpublishedSongsTable").append('<tr><th style=\"font-size: 18px\">'+ number + '</th><td style=\"font-size: 18px\"> '+ name + '</td>   <td><a href=\"#\" id=\"edit' + number + '\" class=\"btn btn-default btn-sm\" role=\"button\">Edit</a>  <button class=\"btn btn-default btn-sm\" role=\"button\" data-toggle=\"modal\" data-target=\"#myModal'+ number + '\">Delete</button>   <div class=\"modal fade\" id=\"myModal' + number + '\" role=\"dialog\"><div class=\"modal-dialog\"><div class=\"modal-content\"><div class=\"modal-header\"><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button><center><h4 class=\"modal-title\">Confirmation</h4></center> </div><div class=\"modal-body\"><center>Are you sure you want to delete? <br> <br> <button class=\"btn btn-default btn-sm\" role=\"button\" data-dismiss=\"modal\">Yes</button> <button class=\"btn btn-default btn-sm\" role=\"button\"data-dismiss=\"modal\">No</button></center></div>div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button></div></div></div></div>   <a href=\"#\" class=\"btn btn-default btn-sm\" role=\"button\" id=\"publish' + number + '\">Publish</a></td></tr>');
-				$("#navJS").append('$(\"edit' + number + '\").click(alert("yay you clicked the edit button and this function is actually working!"););');
-				console.log("after appending");
+				$("#unpublishedSongsTable").append(String('<tr><th style=\"font-size: 18px\">'+ number + '</th><td style=\"font-size: 18px\"> '+ name + '</td>   <td><a href=\"#\" id=\"edit' + number + '\" class=\"btn btn-default btn-sm\" role=\"button\">Edit</a>  <button class=\"btn btn-default btn-sm\" role=\"button\" data-toggle=\"modal\" data-target=\"#myModal'+ number + '\">Delete</button>   <div class=\"modal fade\" id=\"myModal' + number + '\" role=\"dialog\"><div class=\"modal-dialog\"><div class=\"modal-content\"><div class=\"modal-header\"><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button><center><h4 class=\"modal-title\">Confirmation</h4></center> </div><div class=\"modal-body\"><center>Are you sure you want to delete? <br> <br> <button class=\"btn btn-default btn-sm\" role=\"button\" data-dismiss=\"modal\">Yes</button> <button class=\"btn btn-default btn-sm\" role=\"button\"data-dismiss=\"modal\">No</button></center></div><div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button></div></div></div></div>   <a href=\"#\" class=\"btn btn-default btn-sm\" role=\"button\" id=\"publish' + number + '\">Publish</a></td></tr>'));
+
+				var script = document.createElement('script');
+				script.text = '$(\"#edit' + number + '\").click(function() { $(\"#page3\").css(\"display\", \"block\"); $(\"#editExisting\").html(\"<img src='+ url + '>\"); $(\"#saving\").click(function(){ $(\"#myModal' + number + '\").hide(); }); $(\"#page4\").css(\"display\", \"none\"); clearStaves(); });';
+				$("#unpublishedSongsScript").append(script);
+
+    	
+    				console.log("after appending");
 			} //end for
 		}, 
 		error: function(error){

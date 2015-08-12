@@ -29,6 +29,7 @@ var totalNotes = [];
 
 //when start button clicked, clears array, then starts adding notes to array based on audio input
 var start = function() {
+    clearStaves();
     //clear all the notes in the input (array music) and what is shown on the screen (array notes)
     music = [];
     notes = [];
@@ -55,7 +56,7 @@ var clearStaves = function() {
         //create string of the id of the canvas 
         var id = "canvas" + i; 
         //the HTML to add (without the staves drawn)
-        innerHTMLtoAdd = String("<canvas id= " + id  + " width=window.innerWidth height=200></canvas> <!-- sheet music will go here (modified by javascript) -->");
+        innerHTMLtoAdd = String("<canvas id= " + id  + " width=window.innerWidth-90 height=300></canvas> <!-- sheet music will go here (modified by javascript) -->");
         //create the id of the divl;
         var id1 = "div." + i; 
         //use jQuery to select the divs of the staves
@@ -183,10 +184,23 @@ var drawStaves = function (staveNum) {
     var canvas = $(id)[0];
     var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
     var ctx = renderer.getContext();
-     // Resize and clear canvas; parameters: width, height
-    renderer.resize(window.innerWidth-35, 150);
+    //size canvas/staves based on window size (very subjective)
+    // Resize and clear canvas; parameters: width, height
     //first 2 parameters are position, last is width of staff
-    var stave = new Vex.Flow.Stave(10, 0, window.innerWidth-35);
+
+    if (window.innerWidth > 450 && window.innerWidth < 800){
+        renderer.resize(window.innerWidth-100, 200);
+        var stave = new Vex.Flow.Stave(10, 28, window.innerWidth-100);
+
+    } else if (window.innerWidth <= 450) {
+        renderer.resize(window.innerWidth-10, 200);
+        var stave = new Vex.Flow.Stave(10, 28, window.innerWidth-10);
+
+    } else if (window.innerWidth >= 800){
+        renderer.resize(window.innerWidth-220, 200);
+        var stave = new Vex.Flow.Stave(10, 28, window.innerWidth-220);
+    }
+
     //get the correct clef (treble or bass) from the clef function 
     stave.addClef(currentClef).setContext(ctx).draw(); 
 
@@ -199,7 +213,7 @@ var drawStaves = function (staveNum) {
     voice.setStrict(false);
     voice.addTickables(notes);
     //last parameter is width of staff, add margin so notes don't go to the very end of the staff
-    var formatter = new Vex.Flow.Formatter().joinVoices([voice]).format([voice], window.innerWidth-70);
+    var formatter = new Vex.Flow.Formatter().joinVoices([voice]).format([voice], window.innerWidth-90);
 
     voice.draw(ctx, stave);
 }; //end of drawStaves function
