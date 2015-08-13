@@ -22,7 +22,7 @@ var createNewUser = function() {
 			//login the user
 			user.logIn();
 			currentUser = Parse.User.current();
-			window.location.href = "newcreate3.html";
+			window.location.href = "create3.html";
 			alert("currentUser new" + currentUser);
 		}, 
 		//if unsucessful
@@ -58,7 +58,7 @@ var saveDataURL = function(staveNum) {
     var height = document.getElementById("canvas1").height;
     var width = document.getElementById("canvas1").width;
     //make sure the new canvas will be tall enough for all of the staves
-    var newHeight = 16*height; 
+    var newHeight = (staveNum+1)*height; 
     //create the new canvas
     document.getElementById("newCanvas").innerHTML = "<canvas id='downloadCanvas'" + " height=" + newHeight + " width=" + width +"></canvas>";
     //select downloadCanvas which will be the combination of all the canvases
@@ -71,7 +71,7 @@ var saveDataURL = function(staveNum) {
         var canvas = document.getElementById(id);
         //added each of the canvases to downloadCanvas
         //width, height
-        ctx1.drawImage(canvas, 0, height*i);
+        ctx1.drawImage(canvas, 0, height*(i-1));
     }
     //get the data url for the combined staves
     var musicImage =  downloadCanvas.toDataURL();
@@ -80,20 +80,20 @@ var saveDataURL = function(staveNum) {
 }; //end of saveDataURL function
 
 
-//actually save the songs to parse
+//actually save the songs just created to parse
 var saveUserSongs = function() {
 	currentUser = Parse.User.current();
 	//make sure someone is logged in
 	if (currentUser){
 		
-		//create a class SavedSongs
-		var SavedSongs = Parse.Object.extend("SavedSongs");
+		//create a class UnpublishedSongs
+		var UnpublishedSongs = Parse.Object.extend("UnpublishedSongs");
 		//create an instance of this class
-		var savedSongs = new SavedSongs();
+		var unpublishedSongs = new UnpublishedSongs();
 		//set the createdBy key to the current user for easy reference when retreiving a user's scores
-		savedSongs.set("createdBy", currentUser);
+		unpublishedSongs.set("createdBy", currentUser);
 		//save to parse
-		savedSongs.save();
+		unpublishedSongs.save();
 
 		//get the name of the song from user input
 		var name = $("#Title").val();
@@ -111,8 +111,8 @@ var saveUserSongs = function() {
 		});
 
 		//set the parsefile to the songfile key and save it to parse
-		savedSongs.set("songFile", parseFile);
-		savedSongs.save();
+		unpublishedSongs.set("songFile", parseFile);
+		unpublishedSongs.save();
 		
 	} else {
 		alert("You are not logged in!");
@@ -121,7 +121,7 @@ var saveUserSongs = function() {
 
 var getUserSongs = function() {
 	currentUser = Parse.User.current();
-	var query = new Parse.Query("SavedSongs");
+	var query = new Parse.Query("UnpublishedSongs");
 	//get all the songs created by the current user
 	query.equalTo("createdBy", currentUser);
 	query.find({
@@ -148,6 +148,45 @@ var getUserSongs = function() {
 	}); //end query
 
 }; //end getUserSongs function
+
+//update the edit existing song page with a table displaying all the songs the user has created but not published
+var getUnpublishedSongs = function() {
+	$("#unpublishedSongsTable").html("");
+	currentUser = Parse.User.current();
+	var query = new Parse.Query("UnpublishedSongs");
+	query.equalTo("createdBy", currentUser);
+	query.find({
+		success: function(results){
+			alert("successfully retrieved" + results.length + "songs");
+			for (var i = 0; i < results.length; i++){
+				var number = i + 1; 
+				var object = results[i];
+				var file = object.get("songFile");
+				var url = file.url();
+				var name = file.name();
+				//parse adds a unique identifier to the beginning of the file name, so starting at the end, go through the file name, look for a dash and slice the string there to get the name
+				var j = name.length-1;
+				while (j>=0 && name.charAt(j) != "-"){
+					j--;
+				} //end while
+				name = name.slice(j+1);
+				console.log("name", name);
+				//create an HTML table row with the name that links to the file
+				$("#unpublishedSongsTable").append(String('<tr><th style=\"font-size: 18px\">'+ number + '</th><td style=\"font-size: 18px\"> '+ name + '</td>   <td><a href=\"#\" id=\"edit' + number + '\" class=\"btn btn-default btn-sm\" role=\"button\">Edit</a>  <button class=\"btn btn-default btn-sm\" role=\"button\" data-toggle=\"modal\" data-target=\"#myModal'+ number + '\">Delete</button>   <div class=\"modal fade\" id=\"myModal' + number + '\" role=\"dialog\"><div class=\"modal-dialog\"><div class=\"modal-content\"><div class=\"modal-header\"><button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button><center><h4 class=\"modal-title\">Confirmation</h4></center> </div><div class=\"modal-body\"><center>Are you sure you want to delete? <br> <br> <button class=\"btn btn-default btn-sm\" role=\"button\" data-dismiss=\"modal\">Yes</button> <button class=\"btn btn-default btn-sm\" role=\"button\"data-dismiss=\"modal\">No</button></center></div><div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button></div></div></div></div>   <a href=\"#\" class=\"btn btn-default btn-sm\" role=\"button\" id=\"publish' + number + '\">Publish</a></td></tr>'));
+
+				var script = document.createElement('script');
+				script.text = '$(\"#edit' + number + '\").click(function() { $(\"#page3\").css(\"display\", \"block\"); $(\"#editExisting\").html(\"<img src='+ url + '>\"); $(\"#saving\").click(function(){ $(\"#myModal' + number + '\").hide(); }); $(\"#page4\").css(\"display\", \"none\"); clearStaves(); });';
+				$("#unpublishedSongsScript").append(script);
+
+    	
+    				console.log("after appending");
+			} //end for
+		}, 
+		error: function(error){
+			alert("error" + error.code + " " + error.message);
+		}
+	}); //end query
+};
 
 //log out the user (sets currentUser to null)
 var logoutUser = function() {

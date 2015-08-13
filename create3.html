@@ -10,9 +10,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
+    <script type="text/javascript" src="music.js"></script>
+
+
     <script src="https://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
     <script src="parse.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Slab" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Slab" >
     <style type="text/css">
    
 
@@ -703,8 +706,8 @@
           <th style="font-size:24px;vertical-align:middle; text-decoration:none;color:#42ADFF"> Actions &#9838;</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
+      <tbody id="unpublishedSongsTable">
+       <!--  <tr>
           
           <th style="font-size: 18px">1</th>
           <td style="font-size: 18px">Night Serenade</td>
@@ -738,11 +741,11 @@
           <td style="font-size: 18px">Lady Walk</td>
           <td> <a href="#" id="edit2" class="btn btn-default btn-sm" role="button">Edit</a> <button class="btn btn-default btn-sm" role="button" data-toggle="modal" data-target="#myModal2">Delete</button>
 
-			<!-- Modal -->
+			
 			<div class="modal fade" id="myModal2" role="dialog">
 			  <div class="modal-dialog" >
 
-			    <!-- Modal content-->
+			   
 			    <div class="modal-content">
 			      <div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -767,11 +770,11 @@
           <td style="font-size: 18px">Cherry Breeze</td>
           <td> <a href="#.html" id="edit3" class="btn btn-default btn-sm" role="button">Edit</a> <button class="btn btn-default btn-sm" role="button" data-toggle="modal" data-target="#myModal3">Delete</button>
 
-			<!-- Modal -->
+			
 			<div id="myModal3" class="modal fade" role="dialog">
 			  <div class="modal-dialog">
 
-			    <!-- Modal content-->
+			   
 			    <div class="modal-content">
 			      <div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -789,7 +792,7 @@
 			</div>
 			<a href="#" class="btn btn-default btn-sm" role="button" id="publish3">Publish</a>
           </td>
-        </tr>
+        </tr> -->
       </tbody>
     </table>
     </div>
@@ -905,10 +908,13 @@
 
 
 
+<<<<<<< HEAD
+=======
+<footer><div class="footer navbar-fixed-bottom" style="text-align: center; font-size: 12px; font-color: black">Any trademarks are property of their respective owners.</div></footer>
+>>>>>>> 26b22e56bdbc89ec9647905e841e4e0a00845293
         
-        <!-- /#page-content-wrapper -->
-    
-    <script type="text/javascript" src="music.js"></script>
+<!-- A script will be added here that links the edit existing page table rows to the actual songs -->
+    <div id="unpublishedSongsScript"></div>
    
     <script type="text/javascript">
     	
@@ -1080,7 +1086,8 @@
     	$("#page8").css("display","none");
     	$("body").css({ 'background-color': '#ffffff' });
      	$("body").css('background-image', 'none');
-        getUserSongs();
+        // getUserSongs();
+        getUnpublishedSongs();
     });
 	var nextnum = 4;
     $("#publish1").click(function(){
