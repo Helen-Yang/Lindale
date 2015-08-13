@@ -448,7 +448,7 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li id="doge" class="navbar-btn"><img src="https://pbs.twimg.com/profile_images/417201275466690560/TzVjIXv2.jpeg" width="35px" height="35px"> </li>
-      <li><a href="index.html" onclick="logOutUser()">log out</a></li>
+      <li><a href="index.html" onclick="logoutUser()">log out</a></li>
     </ul>
   </div>
 </nav>
@@ -505,6 +505,9 @@
                 </li>
                 <li>
                     <a href="#" id="contact"><span class="fa-stack fa-lg pull-left"><i class="fa fa-server fa-stack-1x "></i></span>Contact</a>
+                </li>
+                <li>
+                    <a href="#" id="logOut"><span class="fa-stack fa-lg pull-left"> <i class="fa fa-server fa-stack-1x"></i></span>Logout</a>
                 </li>
             </ul>
         </div>
@@ -583,7 +586,7 @@
                         <form role="form" id="title">
                             <div class="form-group">
                                 <br>
-                                <label for="Title">Title:</label><br>Titles can only have alphanumeric characters. <br>
+                                <label for="Title">Title:</label><br>Titles can only have alphanumeric characters and must be at least 1 character long. <br>
                                 <input type="text" class="form-control" id="Title">
                                 <br>
                                 <a id="enterButton" type="button" class="btn btn-default" onclick="saveUserSongs()">Enter</a>
@@ -690,7 +693,8 @@
             <!-- ============================================Page 4 HTML============================================== -->
             <div id="page4">
             <div id="mySongList"></div>
-                <h1 style="font-size:50px;text-decoration:none;color:#0066CC" id="title"> Songs in Progress</h1>
+            <div style="font-size: 32px; vertical-align: middle; font-family: Josefin Slab; color:#0066CC"><b>Songs in Progress<br></b></div>
+                
 	<table class="table table-striped" style="font-family: 'Josefin Slab'; font-weight: bold;" id="table">
       <thead>
         <tr>
@@ -701,6 +705,7 @@
         </tr>
       </thead>
       <tbody id="unpublishedSongsTable">
+      <tr><td>You do not have any unpublished songs.</td></tr>
        <!--  <tr>
           
           <th style="font-size: 18px">1</th>
@@ -792,7 +797,7 @@
     </div>
     <!-- ===================================Page 5 HTML============================================== -->
     	<div id="page5">
-        <h1 style="font-size:50px;text-decoration:none;color:#0066CC" id="title"> Song Collage</h1>
+        <div style="font-size: 32px; vertical-align: middle; font-family: Josefin Slab; color:#0066CC"><b>Finished Songs<br></b></div>
 	<table class="table table-hover" style="font-family: 'Josefin Slab'; font-weight: bold;" id="table2">
       <thead>
         <tr>
@@ -802,7 +807,8 @@
           <th style="font-size:24px;vertical-align:middle; text-decoration:none;color:#42ADFF"> Actions &#9838;</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="publishedSongsTable">
+      <!-- <tr><td>You do not have any finished songs.</td></tr> -->
         <tr>
           <th></th>
           <th style="font-size: 18px">1</th>
@@ -900,6 +906,8 @@
         
 <!-- A script will be added here that links the edit existing page table rows to the actual songs -->
     <div id="unpublishedSongsScript"></div>
+    <div id="publishedSongsScript"></div>
+    <div style="display: none" id="canvasHere"></div>
    
     <script type="text/javascript">
     	
@@ -939,6 +947,9 @@
         );
       }
     $(document).ready(function() {initMenu();});
+    $("#logOut").click(function(){
+        logoutUser();
+    });
 
     //=====================================JS for Page 1=============================================================
     $("#home").click(function() {
@@ -1019,32 +1030,32 @@
          });
     
     //========================Page 4 JS======================================
-    $("#edit1").click(function() {
-    	$("#page3").css("display", "block");
-    	$("#editExisting").html("<img src='example2.png'>");
-    	$("#saving").click(function (){
-            $("#myModal1").hide();
-        });
-    	$("#page4").css("display", "none");
-    });
+    // $("#edit1").click(function() {
+    // 	$("#page3").css("display", "block");
+    // 	$("#editExisting").html("<img src='example2.png'>");
+    // 	$("#saving").click(function (){
+    //         $("#myModal1").hide();
+    //     });
+    // 	$("#page4").css("display", "none");
+    // });
 
-    $("#edit2").click(function() {
-    	$("#page3").css("display", "block");
-    	$("#saving").click(function (){
-            $("#myModal2").hide();
-        });
-    	$("#editExisting").html("<img src='song1.png'>");
-    	$("#page4").css("display", "none");
-    });
+    // $("#edit2").click(function() {
+    // 	$("#page3").css("display", "block");
+    // 	$("#saving").click(function (){
+    //         $("#myModal2").hide();
+    //     });
+    // 	$("#editExisting").html("<img src='song1.png'>");
+    // 	$("#page4").css("display", "none");
+    // });
 
-    $("#edit3").click(function() {
-    	$("#page3").css("display", "block");
-    	$("#saving").click(function (){
-            $("#myModal3").hide();
-        });
-    	$("#editExisting").html("<img src='song3.png'>");
-    	$("#page4").css("display", "none");
-    });
+    // $("#edit3").click(function() {
+    // 	$("#page3").css("display", "block");
+    // 	$("#saving").click(function (){
+    //         $("#myModal3").hide();
+    //     });
+    // 	$("#editExisting").html("<img src='song3.png'>");
+    // 	$("#page4").css("display", "none");
+    // });
 
     // $("#delete1").click(function(){
     //     $("#nightserenade").remove();
@@ -1074,27 +1085,27 @@
         // getUserSongs();
         getUnpublishedSongs();
     });
-	var nextnum = 4;
-    $("#publish1").click(function(){
+	// var nextnum = 4;
+    // $("#publish1").click(function(){
     	
-    		$(this).closest('tr').remove();
+    // 		$(this).closest('tr').remove();
 
-    		$('#table2').append('<tr><th></th><th style="font-size: 18px">' + nextnum + '</th><td style="font-size: 18px">Night Serenade</td><td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td></tr>');
-    		nextnum ++;
+    // 		$('#table2').append('<tr><th></th><th style="font-size: 18px">' + nextnum + '</th><td style="font-size: 18px">Night Serenade</td><td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td></tr>');
+    // 		nextnum ++;
 
-    	});
-    	$("#publish2").click(function(){
-    		$(this).closest('tr').remove();
+    // 	});
+    // 	$("#publish2").click(function(){
+    // 		$(this).closest('tr').remove();
     	
-    		$('#table2').append('<tr><th></th><th style="font-size: 18px">' + nextnum + '</th><td style="font-size: 18px">Lady Walk</td><td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td></tr>');
-    		nextnum ++;
-    	});
-    	$("#publish3").click(function(){
-    		$(this).closest('tr').remove();
+    // 		$('#table2').append('<tr><th></th><th style="font-size: 18px">' + nextnum + '</th><td style="font-size: 18px">Lady Walk</td><td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td></tr>');
+    // 		nextnum ++;
+    // 	});
+    // 	$("#publish3").click(function(){
+    // 		$(this).closest('tr').remove();
     		
-    		$('#table2').append('<tr><th></th><th style="font-size: 18px">'+ nextnum +'</th><td style="font-size: 18px">Cherry Breeze</td><td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td></tr>');
-    		nextnum ++;
-    	});
+    // 		$('#table2').append('<tr><th></th><th style="font-size: 18px">'+ nextnum +'</th><td style="font-size: 18px">Cherry Breeze</td><td><a href="#" class="btn btn-default btn-sm" role="button">View</a> <!-- Would link to the image --></td></tr>');
+    // 		nextnum ++;
+    // 	});
 
     //==========================Page 5 JS==============================================
 
@@ -1109,6 +1120,7 @@
     	$("#page8").css("display","none");
     	$("body").css({ 'background-color': '#ffffff' });
      	$("body").css('background-image', 'none');
+        getPublishedSongs();
     });
 
    //=========================Page 6 JS==========================================================
