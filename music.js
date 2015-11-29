@@ -20,9 +20,6 @@ var previousClef, currentClef;
 var firstTime; 
 //an array of the indices of each of the elements of music in the array map (so if music has "C#/0", then indices will have 1); this is used to get the frequencies of the corresponding note in the playback function
 var indices = []; 
-//an array that stores the indices of the elements to remove from the indices array (filtering if notes only occur once)
-var toRemove = [];
-
 //for debugging, total notes recorded after start pressed until stop pressed
 var totalNotes = [];
 //================================================================================================================================
@@ -52,7 +49,7 @@ var clearStaves = function() {
     music = [];
     notes = [];
     //go through all the staves that have music and clear them
-    for (var i = 1; i <= 15; i ++){
+    for (var i = 1; i <= staveNum; i ++){
         //create string of the id of the canvas 
         var id = "canvas" + i; 
         //the HTML to add (without the staves drawn)
@@ -103,34 +100,14 @@ var filter = function() {
 //plays back the song you just created (based on the sheet music created), uses Web Audio API
 var playback = function() {
     //make sure there is actually music to play
-    if(totalNotes.length > 1) {
-        //clear toRemove
-        toRemove = []; 
-        // console.log("in playback");
-        // go through indices and check if there are notes that only occur once; these will be filtered out
-        // console.log(indices, "before");
-        for (var i = 1; i < indices.length-1; i++){
-            if ((indices[i] != indices[i-1]) && (indices[i] != indices[i+1])){
-                //add the indices of these elements to a new array (don't remove them yet because then the indices of the remaining elements will be different)
-                toRemove.push(i);
-            }
-        }
-
-        for (var i = 0; i < toRemove.length; i++){
-            //actually remove the elements
-            indices.splice(toRemove[i], 1);
-        }
-        //if the first two elements are different (would not work with the first for loop because that one is checking elements on both sides)
-        if(indices[0] != indices[1]){
-            indices.splice(0, 1);
-        }
+    if(notes.length > 1) {
         //set up for Web Audio API
         var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         var oscillator = audioCtx.createOscillator();
         var gainNode = audioCtx.createGain();
         oscillator.connect(gainNode);
         gainNode.connect(audioCtx.destination);
-        gainNode.gain.value = 0;
+        gainNode.gain.value = 1;
         //start playing the oscillator
         oscillator.start(0);
         //a variable for counting to go through indices
@@ -138,10 +115,8 @@ var playback = function() {
 
         //every 250 milliseconds, change the frequency to play the next note
         var timer = setInterval(function(){
-            gainNode.gain.value = 1; 
             // get the frequency of the note 
             var frequency = map[indices[i]][1];
-            console.log(frequency);
             //set the oscillator's frequency to the frequency of the note
             oscillator.frequency.value = frequency;
             i++;
@@ -152,7 +127,6 @@ var playback = function() {
             }
         }, 250);
     }
-    // console.log(indices, "after");
     
 };
 //================================================================================================================================
