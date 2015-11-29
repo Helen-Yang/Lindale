@@ -18,7 +18,7 @@ var createNewUser = function() {
 	user.signUp(null, {
 		//if sucessful
 		success: function(user) {
-			alert("Thanks for creating an account!");
+			//alert("Thanks for creating an account!");
 			//login the user
 			user.logIn();
 			currentUser = Parse.User.current();
@@ -27,7 +27,9 @@ var createNewUser = function() {
 		}, 
 		//if unsucessful
 		error: function(user, error) {
-			alert("Error: " + error.code + " " + error.message);
+			//alert("Error: " + error.code + " " + error.message);
+			$("#newuser").css("display","block")
+
 		}//end error
 
 	}); //end user signup
@@ -40,13 +42,14 @@ var loginUser = function () {
 	var password = $("#passwordinput").val();
 	Parse.User.logIn(username, password, {
 		success: function(user) {
-			alert("Login successful!");
+			//alert("Login successful!");
 			currentUser = Parse.User.current();
 			// alert("currentUser existing" + currentUser);
 			window.location.href = "create3.html";
 		}, 
 		error: function(user, error) {
-			alert("Error: " + error.code + " " + error.message);
+			//alert("Error: " + error.code + " " + error.message);
+			$("#incorrect").css("display","block");
 
 		}
 	});
@@ -109,7 +112,7 @@ var saveUserSongs = function() {
 		parseFile.save().then(function() {
 			// alert("yay file has been saved"); 
 		}, function(error){
-			alert("parse file save did not work :(");
+			//alert("parse file save did not work :(");
 
 		});
 
@@ -118,7 +121,7 @@ var saveUserSongs = function() {
 		unpublishedSongs.save();
 		
 	} else {
-		alert("You are not logged in!");
+		//alert("You are not logged in!");
 	}
 }; //end saveUserSongs function
 
@@ -172,7 +175,7 @@ var getUnpublishedSongs = function() {
 			} //end else
 		}, 
 		error: function(error){
-			alert("error: " + error.code + " " + error.message);
+			//alert("error: " + error.code + " " + error.message);
 		}
 	}); //end query
 };
@@ -270,7 +273,7 @@ var savePublishedSongs = function(objectId){
 					     	$("body").css('background-image', 'none');
 						}, 
 						error: function(unpublishedSongs, error){
-							alert(error.code + error.message);
+							//alert(error.code + error.message);
 						} //end error
 					}); //end query
 					
@@ -278,7 +281,7 @@ var savePublishedSongs = function(objectId){
 					alert(error.code + error.message + "published songs not saved");
 				});
 			}, function(error){
-				alert(error.code + error.message + "Parse file save did not work :( Try again.");
+				//alert(error.code + error.message + "Parse file save did not work :( Try again.");
 			});
 			
 

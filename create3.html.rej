@@ -1,0 +1,24 @@
+diff a/create3.html b/create3.html	(rejected hunks)
+@@ -455,12 +455,19 @@
+    <!-- <a class="navbar-brand" style="font-family: Josefin Slab; padding-top: 20px" href="#"><b>Lindale</b></a> -->
+ 
+    <a class="navbar-brand" style="font-family: Josefin Slab; padding-top: 20px" href="#"><b>Lindal&#235;</b></a>
+-
++   <div class="navbar-header">
++      <li class="active" style="list-style-type: none" ><button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2"> <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span></button></li></ul></div> </li>
++        <span class="sr-only">Toggle navigation</span>
++        <span class="icon-bar"></span>
++        <span class="icon-bar"></span>
++        <span class="icon-bar"></span>
++      </button>
++    </div>
+   <div class="navbar-collapse collapse">
+     <ul class="nav navbar-nav navbar-left">
+-        <li><div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
++        <!-- <li><div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+             <ul class="nav navbar-nav">
+-                <li class="active" ><button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2"> <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span></button></li></ul></div> </li>
++                <li class="active" ><button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2"> <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span></button></li></ul></div> </li> -->
+         
+     </ul>
+     <ul class="nav navbar-nav navbar-right">
