@@ -110,7 +110,7 @@ var saveUserSongs = function() {
 		//create a parsefile and save it to parse
 		var parseFile = new Parse.File(name, file);
 		parseFile.save().then(function() {
-			// alert("yay file has been saved"); 
+			//alert("yay file has been saved"); 
 		}, function(error){
 			//alert("parse file save did not work :(");
 
