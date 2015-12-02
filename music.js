@@ -14,7 +14,7 @@ var staveNum = 1;
 var filterNotes = false;
 //the current and previous notes (objects with letter name, accidental, octave, numTimesRepeated, duration, and dot)
 var previousNote = {note: "C", accidental: false, octave: 0, numTimesRepeated: 1, duration: 0, dot: false};
-var newNote;
+var newNote = {note: "C", accidental: false, octave: 0, numTimesRepeated: 1, duration: 0, dot: false};
 //clef of the previous note being added, if defined; clef of the current note beng added
 var previousClef, currentClef;
 //when start is pressed, then this is true; clears notes and music so if there were notes picked up right before start, they won't be drawn on the music
@@ -256,7 +256,8 @@ var clef = function(){
 //parameters are duration (string) that specifies the name of note length and dot (boolean), whether the note should have a dot or not
 var addNotes = function(){
     //vex flow has a bug where specifiying the clef while creating the staff doesn't work and it instead is always treble clef; this is a workaround
-   
+    console.log("addNotes" + previousNote.duration);
+    console.log(newNote.duration);
     //use bass clef
     if (previousNote.octave <= 3){
         //if dot (parameter, boolean) is true, create a note with the dot
@@ -465,31 +466,43 @@ var rhythm = function() {
         newNote.numTimesRepeated += previousNote.numTimesRepeated;
         console.log(newNote.numTimesRepeated);
         console.log(previousNote.numTimesRepeated);
-        if (newNote.numTimesRepeated > 2) {
-            if (newNote.numTimesRepeated > 4) {
-                if (newNote.numTimesRepeated > 8) { 
-                    if (newNote.numTimesRepeated > 12) {
-                        if (newNote.numTimesRepeated > 16) {
-                            if (newNote.numTimesRepeated > 20) {
-                                //whole note
-                                newNote.duration = "w";
-                            }
-                            //dotted half note
-                            newNote.duration = "hd";
-                            newNote.dot = true;
-                        }
-                        //half note
-                        newNote.duration = "h";
-                    }
-                    //dotted quarter note
-                    newNote.duration = "qd";
-                    newNote.dot = true;
-                }
-                //quarter note
-                newNote.duration = "q";
-            }
+        notes.pop();
+        if (newNote.numTimesRepeated > 20) {
+            //whole note
+            newNote["duration"] = "w";
+            console.log("whole");
+            newNote.dot = false;
+        }
+
+        else if (newNote.numTimesRepeated > 16) {
+            //dotted half note
+            newNote["duration"] = "hd";
+            newNote.dot = true;
+        }
+
+        else if (newNote.numTimesRepeated > 12) {
+            //half note
+            newNote["duration"] = "h";
+            newNote.dot = false;
+            console.log("half");
+        }
+
+        else if (newNote.numTimesRepeated > 8) { 
+            //dotted quarter note
+            newNote["duration"] = "qd";
+            newNote.dot = true;
+        }
+
+        else if (newNote.numTimesRepeated > 4) {
+            //quarter note
+            newNote["duration"] = "q";
+            newNote.dot = false;
+        }
+
+        else if (newNote.numTimesRepeated > 2) {
             //eighth note
-            newNote.duration = "8";
+            newNote["duration"] = "8";
+            newNote.dot = false;
         }
         //if only repeated twice, don't do anything (this might be an anom)
     }
