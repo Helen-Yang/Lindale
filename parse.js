@@ -82,6 +82,46 @@ var saveDataURL = function(staveNum) {
 
 }; //end of saveDataURL function
 
+var newUserSongs = function() {
+	alert("Running");
+	currentUser = Parse.User.current();
+	//make sure someone is logged in
+	if (currentUser){
+		
+		//create a class UnpublishedSongs
+		// var UnpublishedSongs = Parse.Object.extend("UnpublishedSongs");
+		// //create an instance of this class
+		// var unpublishedSongs = new UnpublishedSongs();
+		// //set the createdBy key to the current user for easy reference when retreiving a user's scores
+		// unpublishedSongs.set("createdBy", currentUser);
+		// //save to parse
+		// unpublishedSongs.save();
+
+		//get the name of the song from user input
+		
+		//get the data url of all the canvases from a function 
+		var file = saveDataURL(getStaveNum());
+		//convert it to a base 64 that will work as a parse file
+		file = {base64: file};
+		//create a parsefile and save it to parse
+		var parseFile = new Parse.File(name, file);
+		parseFile.save().then(function() {
+			//alert("yay file has been saved");
+			
+		}, function(error){
+			//alert("parse file save did not work :(");
+			//need to find a way to delete the image and allow for notes to appear
+
+		});
+
+		//set the parsefile to the songfile key and save it to parse
+		// unpublishedSongs.set("songFile", parseFile);
+		// unpublishedSongs.save();
+		
+	} else {
+		alert("You are not logged in!");
+	}
+}; //end saveUserSongs function
 
 //actually save the songs just created to parse
 var saveUserSongs = function() {
@@ -110,9 +150,11 @@ var saveUserSongs = function() {
 		//create a parsefile and save it to parse
 		var parseFile = new Parse.File(name, file);
 		parseFile.save().then(function() {
-			//alert("yay file has been saved"); 
+			alert("yay file has been saved");
+			clearStaves(); // used to link with newUserSong
+			newUserSongs(); 
 		}, function(error){
-			//alert("parse file save did not work :(");
+			alert("parse file save did not work :(");
 
 		});
 
@@ -121,7 +163,7 @@ var saveUserSongs = function() {
 		unpublishedSongs.save();
 		
 	} else {
-		//alert("You are not logged in!");
+		alert("You are not logged in!");
 	}
 }; //end saveUserSongs function
 
