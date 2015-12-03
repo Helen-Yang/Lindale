@@ -12,8 +12,9 @@ var notes = [];
 var staveNum = 1;
 //if true, filter out notes outside the normal range of the human voice if the user presses a button
 var filterNotes = false;
-//the current note being converted from string to object
-var noteToAdd;
+//the current and previous notes (objects with letter name, accidental, octave, numTimesRepeated, duration, and dot)
+var previousNote = {note: "C", accidental: false, octave: 0, numTimesRepeated: 1, duration: 0, dot: false};
+var newNote = {note: "C", accidental: false, octave: 0, numTimesRepeated: 1, duration: 0, dot: false};
 //clef of the previous note being added, if defined; clef of the current note beng added
 var previousClef, currentClef;
 //when start is pressed, then this is true; clears notes and music so if there were notes picked up right before start, they won't be drawn on the music
@@ -199,7 +200,7 @@ var createStaves = function(){
     //if the notes that will be put on this line is greater than the ideal number of notes per line
     if (notes.length === num){
         //reset music (array of strings) for a new line
-        music = [];
+       // music = [];
         //
         notes = [];
         // notes = notes.slice(num);
@@ -215,8 +216,8 @@ var clef = function(){
     //key is the string of the current note 
     var key = notes[notes.length-1].keys[0];
         //octave is the number of the octave (the last character of the string key), convert to number to be able to use operators to compare
-        var octave = parseInt(key.substring(key.length-1));
-        //if the octave is less than or equal to 3, set currentClef to bass clef; otherwise set it to treble
+        var octave = (key.substring(key.length-1));
+        //if the octave is less thaparseIntn or equal to 3, set currentClef to bass clef; otherwise set it to treble
         if (octave <= 3){
             currentClef = "bass";
         } else {
@@ -239,7 +240,7 @@ var clef = function(){
         if ((previousClef === "treble" && currentClef === "bass") || (previousClef === "bass" && currentClef === "treble")){
             staveNum += 1; 
             //reset music (strings) for a new line
-            music = music.slice(music.length-1);
+            //music = music.slice(music.length-1);
             notes = notes.slice(notes.length-1);
         }
     }
@@ -253,50 +254,51 @@ var clef = function(){
 
 //takes the note (a string) from music (an array of strings) and converts it to an object that is pushed to notes (an array of objects)
 //parameters are duration (string) that specifies the name of note length and dot (boolean), whether the note should have a dot or not
-var addNotes = function(duration, dot){
+var addNotes = function(){
     //vex flow has a bug where specifiying the clef while creating the staff doesn't work and it instead is always treble clef; this is a workaround
-    var octave = parseInt(noteToAdd.substring(noteToAdd.length-1));
+    console.log("addNotes" + previousNote.duration);
+    console.log(newNote.duration);
     //use bass clef
-    if (octave <= 3){
+    if (previousNote.octave <= 3){
         //if dot (parameter, boolean) is true, create a note with the dot
-        if (dot) {
+        if (previousNote.dot) {
             //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
             //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
-            if (noteToAdd.substring(1,2)==="#"){
+            if (previousNote.accidental){
                 //apple is just a random name for a new note because we already have variables named note and notes
-                var apple = new Vex.Flow.StaveNote({clef: "bass", keys:[noteToAdd], duration: duration}).addAccidental(0, new Vex.Flow.Accidental("#")).addDotToAll();
+                var apple = new Vex.Flow.StaveNote({clef: "bass", keys:[previousNote.note+"/"+previousNote.octave], duration: previousNote.duration}).addAccidental(0, new Vex.Flow.Accidental("#")).addDotToAll();
             } else {
-                var apple = new Vex.Flow.StaveNote({clef: "bass", keys: [noteToAdd], duration: duration}).addDotToAll();
+                var apple = new Vex.Flow.StaveNote({clef: "bass", keys: [previousNote.note+"/"+previousNote.octave], duration: previousNote.duration}).addDotToAll();
             }//end of else (natural)
         } else {
             //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
             //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
-            if (noteToAdd.substring(1,2)==="#"){
+            if (previousNote.accidental){
                 //apple is just a random name for a new note because we already have variables named note and notes
-                var apple = new Vex.Flow.StaveNote({clef: "bass", keys:[noteToAdd], duration: duration}).addAccidental(0, new Vex.Flow.Accidental("#"));
+                var apple = new Vex.Flow.StaveNote({clef: "bass", keys:[previousNote.note+"/"+previousNote.octave], duration: previousNote.duration}).addAccidental(0, new Vex.Flow.Accidental("#"));
             } else {
-                var apple = new Vex.Flow.StaveNote({clef: "bass", keys: [noteToAdd], duration: duration});
+                var apple = new Vex.Flow.StaveNote({clef: "bass", keys: [previousNote.note+"/"+previousNote.octave], duration: previousNote.duration});
             }//end of else (natural)   
         }//end of else (no dot)
     } else { //treble clef
         //if dot (parameter, boolean) is true, create a note with the dot
-        if (dot) {
+        if (previousNote.dot) {
             //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
             //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
-            if (noteToAdd.substring(1,2)==="#"){
+            if (previousNote.accidental){
                 //apple is just a random name for a new note because we already have variables named note and notes
-                var apple = new Vex.Flow.StaveNote({keys:[noteToAdd], duration: duration}).addAccidental(0, new Vex.Flow.Accidental("#")).addDotToAll();
+                var apple = new Vex.Flow.StaveNote({keys:[previousNote.note+"/"+previousNote.octave], duration: previousNote.duration}).addAccidental(0, new Vex.Flow.Accidental("#")).addDotToAll();
             } else {
-                var apple = new Vex.Flow.StaveNote({keys: [noteToAdd], duration: duration}).addDotToAll();
+                var apple = new Vex.Flow.StaveNote({keys: [previousNote.note+"/"+previousNote.octave], duration: previousNote.duration}).addDotToAll();
             }//end of else (natural)
         } else {
             //if the note has an accidental, add it (Vex flow does not do this automatically based on the string note name)
             //as of now, only supports sharps because input  (the big arrays map and mapDif) is formatted to always choose sharps rather than flats
-            if (noteToAdd.substring(1,2)==="#"){
+            if (previousNote.accidental){
                 //apple is just a random name for a new note because we already have variables named note and notes
-                var apple = new Vex.Flow.StaveNote({keys:[noteToAdd], duration: duration}).addAccidental(0, new Vex.Flow.Accidental("#"));
+                var apple = new Vex.Flow.StaveNote({keys:[previousNote.note+"/"+previousNote.octave], duration: previousNote.duration}).addAccidental(0, new Vex.Flow.Accidental("#"));
             } else {
-                var apple = new Vex.Flow.StaveNote({keys: [noteToAdd], duration: duration});
+                var apple = new Vex.Flow.StaveNote({keys:[previousNote.note+"/"+previousNote.octave], duration: previousNote.duration});
             }//end of else (natural)   
         }//end of else (no dot)
     } //end of else (treble clef)
@@ -304,161 +306,209 @@ var addNotes = function(duration, dot){
     //push the note to notes (array of note objects)
     notes.push(apple);
     //if there are random 16th notes, they might be anomalies so remove them
-    if (notes.length > 1 && notes[notes.length-2].duration === "16"){
-        notes.splice(notes.length-2, 1);
-    }
+    // if (notes.length > 1 && notes[notes.length-2].duration === "16"){
+    //     notes.splice(notes.length-2, 1);
+    // }
     //go to the next function 
     clef();
 }; //end of addNotes function
 
 //calculates the duration of the last note based on how many times the note occurs (for example if the music array has C/4 4 times, it will only show C/4 once as a half note); base (if note only occurs one time), is an eighth note; calls addNotes with duration parameters
-var rhythm = function() {
-    //the most recent note picked up by the microphone
-    noteToAdd = music[music.length-1];
-    if (noteToAdd === music[music.length-2]){
-        if (noteToAdd === music[music.length-3]){
-            if (noteToAdd === music[music.length-4]){
-                if (noteToAdd === music[music.length-5]){
-                    if (noteToAdd === music[music.length-6]){
-                        if (noteToAdd === music[music.length-7]){
-                            if  (noteToAdd === music[music.length-8]){
-                                if (noteToAdd === music[music.length-9]){
-                                    if (noteToAdd === music[music.length-10]){
-                                        if (noteToAdd === music[music.length-11]){
-                                            if (noteToAdd === music[music.length-12]){
-                                                if (noteToAdd === music[music.length-13]){
-                                                    if (noteToAdd === music[music.length-14]){
-                                                        if (noteToAdd === music[music.length-15]){
-                                                            if (noteToAdd === music[music.length-16]){
-                                                                if (noteToAdd === music[music.length-17]){
+// //var rhythm = function() {
+//     //the most recent note picked up by the microphone
+//     noteToAdd = music[music.length-1];
+//     if (noteToAdd === music[music.length-2]){
+//         if (noteToAdd === music[music.length-3]){
+//             if (noteToAdd === music[music.length-4]){
+//                 if (noteToAdd === music[music.length-5]){
+//                     if (noteToAdd === music[music.length-6]){
+//                         if (noteToAdd === music[music.length-7]){
+//                             if  (noteToAdd === music[music.length-8]){
+//                                 if (noteToAdd === music[music.length-9]){
+//                                     if (noteToAdd === music[music.length-10]){
+//                                         if (noteToAdd === music[music.length-11]){
+//                                             if (noteToAdd === music[music.length-12]){
+//                                                 if (noteToAdd === music[music.length-13]){
+//                                                     if (noteToAdd === music[music.length-14]){
+//                                                         if (noteToAdd === music[music.length-15]){
+//                                                             if (noteToAdd === music[music.length-16]){
+//                                                                 if (noteToAdd === music[music.length-17]){
 
-                                                                } else {
-                                                                    //last 16 are same but not 17th
-                                                                    //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
-                                                                    notes.pop();
-                                                                    duration = "w";
-                                                                    addNotes(duration, false);
-                                                                }
-                                                            } else {
-                                                                //last 15 are same but not 16th
-                                                                //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
-                                                                notes.pop();
-                                                                //should be double dotted half tied to 16th but rounded
-                                                                duration = "w";
-                                                                addNotes(duration, false);
-                                                            }
-                                                        } else {
-                                                            //last 14 are same but not 15th
-                                                            //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
-                                                            notes.pop();
-                                                            //should be double dotted half note but rounded
-                                                            duration = "hd";
-                                                            addNotes(duration, true);
-                                                        }
-                                                    } else {
-                                                        //last 13 are same but not 14th
-                                                        //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
-                                                        notes.pop();
-                                                        //should be dotted half tied to 16th but rounded
-                                                        duration = "hd";
-                                                        addNotes(duration, true);
+//                                                                 } else {
+//                                                                     //last 16 are same but not 17th
+//                                                                     //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+//                                                                     notes.pop();
+//                                                                     duration = "w";
+//                                                                     addNotes(duration, false);
+//                                                                 }
+//                                                             } else {
+//                                                                 //last 15 are same but not 16th
+//                                                                 //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+//                                                                 notes.pop();
+//                                                                 //should be double dotted half tied to 16th but rounded
+//                                                                 duration = "w";
+//                                                                 addNotes(duration, false);
+//                                                             }
+//                                                         } else {
+//                                                             //last 14 are same but not 15th
+//                                                             //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+//                                                             notes.pop();
+//                                                             //should be double dotted half note but rounded
+//                                                             duration = "hd";
+//                                                             addNotes(duration, true);
+//                                                         }
+//                                                     } else {
+//                                                         //last 13 are same but not 14th
+//                                                         //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+//                                                         notes.pop();
+//                                                         //should be dotted half tied to 16th but rounded
+//                                                         duration = "hd";
+//                                                         addNotes(duration, true);
 
-                                                    }
-                                                } else {
-                                                     //last 12 are same but not 13th
-                                                    //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
-                                                    notes.pop();
+//                                                     }
+//                                                 } else {
+//                                                      //last 12 are same but not 13th
+//                                                     //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+//                                                     notes.pop();
                                                     
-                                                    duration = "hd";
-                                                    addNotes(duration, true);   
-                                                }
-                                            } else {
-                                                //last 11 are same but not 12th
-                                                //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
-                                                notes.pop();
-                                                //should be half tied to dotted eighth but rounded
-                                                duration = "hd";
-                                                addNotes(duration, true);
-                                            }
-                                        } else {
-                                            //last 10 are same but not 11th
-                                            //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
-                                            notes.pop();
-                                            //should be half tied to 16th but rounded
-                                            duration = "h";
-                                            addNotes(duration, false);
-                                        }
-                                    } else {
-                                        //last 9 are same but not 10th
-                                        //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
-                                        notes.pop();
-                                        //should be half tied to 16th but rounded
-                                        duration = "h";
-                                        addNotes(duration, false);
-                                    }
-                                } else {
-                                    //last 8 are same but not 9th
-                                    //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
-                                    notes.pop();
+//                                                     duration = "hd";
+//                                                     addNotes(duration, true);   
+//                                                 }
+//                                             } else {
+//                                                 //last 11 are same but not 12th
+//                                                 //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+//                                                 notes.pop();
+//                                                 //should be half tied to dotted eighth but rounded
+//                                                 duration = "hd";
+//                                                 addNotes(duration, true);
+//                                             }
+//                                         } else {
+//                                             //last 10 are same but not 11th
+//                                             //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+//                                             notes.pop();
+//                                             //should be half tied to 16th but rounded
+//                                             duration = "h";
+//                                             addNotes(duration, false);
+//                                         }
+//                                     } else {
+//                                         //last 9 are same but not 10th
+//                                         //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+//                                         notes.pop();
+//                                         //should be half tied to 16th but rounded
+//                                         duration = "h";
+//                                         addNotes(duration, false);
+//                                     }
+//                                 } else {
+//                                     //last 8 are same but not 9th
+//                                     //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+//                                     notes.pop();
 
-                                    duration = "h";
-                                    addNotes(duration, false);
-                                }
-                            } else {
-                                //last 7 are same but not 8th
-                                //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
-                                notes.pop();
-                                //technically this should be a double dotted quarter note, but double dotted notes are not supported yet
-                                duration = "qd";
-                                addNotes(duration, true);
-                            }
-                        } else {
-                             //last 6 are same but not 7th
-                            //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
-                            notes.pop();
+//                                     duration = "h";
+//                                     addNotes(duration, false);
+//                                 }
+//                             } else {
+//                                 //last 7 are same but not 8th
+//                                 //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+//                                 notes.pop();
+//                                 //technically this should be a double dotted quarter note, but double dotted notes are not supported yet
+//                                 duration = "qd";
+//                                 addNotes(duration, true);
+//                             }
+//                         } else {
+//                              //last 6 are same but not 7th
+//                             //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+//                             notes.pop();
 
-                            duration = "qd";
-                            addNotes(duration, true);
-                        }
-                    } else {
-                        //last 5 are same but not 6th
-                        //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
-                        notes.pop();
-                        //technically this should be a quarter note tied to an 16th note, but ties aren't supported yet
-                        duration = "q";
-                        addNotes(duration, false);
-                    }
-                } else {
-                    //last 4 are same but not 5th
-                    //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
-                    notes.pop();
+//                             duration = "qd";
+//                             addNotes(duration, true);
+//                         }
+//                     } else {
+//                         //last 5 are same but not 6th
+//                         //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+//                         notes.pop();
+//                         //technically this should be a quarter note tied to an 16th note, but ties aren't supported yet
+//                         duration = "q";
+//                         addNotes(duration, false);
+//                     }
+//                 } else {
+//                     //last 4 are same but not 5th
+//                     //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+//                     notes.pop();
 
-                    duration = "q";
-                    addNotes(duration, false);
-                }
-            } else {
-                //last 3 are same but not 4th
-                //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
-                notes.pop();
+//                     duration = "q";
+//                     addNotes(duration, false);
+//                 }
+//             } else {
+//                 //last 3 are same but not 4th
+//                 //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+//                 notes.pop();
 
-                duration = "8d";
-                addNotes(duration, true);
-            }
-        } else {
-            //last 2 are same but not 3rd
-            //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
-            notes.pop();
+//                 duration = "8d";
+//                 addNotes(duration, true);
+//             }
+//         } else {
+//             //last 2 are same but not 3rd
+//             //remove the last object in array notes (because it will be the same note as the one that will be created except with the wrong duration)
+//             notes.pop();
             
-            duration = "8";
-            addNotes(duration, false);
+//             duration = "8";
+//             addNotes(duration, false);
+//         }
+//     } else {
+//         //last 2 notes are different, so create new note with relative length 1
+//         duration = "16";
+//         addNotes(duration, false);
+//     }//end of else (last 2 notes are different)
+//}; //end of rhythm function
+var rhythm = function() {
+    if (newNote.note === previousNote.note && newNote.accidental === previousNote.accidental && newNote.octave === previousNote.octave) {
+        console.log("same!");
+        newNote.numTimesRepeated += previousNote.numTimesRepeated;
+        console.log(newNote.numTimesRepeated);
+        console.log(previousNote.numTimesRepeated);
+        notes.pop();
+        if (newNote.numTimesRepeated > 20) {
+            //whole note
+            newNote["duration"] = "w";
+            console.log("whole");
+            newNote.dot = false;
         }
-    } else {
-        //last 2 notes are different, so create new note with relative length 1
-        duration = "16";
-        addNotes(duration, false);
-    }//end of else (last 2 notes are different)
-}; //end of rhythm function
 
+        else if (newNote.numTimesRepeated > 16) {
+            //dotted half note
+            newNote["duration"] = "hd";
+            newNote.dot = true;
+        }
+
+        else if (newNote.numTimesRepeated > 12) {
+            //half note
+            newNote["duration"] = "h";
+            newNote.dot = false;
+            console.log("half");
+        }
+
+        else if (newNote.numTimesRepeated > 8) { 
+            //dotted quarter note
+            newNote["duration"] = "qd";
+            newNote.dot = true;
+        }
+
+        else if (newNote.numTimesRepeated > 4) {
+            //quarter note
+            newNote["duration"] = "q";
+            newNote.dot = false;
+        }
+
+        else if (newNote.numTimesRepeated > 2) {
+            //eighth note
+            newNote["duration"] = "8";
+            newNote.dot = false;
+        }
+        //if only repeated twice, don't do anything (this might be an anom)
+    }
+    previousNote = newNote;
+    addNotes();
+}; //end of rhythm function
 
 //================================================================================================================================
 //================================================================================================================================
@@ -897,24 +947,26 @@ deviation = goalfrequency-map[nearestIndex][1];
 //=============================================================================
 //if the start button is pressed (and then start function changes addToArray to true), add the notes picked up by microphone to array music
 if(addToArray === true){
+    var filterOctave = parseInt(map[nearestIndex][0].substring(map[nearestIndex][0].length-1));
     
     if(filterNotes === true){
-        var filterOctave = parseInt(map[nearestIndex][0].substring(map[nearestIndex][0].length-1));
         if(filterOctave < 2 || filterOctave > 6){
             //don't add the note to the array if it is out of range 
             } else {
             //if this is the first time through this after start pressed, don't add this note because it might be something left over from right before you pressed start
             if(firstTime === true){
                 indices = [];
-                music = [];
+                //music = [];
                 notes = []; 
                 firstTime = false;
             } else {
                 //indices is used for the playback function
                 indices.push(nearestIndex);
                 totalNotes.push(map[nearestIndex][0]);
-                //update array music that contains notes
-                music.push(map[nearestIndex][0]);
+                // //update array music that contains notes
+                // music.push(map[nearestIndex][0]);
+                var accidental = map[nearestIndex][0].substring(1, 2) === "#";
+                newNote = {note: map[nearestIndex][0].substring(0, 1), accidental: accidental, octave: filterOctave, numTimesRepeated: 1, duration: "16", dot: false};
                 //update the sheet music (the first step is function rhythm, each function goes to another function that eventually draws the music)
                 rhythm();
             }
@@ -923,14 +975,18 @@ if(addToArray === true){
         //if this is the first time through this after start pressed, don't add this note because it might be something left over from right before you pressed start
         if(firstTime === true){
                 indices = [];
-                music = [];
+                //music = [];
                 notes = []; 
                 firstTime = false;
         } else {
             indices.push(nearestIndex);
             totalNotes.push(map[nearestIndex][0]);
-            //update array music that contains notes
-            music.push(map[nearestIndex][0]);
+            // //update array music that contains notes
+            // music.push(map[nearestIndex][0]);
+            var accidental = map[nearestIndex][0].substring(1, 2) === "#";
+            newNote = {note: map[nearestIndex][0].substring(0, 1), accidental: accidental, octave: filterOctave, numTimesRepeated: 1, duration: "16", dot: false};
+
+                
             //update the sheet music (the first step is function rhythm, each function goes to another function that eventually draws the music)
             rhythm();
         }
